@@ -1,0 +1,10 @@
+BACKEND:
+koppla till databas
+skicka till databas med personlig token id
+fixa api med flask (bearer token?)
+
+FRONTEND:
+
+    LOGIN:
+        felmeddelanden vid login
+        design login (typ göm pw input)

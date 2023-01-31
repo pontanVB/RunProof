@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "756278172531",
+    "firebase_url": "https://runproof-95326-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "runproof-95326",
+    "storage_bucket": "runproof-95326.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756278172531:android:4b23741096f1bb9b0d4306",
+        "android_client_info": {
+          "package_name": "com.example.gbg_varvet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756278172531-adkl9kov9cfgulp9g255q800kcfk3t7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVPhkkg8cq0WSs4g9VtpFpt2wlqnTF6tA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756278172531-adkl9kov9cfgulp9g255q800kcfk3t7l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "756278172531-nk7k697h59tugp9fqamqdb1hi0elrgqp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gbgVarvet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
