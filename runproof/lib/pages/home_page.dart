@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   final DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   void add() async {
-    ref.child("user").set({
+    ref.child("/users").set({
       "name": "John",
       "age": 18,
       "address": {"line1": "100 Mountain View"}
@@ -31,7 +31,9 @@ class HomePage extends StatelessWidget {
           Center(child: Text(currentUser.email!)),
           Center(
               child: ElevatedButton(
-                  onPressed: signUserOut, child: const Text("Sign out")))
+                  onPressed: signUserOut, child: const Text("Sign out"))),
+          Center(
+              child: ElevatedButton(onPressed: add, child: const Text("Add"))),
         ],
       ),
     ));
