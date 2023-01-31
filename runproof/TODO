@@ -8,3 +8,8 @@ FRONTEND:
     LOGIN:
         felmeddelanden vid login
         design login (typ göm pw input)
+
+
+ALLMÄNT:
+    securechecka allt, testa corner cases 
+    bygg unit tests

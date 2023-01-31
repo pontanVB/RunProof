@@ -49,6 +49,9 @@ class _LoginPageState extends State<LoginPage> {
           child: TextField(
             controller: passwordController,
             decoration: InputDecoration(hintText: "Enter password"),
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
           ),
         ),
         ElevatedButton(onPressed: signUserIn, child: const Text('sign in')),
