@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -12,38 +14,174 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
 
-  bool _value = false;
+  bool isVal = false;
+  bool isKon = false;
+  bool isOko = false;
+  bool isKra = false;
+  bool isSal = false;
+  bool isOver = false;
+  bool isBlod = false;
+  bool isLake = false;
+  bool isAna = false;
+  bool test = false;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("form")),
-      body: Column(
+      appBar: AppBar(title: Text("Formulär för 'insert person'")),
+      body: ListView(
+        shrinkWrap: true,
         children: [
           Center(
             child: TextField(
-            decoration: InputDecoration(hintText: "Temp"),
+            decoration: InputDecoration(hintText: "Tempratur °C"),
             ),
           ),
 
-          Center( //TEMP
-            child: TextField(
-              decoration: InputDecoration(hintText: "Vallad: Ja/Nej"),
-            ),
+          CheckboxListTile(
+            title: const Text("Vallad? "),
+            autofocus: false,
+            selected: isVal,
+            value: isVal,
+            onChanged: (bool? value){
+              setState(() {
+                isVal = value!;
+              });
+            },
           ),
 
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              child: CheckboxListTile(
-                title: const Text("Test: "),
+          Column(
+            children:[
+              Text('Status: '),
+              CheckboxListTile(
+                title: const Text("Konfusion: "),
                 autofocus: false,
-                selected: _value,
-                value: _value,
-                onChanged: (bool? value){},
+                selected: isKon,
+                value: isKon,
+                onChanged: (bool? value){
+                  setState(() {
+                    isKon = value!;
+                  });
+                },
               ),
-            ),
+              CheckboxListTile(
+                title: const Text("Okontaktbar: "),
+                autofocus: false,
+                selected: isOko,
+                value: isOko,
+                onChanged: (bool? value){
+                  setState(() {
+                    isOko = value!;
+                  });
+                },
+              ),
+
+              CheckboxListTile(
+                title: const Text("Kräkning: "),
+                autofocus: false,
+                selected: isKra,
+                value: isKra,
+                onChanged: (bool? value){
+                  setState(() {
+                    isKra = value!;
+                  });
+                },
+              ),
+
+              CheckboxListTile(
+                title: const Text("Saltpaket: "),
+                autofocus: false,
+                selected: isSal,
+                value: isSal,
+                onChanged: (bool? value){
+                  setState(() {
+                    isSal = value!;
+                  });
+                },
+              ),
+
+            ],
           ),
+
+          Row(
+            children: [
+              Expanded(
+                child: CheckboxListTile(
+                  title: const Text("Överkänslig?: "),
+                  autofocus: false,
+                  selected: isOver,
+                  value: isOver,
+                  onChanged: (bool? value){
+                    setState(() {
+                      isOver = value!;
+                    });
+                  },
+                ),
+              ),
+              Expanded(child: TextField(enabled: isOver,),),
+            ], //Row children
+          ),
+
+          Row(
+            children: [
+              Expanded(
+                child: CheckboxListTile(
+                  title: const Text("Blodsmitta?: "),
+                  autofocus: false,
+                  selected: isBlod,
+                  value: isBlod,
+                  onChanged: (bool? value){
+                    setState(() {
+                      isBlod = value!;
+                    });
+                  },
+                ),
+              ),
+              Expanded(child: TextField(enabled: isBlod,),),
+            ], //Row children
+          ),
+
+          Row(
+            children: [
+              Expanded(
+                child: CheckboxListTile(
+                  title: const Text("Läkemedel?: "),
+                  autofocus: false,
+                  selected: isLake,
+                  value: isLake,
+                  onChanged: (bool? value){
+                    setState(() {
+                      isLake = value!;
+                    });
+                  },
+                ),
+              ),
+              Expanded(child: TextField(enabled: isLake,),),
+            ], //Row children
+          ),
+
+          Row(
+            children: [
+              Expanded(
+                child: CheckboxListTile(
+                  title: const Text("Anames?: "),
+                  autofocus: false,
+                  selected: isAna,
+                  value: isAna,
+                  onChanged: (bool? value){
+                    setState(() {
+                      isAna = value!;
+                    });
+                  },
+                ),
+              ),
+              Expanded(child: TextField(enabled: isAna,),),
+            ], //Row children
+          ),
+
+
+
 
           Center(
             child: ElevatedButton(
@@ -55,7 +193,7 @@ class _FormPageState extends State<FormPage> {
             ),
           ),
 
-        ],
+        ], //Column children
       ),
     );
   }
