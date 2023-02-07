@@ -44,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
         Center(
             child: TextField(
             controller: usernameController,
-            decoration: InputDecoration(hintText: "Enter email"),
+            decoration: const InputDecoration(
+                hintText: "Enter email"),
           ),
         ),
         Center(
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               suffix: InkWell(
                 onTap: _togglePasswordView,
                 child: Icon(
-                  _isHidden ? Icons.visibility : Icons.visibility_off,
+                  _isHidden ? Icons.visibility_off : Icons.visibility,
                 ),
               )
             ),
