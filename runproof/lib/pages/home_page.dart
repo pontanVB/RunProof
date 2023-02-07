@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -83,6 +84,8 @@ class _HomePageState extends State<HomePage> {
                 child: TextField(
                   controller: searchController,
                   decoration: const InputDecoration(hintText: "Ange löparnummer"),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               ElevatedButton(
