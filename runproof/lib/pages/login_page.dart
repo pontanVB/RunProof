@@ -14,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final passwordController = TextEditingController();
 
+  bool _isHidden = true;
+
   void signUserIn() async {
     // show loading circle
     showDialog(
@@ -38,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: ListView(shrinkWrap: true, children: <Widget>[
+        child: ListView(shrinkWrap: true, children: <Widget>[
         Center(
-          child: TextField(
+            child: TextField(
             controller: usernameController,
             decoration: InputDecoration(hintText: "Enter email"),
           ),
@@ -48,14 +50,32 @@ class _LoginPageState extends State<LoginPage> {
         Center(
           child: TextField(
             controller: passwordController,
-            decoration: InputDecoration(hintText: "Enter password"),
-            obscureText: true,
+            decoration: InputDecoration(
+              hintText: "Enter password",
+              suffix: InkWell(
+                onTap: _togglePasswordView,
+                child: Icon(
+                  _isHidden ? Icons.visibility : Icons.visibility_off,
+                ),
+              )
+            ),
+
+            obscureText: _isHidden,
             enableSuggestions: false,
             autocorrect: false,
+
           ),
         ),
         ElevatedButton(onPressed: signUserIn, child: const Text('sign in')),
       ]),
     ));
   }
+
+  void _togglePasswordView()
+  {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
 }
