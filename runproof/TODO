@@ -1,7 +1,10 @@
 BACKEND:
-koppla till databas
-skicka till databas med personlig token id
-fixa api med flask (bearer token?)
+
+    API:
+        fixa api med flask (bearer token?)
+        securiy?????
+
+
 
 FRONTEND:
 
@@ -13,3 +16,4 @@ FRONTEND:
 ALLMÄNT:
     securechecka allt, testa corner cases 
     bygg unit tests
+

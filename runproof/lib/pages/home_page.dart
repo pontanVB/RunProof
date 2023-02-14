@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page.dart';
+import "package:gbg_varvet/widgets/drawer_widget.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,9 @@ class _HomePageState extends State<HomePage> {
 
   final User currentUser = FirebaseAuth.instance.currentUser!;
   final DatabaseReference ref = FirebaseDatabase.instance.ref("/users");
+  final refreshTokenPromise = FirebaseAuth.instance.currentUser
+      ?.getIdToken()
+      .then((value) => print(value));
 
   final searchController = TextEditingController();
 
@@ -56,9 +60,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text("home page")
-        ),
+        appBar: AppBar(title: const Text("home page")),
         body: Center(
           child: ListView(
             shrinkWrap: true,
@@ -68,9 +70,7 @@ class _HomePageState extends State<HomePage> {
               Center(child: Text(currentUser.email!)),
               Center(
                   child: ElevatedButton(
-                      onPressed: signUserOut, child: const Text("Sign out")
-                  )
-              ),
+                      onPressed: signUserOut, child: const Text("Sign out"))),
               Center(
                   child: ElevatedButton(
                       onPressed: () {
@@ -83,7 +83,8 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: TextField(
                   controller: searchController,
-                  decoration: const InputDecoration(hintText: "Ange löparnummer"),
+                  decoration:
+                      const InputDecoration(hintText: "Ange löparnummer"),
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
@@ -96,49 +97,53 @@ class _HomePageState extends State<HomePage> {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: const [
-                        TextField(decoration: InputDecoration(
-                            icon: Icon(Icons.content_copy),
-                            hintText: 'Löparnummer',
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(width: 2.0, color: Colors.grey,
-                                )
-                            )
-                        )
-                        ),
+                        TextField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.content_copy),
+                                hintText: 'Löparnummer',
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                      width: 2.0,
+                                      color: Colors.grey,
+                                    )))),
                         Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(decoration: InputDecoration(
-                            icon: Icon(Icons.person),
-                            hintText: 'Namn',
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(width: 2.0, color: Colors.grey,
-                                )
-                            )
-                        )
-                        ),
+                        TextField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.person),
+                                hintText: 'Namn',
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                      width: 2.0,
+                                      color: Colors.grey,
+                                    )))),
                         Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(decoration: InputDecoration(
-                            icon: Icon(Icons.numbers),
-                            hintText: 'Personnummer',
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(width: 2.0, color: Colors.grey,
-                                )
-                            )
-                        )
-                        ),
+                        TextField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.numbers),
+                                hintText: 'Personnummer',
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                      width: 2.0,
+                                      color: Colors.grey,
+                                    )))),
                         Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(decoration: InputDecoration(
-                            icon: Icon(Icons.timer),
-                            labelText: 'Ankomsttid...',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(width: 2.0, color: Colors.grey,
-                            )
-                            )
-                        )
-                        ),
+                        TextField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.timer),
+                                labelText: 'Ankomsttid...',
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                      width: 2.0,
+                                      color: Colors.grey,
+                                    )))),
                       ],
                     ),
                     actions: <Widget>[
@@ -154,44 +159,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        drawer: Drawer(
-          child: Container(
-            color: Colors.blue,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Text('R U N P R O O F', style: TextStyle(fontSize: 35, color: Colors.blueAccent),
-                      textAlign: TextAlign.center,
-                  ),
-                ),
-                ListTile(
-                  title: const Text('Item'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Form page'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const FormPage()),
-                    );
-                  },
-                ),
-              ],
-            ),
-          )
-        ),
-    );
+        drawer: DrawerWidget(title: "HEj"));
   }
 }
