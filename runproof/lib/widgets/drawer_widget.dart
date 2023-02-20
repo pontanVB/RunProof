@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:gbg_varvet/widgets/camera_widget.dart';
+//import 'package:gbg_varvet/widgets/camera_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key, required this.title});
@@ -41,16 +41,16 @@ class DrawerWidget extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TextRecognitionPage())
-              );
+          //ListTile(
+            //title: const Text('Item 2'),
+            //onTap: () {
+              //Navigator.push(
+                  //context,
+                  //MaterialPageRoute(builder: (context) => TextRecognitionPage())
+              //);
 
-            },
-          ),
+            //},
+          //),
         ],
       ),
     );
