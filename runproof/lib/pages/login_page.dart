@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   children: [
                     Expanded(
-                      child:Image.asset('assets/images/logoTransparent.png'
+                      child:Image.asset('assets/images/runprooflogo.png'
                       ),
                     ),
                     const Expanded(child: Text('RunProof',

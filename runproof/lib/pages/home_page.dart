@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: const Color(0xFF1F4A7B),
         appBar: AppBar(
-            title: Image.asset('Assets/runprooflogo.png',
+            title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.cover, height: 60.0, width: 60.0),
             centerTitle: true,
             backgroundColor: Color(0xFF94B0DA),
