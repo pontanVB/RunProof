@@ -185,16 +185,6 @@ class _FormPageState extends State<FormPage> {
               ),
             ], //Row children
           ),
-          ElevatedButton(onPressed: sendData, child: const Text("Send data!")),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigate back to first route when tapped.
-                Navigator.pop(context);
-              },
-              child: const Text('Go back!'),
-            ),
-          ),
         ], //Column children
       ),
     );

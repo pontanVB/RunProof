@@ -39,44 +39,42 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+      backgroundColor: Colors.white,
+      body: Center(
         child: ListView(shrinkWrap: true, children: <Widget>[
-        Center(
+          Center(
             child: TextField(
-            controller: usernameController,
-            decoration: const InputDecoration(
-                hintText: "Enter email"),
-          ),
-        ),
-        Center(
-          child: TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              hintText: "Enter password",
-              suffix: InkWell(
-                onTap: _togglePasswordView,
-                child: Icon(
-                  _isHidden ? Icons.visibility_off : Icons.visibility,
-                ),
-              )
+              controller: usernameController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: "Enter email"),
             ),
-
-            obscureText: _isHidden,
-            enableSuggestions: false,
-            autocorrect: false,
-
           ),
-        ),
-        ElevatedButton(onPressed: signUserIn, child: const Text('sign in')),
-      ]),
-    ));
+          Center(
+            child: TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter password",
+                  suffix: InkWell(
+                    onTap: _togglePasswordView,
+                    child: Icon(
+                      _isHidden ? Icons.visibility_off : Icons.visibility,
+                    ),
+                  )),
+              obscureText: _isHidden,
+              enableSuggestions: false,
+              autocorrect: false,
+            ),
+          ),
+          ElevatedButton(onPressed: signUserIn, child: const Text('sign in')),
+        ]),
+      ),
+    );
   }
 
-  void _togglePasswordView()
-  {
+  void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
-
 }

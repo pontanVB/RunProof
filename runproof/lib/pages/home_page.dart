@@ -57,10 +57,48 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Du är påväg att loggas ut'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text('Är du säker på att du vill logga ut?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(child: Text('Confirm'), onPressed: (signUserOut)),
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("home page")),
+        backgroundColor: const Color(0xFF1F4A7B),
+        appBar: AppBar(
+            title: Image.asset('Assets/runprooflogo.png',
+                fit: BoxFit.cover, height: 60.0, width: 60.0),
+            centerTitle: true,
+            backgroundColor: Color(0xFF94B0DA),
+            actions: <Widget>[
+              IconButton(
+                  onPressed: _showMyDialog,
+                  icon: const Icon(Icons.logout_outlined))
+            ]),
         body: Center(
           child: ListView(
             shrinkWrap: true,
@@ -68,9 +106,6 @@ class _HomePageState extends State<HomePage> {
               Text(name),
               Text(age),
               Center(child: Text(currentUser.email!)),
-              Center(
-                  child: ElevatedButton(
-                      onPressed: signUserOut, child: const Text("Sign out"))),
               Center(
                   child: ElevatedButton(
                       onPressed: () {
@@ -81,80 +116,95 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: const Text("Add"))),
               Center(
-                child: TextField(
-                  controller: searchController,
-                  decoration:
-                      const InputDecoration(hintText: "Ange löparnummer"),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Löparinformation:'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        TextField(
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.content_copy),
-                                hintText: 'Löparnummer',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide: BorderSide(
-                                      width: 2.0,
-                                      color: Colors.grey,
-                                    )))),
-                        Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.person),
-                                hintText: 'Namn',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide: BorderSide(
-                                      width: 2.0,
-                                      color: Colors.grey,
-                                    )))),
-                        Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.numbers),
-                                hintText: 'Personnummer',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide: BorderSide(
-                                      width: 2.0,
-                                      color: Colors.grey,
-                                    )))),
-                        Padding(padding: EdgeInsets.all(7.0)),
-                        TextField(
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.timer),
-                                labelText: 'Ankomsttid...',
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide: BorderSide(
-                                      width: 2.0,
-                                      color: Colors.grey,
-                                    )))),
-                      ],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+                child: SizedBox(
+                  width: 300,
+                  child: TextField(
+                    controller: searchController,
+                    decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        ),
+                        hintText: "Ange löparnummer"),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
-                child: const Text('Search'),
+              ),
+              Center(
+                child: SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                      onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Löparinformation:'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  TextField(
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.content_copy),
+                                          hintText: 'Löparnummer',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                width: 2.0,
+                                                color: Colors.grey,
+                                              )))),
+                                  Padding(padding: EdgeInsets.all(7.0)),
+                                  TextField(
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.person),
+                                          hintText: 'Namn',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                width: 2.0,
+                                                color: Colors.grey,
+                                              )))),
+                                  Padding(padding: EdgeInsets.all(7.0)),
+                                  TextField(
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.numbers),
+                                          hintText: 'Personnummer',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                width: 2.0,
+                                                color: Colors.grey,
+                                              )))),
+                                  Padding(padding: EdgeInsets.all(7.0)),
+                                  TextField(
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.timer),
+                                          labelText: 'Ankomsttid...',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                width: 2.0,
+                                                color: Colors.grey,
+                                              )))),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          ),
+                      child: const Text('Sök'),
+                      style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                      )),
+                ),
               )
             ],
           ),
