@@ -72,7 +72,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           actions: <Widget>[
-            TextButton(child: Text('Confirm'), onPressed: (signUserOut)),
+            TextButton(
+                child: Text('Confirm'),
+                onPressed: () {
+                  signUserOut();
+                  Navigator.of(context).pop();
+                }),
             TextButton(
               child: Text('Cancel'),
               onPressed: () {

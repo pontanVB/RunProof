@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 
 import "package:gbg_varvet/widgets/drawer_widget.dart";
 
-
-
 class RecognitionTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
