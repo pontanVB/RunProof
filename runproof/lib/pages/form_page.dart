@@ -35,27 +35,39 @@ class _FormPageState extends State<FormPage> {
         body: ListView(
           shrinkWrap: true,
           children: [
-            Text('TEMP:', style: TextStyle(color: Colors.white, fontSize: 20)),
-            Center(
-                child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextFormField(
-                              minLines: 1,
-                              maxLines: 1,
-                              keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText:
-                                      'Skriv in löparens temperatur här...',
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))))),
-                        ]))),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Text('TEMP:',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold))),
+                  Expanded(
+                      flex: 3,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextFormField(
+                                minLines: 1,
+                                maxLines: 1,
+                                keyboardType: TextInputType.multiline,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText:
+                                        'Skriv in löparens temperatur här...',
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))))),
+                          ])),
+                ],
+              ),
+            ),
             Divider(
               height: 10,
               thickness: 2,
@@ -64,7 +76,7 @@ class _FormPageState extends State<FormPage> {
               endIndent: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
+              padding: const EdgeInsets.only(left: 30.0, right: 30),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -107,7 +119,7 @@ class _FormPageState extends State<FormPage> {
                           isNotVal = value!;
                         });
                       },
-                      activeColor: Colors.green,
+                      activeColor: Colors.red,
                       checkColor: Colors.white,
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
@@ -130,73 +142,77 @@ class _FormPageState extends State<FormPage> {
                             color: Colors.white,
                             fontSize: 25,
                             fontWeight: FontWeight.bold)))),
-            Column(
-              children: [
-                CheckboxListTile(
-                  title: const Text(
-                    "KONFUSION: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 8.0, bottom: 8, left: 15, right: 15),
+              child: Column(
+                children: [
+                  CheckboxListTile(
+                    title: const Text(
+                      "KONFUSION: ",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    autofocus: false,
+                    selected: false,
+                    value: isKon,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isKon = value!;
+                      });
+                    },
+                    activeColor: Colors.green,
+                    checkColor: Colors.white,
                   ),
-                  autofocus: false,
-                  selected: false,
-                  value: isKon,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isKon = value!;
-                    });
-                  },
-                  activeColor: Colors.green,
-                  checkColor: Colors.white,
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                    "OKONTAKTBAR: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  CheckboxListTile(
+                    title: const Text(
+                      "OKONTAKTBAR: ",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    autofocus: false,
+                    selected: false,
+                    value: isOko,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isOko = value!;
+                      });
+                    },
+                    activeColor: Colors.green,
+                    checkColor: Colors.white,
                   ),
-                  autofocus: false,
-                  selected: false,
-                  value: isOko,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isOko = value!;
-                    });
-                  },
-                  activeColor: Colors.green,
-                  checkColor: Colors.white,
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                    "KRÄKNING: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  CheckboxListTile(
+                    title: const Text(
+                      "KRÄKNING: ",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    autofocus: false,
+                    selected: false,
+                    value: isKra,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isKra = value!;
+                      });
+                    },
+                    activeColor: Colors.green,
+                    checkColor: Colors.white,
                   ),
-                  autofocus: false,
-                  selected: false,
-                  value: isKra,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isKra = value!;
-                    });
-                  },
-                  activeColor: Colors.green,
-                  checkColor: Colors.white,
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                    "SALTPAKET: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  CheckboxListTile(
+                    title: const Text(
+                      "SALTPAKET: ",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    autofocus: false,
+                    selected: false,
+                    value: isSal,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isSal = value!;
+                      });
+                    },
+                    activeColor: Colors.green,
+                    checkColor: Colors.white,
                   ),
-                  autofocus: false,
-                  selected: false,
-                  value: isSal,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isSal = value!;
-                    });
-                  },
-                  activeColor: Colors.green,
-                  checkColor: Colors.white,
-                ),
-              ],
+                ],
+              ),
             ),
             Divider(
               height: 10,
@@ -252,7 +268,7 @@ class _FormPageState extends State<FormPage> {
                               isNotOver = value!;
                             });
                           },
-                          activeColor: Colors.green,
+                          activeColor: Colors.red,
                           checkColor: Colors.white,
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
@@ -280,13 +296,14 @@ class _FormPageState extends State<FormPage> {
                         style: TextStyle(color: Colors.white, fontSize: 18)))),
             Center(
                 child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.only(
+                        top: 19.0, bottom: 1, left: 15, right: 15),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextFormField(
-                              minLines: 5,
-                              maxLines: 10,
+                              minLines: 4,
+                              maxLines: 6,
                               keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
                                   filled: true,
@@ -296,7 +313,35 @@ class _FormPageState extends State<FormPage> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(20))))),
-                        ])))
+                        ]))),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 80, top: 25),
+                  child: SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 165, 39, 75),
+                            onPrimary: Colors.white),
+                        child: const Text("TILLBAKA")),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 80, top: 25),
+                    child: SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 108, 211, 92),
+                            onPrimary: Colors.white),
+                        child: const Text("NÄSTA"),
+                      ),
+                    )),
+              ],
+            )
           ],
         ));
   }
