@@ -14,179 +14,290 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   bool isVal = false;
+  bool isNotVal = false;
   bool isKon = false;
   bool isOko = false;
   bool isKra = false;
   bool isSal = false;
   bool isOver = false;
-  bool isBlod = false;
-  bool isLake = false;
-  bool isAna = false;
-  bool test = false;
+  bool isNotOver = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerWidget(title: "hej"),
-      appBar: AppBar(title: Text("Formulär för 'insert person'")),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          Center(
-            child: TextField(
-              decoration: InputDecoration(hintText: "Tempratur °C"),
+        backgroundColor: const Color(0xFF1F4A7B),
+        drawer: DrawerWidget(title: "RunProof"),
+        appBar: AppBar(
+          title: Image.asset('assets/images/runprooflogo.png',
+              fit: BoxFit.contain, height: 60),
+          backgroundColor: Color.fromARGB(255, 142, 184, 223),
+        ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            Text('TEMP:', style: TextStyle(color: Colors.white, fontSize: 20)),
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextFormField(
+                              minLines: 1,
+                              maxLines: 1,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText:
+                                      'Skriv in löparens temperatur här...',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))))),
+                        ]))),
+            Divider(
+              height: 10,
+              thickness: 2,
+              color: Colors.black,
+              indent: 20,
+              endIndent: 20,
             ),
-          ),
-          CheckboxListTile(
-            title: const Text("Vallad? "),
-            autofocus: false,
-            selected: isVal,
-            value: isVal,
-            onChanged: (bool? value) {
-              setState(() {
-                isVal = value!;
-              });
-            },
-          ),
-          Column(
-            children: [
-              Text('Status: '),
-              CheckboxListTile(
-                title: const Text("Konfusion: "),
-                autofocus: false,
-                selected: isKon,
-                value: isKon,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isKon = value!;
-                  });
-                },
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text("VALLAD:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 20)),
+                  ),
+                  Expanded(
+                    child: CheckboxListTile(
+                      title: const Text(
+                        "JA",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      autofocus: false,
+                      selected: false,
+                      value: isVal,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isVal = value!;
+                        });
+                      },
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                  ),
+                  Expanded(
+                    child: CheckboxListTile(
+                      title: const Text(
+                        "NEJ",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      autofocus: false,
+                      selected: false,
+                      value: isNotVal,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isNotVal = value!;
+                        });
+                      },
+                      activeColor: Colors.green,
+                      checkColor: Colors.white,
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                  ),
+                ],
               ),
-              CheckboxListTile(
-                title: const Text("Okontaktbar: "),
-                autofocus: false,
-                selected: isOko,
-                value: isOko,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isOko = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text("Kräkning: "),
-                autofocus: false,
-                selected: isKra,
-                value: isKra,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isKra = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text("Saltpaket: "),
-                autofocus: false,
-                selected: isSal,
-                value: isSal,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isSal = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: CheckboxListTile(
-                  title: const Text("Överkänslig?: "),
+            ),
+            Divider(
+              height: 10,
+              thickness: 2,
+              color: Colors.black,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text('STATUS:',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold)))),
+            Column(
+              children: [
+                CheckboxListTile(
+                  title: const Text(
+                    "KONFUSION: ",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   autofocus: false,
-                  selected: isOver,
-                  value: isOver,
+                  selected: false,
+                  value: isKon,
                   onChanged: (bool? value) {
                     setState(() {
-                      isOver = value!;
+                      isKon = value!;
                     });
                   },
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
                 ),
-              ),
-              Expanded(
-                child: TextField(
-                  enabled: isOver,
-                ),
-              ),
-            ], //Row children
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: CheckboxListTile(
-                  title: const Text("Blodsmitta?: "),
+                CheckboxListTile(
+                  title: const Text(
+                    "OKONTAKTBAR: ",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   autofocus: false,
-                  selected: isBlod,
-                  value: isBlod,
+                  selected: false,
+                  value: isOko,
                   onChanged: (bool? value) {
                     setState(() {
-                      isBlod = value!;
+                      isOko = value!;
                     });
                   },
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
                 ),
-              ),
-              Expanded(
-                child: TextField(
-                  enabled: isBlod,
-                ),
-              ),
-            ], //Row children
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: CheckboxListTile(
-                  title: const Text("Läkemedel?: "),
+                CheckboxListTile(
+                  title: const Text(
+                    "KRÄKNING: ",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   autofocus: false,
-                  selected: isLake,
-                  value: isLake,
+                  selected: false,
+                  value: isKra,
                   onChanged: (bool? value) {
                     setState(() {
-                      isLake = value!;
+                      isKra = value!;
                     });
                   },
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
                 ),
-              ),
-              Expanded(
-                child: TextField(
-                  enabled: isLake,
-                ),
-              ),
-            ], //Row children
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: CheckboxListTile(
-                  title: const Text("Anames?: "),
+                CheckboxListTile(
+                  title: const Text(
+                    "SALTPAKET: ",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   autofocus: false,
-                  selected: isAna,
-                  value: isAna,
+                  selected: false,
+                  value: isSal,
                   onChanged: (bool? value) {
                     setState(() {
-                      isAna = value!;
+                      isSal = value!;
                     });
                   },
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
                 ),
-              ),
-              Expanded(
-                child: TextField(
-                  enabled: isAna,
+              ],
+            ),
+            Divider(
+              height: 10,
+              thickness: 2,
+              color: Colors.black,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 10.0, bottom: 10),
+                    child: Text('ÖVERKÄNSLIGHET:',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold)))),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 45, left: 45),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: CheckboxListTile(
+                          title: const Text(
+                            "JA",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          autofocus: false,
+                          selected: false,
+                          value: isOver,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isOver = value!;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          checkColor: Colors.white,
+                          controlAffinity: ListTileControlAffinity.leading,
+                        ),
+                      ),
+                      Expanded(
+                        child: CheckboxListTile(
+                          title: const Text(
+                            "INGEN KÄND",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          autofocus: false,
+                          selected: false,
+                          value: isNotOver,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isNotOver = value!;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          checkColor: Colors.white,
+                          controlAffinity: ListTileControlAffinity.leading,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ], //Row children
-          ),
-        ], //Column children
-      ),
-    );
+
+                // ElevatedButton(onPressed: sendData, child: const Text("Send data!")),
+                // Center(
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       // Navigate back to first route when tapped.
+                //       Navigator.pop(context);
+                //     },
+                //     child: const Text('Go back!'),
+                //   ),
+                // ),
+              ], //Column children
+            ),
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 1),
+                    child: Text('KOMMENTAR:',
+                        style: TextStyle(color: Colors.white, fontSize: 18)))),
+            Center(
+                child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextFormField(
+                              minLines: 5,
+                              maxLines: 10,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Skriv något här...',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))))),
+                        ])))
+          ],
+        ));
   }
 }
