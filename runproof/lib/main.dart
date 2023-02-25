@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gbg_varvet/pages/auth_page.dart';
 import 'firebase_options.dart';
+import 'package:gbg_varvet/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform, name: "App");
 
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => PatientsMap(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
