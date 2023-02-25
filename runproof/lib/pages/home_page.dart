@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -104,116 +106,159 @@ class _HomePageState extends State<HomePage> {
                   onPressed: _showMyDialog,
                   icon: const Icon(Icons.logout_outlined))
             ]),
-        body: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              Text(name),
-              Text(age),
-              Center(child: Text(currentUser.email!)),
-              Center(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FormPage()));
-                      },
-                      child: const Text("Add"))),
-              Center(
-                child: SizedBox(
-                  width: 300,
-                  child: TextField(
-                    controller: searchController,
-                    decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                        ),
-                        hintText: "Ange löparnummer"),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 150,
-                  child: ElevatedButton(
-                      onPressed: () => showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Löparinformation:'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  TextField(
-                                      decoration: InputDecoration(
-                                          icon: Icon(Icons.content_copy),
-                                          hintText: 'Löparnummer',
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0)),
-                                              borderSide: BorderSide(
-                                                width: 2.0,
-                                                color: Colors.grey,
-                                              )))),
-                                  Padding(padding: EdgeInsets.all(7.0)),
-                                  TextField(
-                                      decoration: InputDecoration(
-                                          icon: Icon(Icons.person),
-                                          hintText: 'Namn',
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0)),
-                                              borderSide: BorderSide(
-                                                width: 2.0,
-                                                color: Colors.grey,
-                                              )))),
-                                  Padding(padding: EdgeInsets.all(7.0)),
-                                  TextField(
-                                      decoration: InputDecoration(
-                                          icon: Icon(Icons.numbers),
-                                          hintText: 'Personnummer',
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0)),
-                                              borderSide: BorderSide(
-                                                width: 2.0,
-                                                color: Colors.grey,
-                                              )))),
-                                  Padding(padding: EdgeInsets.all(7.0)),
-                                  TextField(
-                                      decoration: InputDecoration(
-                                          icon: Icon(Icons.timer),
-                                          labelText: 'Ankomsttid...',
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0)),
-                                              borderSide: BorderSide(
-                                                width: 2.0,
-                                                color: Colors.grey,
-                                              )))),
-                                ],
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            children: [
+              IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('SÖK PATIENT:'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              TextField(
+                                  decoration: InputDecoration(
+                                      icon: Icon(Icons.search),
+                                      hintText: 'Namn eller personnummer')),
+                            ],
                           ),
-                      child: const Text('Sök'),
-                      style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
+                          actions: <Widget>[
+                            Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF75C883)),
+                                onPressed: () => Navigator.pop(context, 'SÖK'),
+                                child: const Text('SÖK'),
+                              ),
+                            ),
+                          ],
+                        ),
                       )),
-                ),
-              )
+              Spacer(),
+              IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FormPage()));
+                  }),
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.camera_alt), onPressed: () {}),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: Center(
+            child: ListView(shrinkWrap: true, children: <Widget>[
+          Text(name),
+          Text(age),
+          Center(child: Text(currentUser.email!)),
+          const Center(
+              child: Text(
+            'Ange löparnummer manuellt',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          )),
+          Padding(padding: EdgeInsets.all(7.0)),
+          Center(
+            child: SizedBox(
+              width: 300,
+              child: TextField(
+                controller: searchController,
+                decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    ),
+                    hintText: "Löparnummer"),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 150,
+              child: ElevatedButton(
+                  onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Löparinformation:'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(
+                                height: 40,
+                                child: TextField(
+                                    decoration: InputDecoration(
+                                  icon: Icon(Icons.content_copy),
+                                  hintText: 'Löparnummer',
+                                )),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: TextField(
+                                    decoration: InputDecoration(
+                                  icon: Icon(Icons.person),
+                                  hintText: 'Namn',
+                                )),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: TextField(
+                                    decoration: InputDecoration(
+                                  icon: Icon(Icons.numbers),
+                                  hintText: 'Personnummer',
+                                )),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: TextField(
+                                    decoration: InputDecoration(
+                                  icon: Icon(Icons.timer),
+                                  labelText: 'Ankomsttid...',
+                                )),
+                              ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              child: Text("Lägg till"),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FormPage()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF75C883),
+                              ),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Avbryt'),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent))
+                          ],
+                        ),
+                      ),
+                  child: const Text('Lägg till'),
+                  style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                  )),
+            ),
+          )
+        ])),
         drawer: DrawerWidget(title: "HEj"));
   }
 }
