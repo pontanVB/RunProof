@@ -42,8 +42,13 @@ class _FormPage3State extends State<FormPage3> {
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
+<<<<<<< Updated upstream
                   hintText: 'Skriv in löparens temperatur här...',
                   hintStyle: TextStyle(color: Colors.grey),
+=======
+                  hintText: '10:24',
+                  hintStyle: TextStyle(color: Colors.black),
+>>>>>>> Stashed changes
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))))),
           Padding(
@@ -71,6 +76,10 @@ class _FormPage3State extends State<FormPage3> {
               ],
             ),
           ),
+<<<<<<< Updated upstream
+=======
+          Row(children: [Text('ehej'), Text('hej')]),
+>>>>>>> Stashed changes
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20),
             child: Row(
