@@ -6,7 +6,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:gbg_varvet/pages/form_page.dart';
-import 'package:gbg_varvet/pages/form_page2.dart';
 
 import 'package:gbg_varvet/pages/home_page.dart';
 
@@ -30,27 +29,22 @@ class _FormPage3State extends State<FormPage3> {
       ),
       body: ListView(
         children: [
-          Text(
-            'TID:',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
-          ),
-          TextFormField(
-              minLines: 1,
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+          Center(
+            child: TextFormField(
+                textAlign: TextAlign.center,
+                //minLines: 1,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,
-<<<<<<< Updated upstream
-                  hintText: 'Skriv in löparens temperatur här...',
-                  hintStyle: TextStyle(color: Colors.grey),
-=======
-                  hintText: '10:24',
-                  hintStyle: TextStyle(color: Colors.black),
->>>>>>> Stashed changes
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))))),
+                  //fillColor: Colors.white,
+                  hintText: '${DateTime.now().hour} :${DateTime.now().minute}',
+                  hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold),
+                )),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20),
             child: Row(
@@ -76,12 +70,112 @@ class _FormPage3State extends State<FormPage3> {
               ],
             ),
           ),
-<<<<<<< Updated upstream
-=======
-          Row(children: [Text('ehej'), Text('hej')]),
->>>>>>> Stashed changes
+          Divider(
+            height: 10,
+            thickness: 2,
+            color: Colors.black,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Center(
+            child: Text(
+              'Blodtryck',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 20),
+            ),
+          ),
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    minLines: 1,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Sysytole',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20)))),
+                  ),
+                ),
+                VerticalDivider(
+                  //TODO vrid 45 grader och gör så att den syns
+                  color: Colors.white,
+                  thickness: 5,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    minLines: 1,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Diastole',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20)))),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20),
+            padding: EdgeInsets.only(top: 10, left: 15),
+            child: Text(
+              'Kommentar',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 0, bottom: 1, left: 15, right: 15),
+            child: TextFormField(
+                minLines: 4,
+                maxLines: 6,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: 'Skriv något här...',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))))),
+          ),
+          Center(
+            child: Row(
+              children: [
+                Text(
+                  "Saturation",
+                ),
+                Spacer(),
+                Container(
+                    width: 100,
+                    child: TextFormField(
+                        minLines: 1,
+                        maxLines: 1,
+                        keyboardType: TextInputType.multiline,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Skriv något här...',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))))))
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 30, bottom: 15, left: 20.0, right: 20),
             child: Row(
               children: [
                 Expanded(
@@ -98,6 +192,7 @@ class _FormPage3State extends State<FormPage3> {
                     ),
                   ),
                 ),
+                Spacer(),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
