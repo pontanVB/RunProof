@@ -6,7 +6,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:gbg_varvet/pages/form_page.dart';
-import 'package:gbg_varvet/pages/form_page2.dart';
 import 'package:gbg_varvet/pages/home_page.dart';
 
 class FormPage3 extends StatefulWidget {
@@ -353,7 +352,7 @@ class _FormPage3State extends State<FormPage3> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const FormPage2()));
+                              builder: (context) => const FormPage()));
                     },
                     child: const Text("Back"),
                     style: ElevatedButton.styleFrom(
