@@ -1,12 +1,14 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page.dart';
+import 'package:gbg_varvet/utils/info_popup.dart';
 import "package:gbg_varvet/widgets/drawer_widget.dart";
+import "package:gbg_varvet/utils/utils.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -140,10 +142,12 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FormPage()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const FormPage()));
+                    var patients = context.read<PatientsModel>();
+                    patients.add(1);
                   }),
             ],
           ),
@@ -187,77 +191,89 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               width: 150,
               child: ElevatedButton(
-                  onPressed: () => showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Löparinformation:'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(
-                                height: 40,
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                  icon: Icon(Icons.content_copy),
-                                  hintText: 'Löparnummer',
-                                )),
-                              ),
-                              SizedBox(
-                                height: 40,
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                  icon: Icon(Icons.person),
-                                  hintText: 'Namn',
-                                )),
-                              ),
-                              SizedBox(
-                                height: 40,
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                  icon: Icon(Icons.numbers),
-                                  hintText: 'Personnummer',
-                                )),
-                              ),
-                              SizedBox(
-                                height: 40,
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                  icon: Icon(Icons.timer),
-                                  labelText: 'Ankomsttid...',
-                                )),
-                              ),
-                            ],
-                          ),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              child: Text("Lägg till"),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FormPage()));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF75C883),
-                              ),
-                            ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Avbryt'),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent))
-                          ],
-                        ),
-                      ),
                   child: const Text('Lägg till'),
+                  onPressed: () => runnerInfoPopup(
+                      context, searchController.text), // showDialog<String>(
+                  // context: context,
+                  // builder: (BuildContext context) => AlertDialog(
+                  //   title: const Text('Löparinformation:'),
+                  //   content: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: [
+                  //       const SizedBox(
+                  //         height: 40,
+                  //         child: TextField(
+                  //             decoration: InputDecoration(
+                  //           icon: Icon(Icons.content_copy),
+                  //           hintText: 'Löparnummer',
+                  //         )),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 40,
+                  //         child: TextField(
+                  //             decoration: InputDecoration(
+                  //           icon: Icon(Icons.person),
+                  //           hintText: 'Namn',
+                  //         )),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 40,
+                  //         child: TextField(
+                  //             decoration: InputDecoration(
+                  //           icon: Icon(Icons.numbers),
+                  //           hintText: 'Personnummer',
+                  //         )),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 40,
+                  //         child: TextField(
+                  //             decoration: InputDecoration(
+                  //           icon: Icon(Icons.timer),
+                  //           labelText: 'Ankomsttid...',
+                  //         )),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   actions: <Widget>[
+                  //     ElevatedButton(
+                  //       child: Text("Lägg till"),
+                  //       onPressed: () {
+                  //         Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) =>
+                  //                     const FormPage()));
+                  //       },
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor: const Color(0xFF75C883),
+                  //       ),
+                  //     ),
+                  //     ElevatedButton(
+                  //         onPressed: () {
+                  //           Navigator.of(context).pop();
+                  //         },
+                  //         child: Text('Avbryt'),
+                  //         style: ElevatedButton.styleFrom(
+                  //             backgroundColor: Colors.redAccent))
+                  //   ],
+                  // ),
+
+                  //child: const Text('Lägg till'),
                   style: ElevatedButton.styleFrom(
                     shape: StadiumBorder(),
                   )),
             ),
-          )
+          ),
+          ElevatedButton(
+              onPressed: () {
+                var patientsModel = context.read<PatientsModel>();
+                patientsModel
+                    .addPatient({"name": "hejsan", "runningNumber": 40});
+              },
+              child: const Text("lägg till")),
+          Consumer<PatientsModel>(builder: (context, patients, child) {
+            return Text("${patients.patientsList}");
+          })
         ])),
         drawer: DrawerWidget(title: "HEj"));
   }

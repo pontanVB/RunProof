@@ -1,58 +1,15 @@
 import 'package:flutter/material.dart';
 import "package:gbg_varvet/utils/db_functions.dart";
+import "package:gbg_varvet/pages/form_page.dart";
 
-void infoPopupEmpty(BuildContext context) {
+void errorPopup(BuildContext context, Exception error) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
-      title: const Text('Löparinformation:'),
+      title: const Text('Försök igen!'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          TextField(
-              decoration: InputDecoration(
-                  icon: Icon(Icons.content_copy),
-                  hintText: 'Löparnummer',
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2.0,
-                        color: Colors.grey,
-                      )))),
-          Padding(padding: EdgeInsets.all(7.0)),
-          TextField(
-              decoration: InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Namn',
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2.0,
-                        color: Colors.grey,
-                      )))),
-          Padding(padding: EdgeInsets.all(7.0)),
-          TextField(
-              decoration: InputDecoration(
-                  icon: Icon(Icons.numbers),
-                  hintText: 'Personnummer',
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2.0,
-                        color: Colors.grey,
-                      )))),
-          Padding(padding: EdgeInsets.all(7.0)),
-          TextField(
-              decoration: InputDecoration(
-                  icon: Icon(Icons.timer),
-                  labelText: 'Ankomsttid...',
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2.0,
-                        color: Colors.grey,
-                      )))),
-        ],
+        children: [Text("$error")],
       ),
       actions: <Widget>[
         TextButton(
@@ -64,7 +21,7 @@ void infoPopupEmpty(BuildContext context) {
   );
 }
 
-void infoPopupFull(BuildContext context, String searchNumber) {
+void runnerInfoPopup(BuildContext context, String searchNumber) {
   String name;
   int runningNumber;
   int idNumber;
@@ -118,13 +75,28 @@ void infoPopupFull(BuildContext context, String searchNumber) {
                   ],
                 ),
                 actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
+                  ElevatedButton(
+                    child: Text("Lägg till"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FormPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF75C883),
+                    ),
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Avbryt'),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.redAccent))
                 ],
               ),
             )
           })
-      .catchError((error) => {print("Error $error")});
+      .catchError((error) => {print("$error"), errorPopup(context, error)});
 }

@@ -34,7 +34,7 @@ Future getFromDatabase(String id) async {
     print("got $responseName");
     return map;
   } else {
-    print('No data available.');
+    throw Exception("$id not in database");
   }
 }
 // Map<String, dynamic> datar

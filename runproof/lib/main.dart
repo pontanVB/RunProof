@@ -11,7 +11,7 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform, name: "App");
 
   runApp(ChangeNotifierProvider(
-    create: (context) => PatientsMap(),
+    create: (context) => PatientsModel(),
     child: const MyApp(),
   ));
 }
