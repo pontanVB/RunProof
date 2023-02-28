@@ -87,8 +87,7 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: _PatientsList()
-          ),
+          Expanded(child: _PatientsList()),
           Center(
             child: FloatingActionButton.extended(
               extendedPadding: const EdgeInsets.all(20),
@@ -113,30 +112,38 @@ class _PatientsList extends StatelessWidget {
     var patientsList = context.watch<PatientsModel>();
 
     return ListView.builder(
-      padding: const EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.only(top: 0),
         itemCount: patientsList.patientsList.length,
         itemBuilder: (context, index) {
-            final Map patient = patientsList.getPatient(index);
+          final Map patient = patientsList.getPatient(index);
 
-            final name = patient["name"];
-            final runningNumber = patient["runningNumber"];
+          final name = patient["name"];
+          final runningNumber = patient["runningNumber"];
 
-            return Card(
-              child: ListTile(
-                leading: CircularPercentIndicator(radius: 20, percent: 0.5, backgroundColor:Colors.black12, progressColor: const Color(0xFF75C883),
-                ),
-                title: Text('$name'.toUpperCase(), textScaleFactor: 1.4
-                ),
-                subtitle: Text('#$runningNumber', textScaleFactor: 1.2,
-                ),
-                trailing: (patientsList.activeIndex == index) ?  const Text('AKTIV', style: TextStyle(color: Color(0xFF75C883), fontWeight: FontWeight.bold)) : null ,
-                onTap: () {
-                  patientsList.setActiveIndex(index);
-                },
+          return Card(
+            child: ListTile(
+              leading: CircularPercentIndicator(
+                radius: 20,
+                percent: 0.5,
+                backgroundColor: Colors.black12,
+                progressColor: const Color(0xFF75C883),
               ),
-            );
-          }
-        );
+              title: Text('$name'.toUpperCase(), textScaleFactor: 1.4),
+              subtitle: Text(
+                '#$runningNumber',
+                textScaleFactor: 1.2,
+              ),
+              trailing: (patientsList.activeIndex == index)
+                  ? const Text('AKTIV',
+                      style: TextStyle(
+                          color: Color(0xFF75C883),
+                          fontWeight: FontWeight.bold))
+                  : null,
+              onTap: () {
+                patientsList.setActiveIndex(index);
+              },
+            ),
+          );
+        });
   }
 }
-

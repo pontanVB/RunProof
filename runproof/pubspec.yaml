@@ -43,6 +43,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.5.0
   drop_shadow_image: ^0.9.1
   percent_indicator: ^4.2.2
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:
