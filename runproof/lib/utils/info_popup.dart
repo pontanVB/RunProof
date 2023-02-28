@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:gbg_varvet/utils/db_functions.dart";
+import "package:gbg_varvet/utils/utils.dart";
 import "package:gbg_varvet/pages/form_page.dart";
+import 'package:provider/provider.dart';
 
 void errorPopup(BuildContext context, Exception error) {
   showDialog<String>(
@@ -22,7 +24,7 @@ void errorPopup(BuildContext context, Exception error) {
 }
 
 void runnerInfoPopup(BuildContext context, String searchNumber) {
-  String name;
+  String? name;
   int runningNumber;
   int idNumber;
 
@@ -82,6 +84,10 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const FormPage()));
+
+                      Provider.of<PatientsModel>(context, listen: false)
+                          .addPatient(
+                              {"name": name, "runningNumber": runningNumber});
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF75C883),

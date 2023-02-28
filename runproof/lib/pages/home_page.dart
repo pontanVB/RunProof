@@ -24,42 +24,11 @@ class _HomePageState extends State<HomePage> {
 
   final User currentUser = FirebaseAuth.instance.currentUser!;
   final DatabaseReference ref = FirebaseDatabase.instance.ref("/users");
-  final refreshTokenPromise = FirebaseAuth.instance.currentUser
-      ?.getIdToken()
-      .then((value) => print(value));
+  // final refreshTokenPromise = FirebaseAuth.instance.currentUser
+  //     ?.getIdToken()
+  //     .then((value) => print(value));
 
   final searchController = TextEditingController();
-
-  String name = "";
-  String age = "";
-
-  void add() async {
-    final String userId = currentUser.uid;
-    Map<String, dynamic> data = {"name": "carro", "age": 18, "time": 10};
-    ref.child("$userId/4").set(data);
-  }
-
-  void show() async {
-    final String userId = currentUser.uid;
-    final search = searchController.text;
-    try {
-      final snapshot = await ref.child("$userId/$search").get();
-      if (snapshot.exists) {
-        Map<dynamic, dynamic> map = snapshot.value as Map;
-
-        String responseName = map["name"];
-
-        setState(() {
-          name = responseName;
-          age = map["age"].toString();
-        });
-      } else {
-        print('No data available.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   Future<void> _showMyDialog() async {
     return showDialog<void>(
@@ -111,33 +80,6 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: BottomAppBar(
           child: Row(
             children: [
-              IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () => showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('SÖK PATIENT:'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              TextField(
-                                  decoration: InputDecoration(
-                                      icon: Icon(Icons.search),
-                                      hintText: 'Namn eller personnummer')),
-                            ],
-                          ),
-                          actions: <Widget>[
-                            Center(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF75C883)),
-                                onPressed: () => Navigator.pop(context, 'SÖK'),
-                                child: const Text('SÖK'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
               Spacer(),
               IconButton(
                   icon: Icon(Icons.add),
@@ -146,8 +88,7 @@ class _HomePageState extends State<HomePage> {
                     //     context,
                     //     MaterialPageRoute(
                     //         builder: (context) => const FormPage()));
-                    var patients = context.read<PatientsModel>();
-                    patients.add(1);
+                    // var patients = context.read<PatientsModel>();
                   }),
             ],
           ),
@@ -157,8 +98,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Center(
             child: ListView(shrinkWrap: true, children: <Widget>[
-          Text(name),
-          Text(age),
           Center(child: Text(currentUser.email!)),
           const Center(
               child: Text(
@@ -191,89 +130,21 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               width: 150,
               child: ElevatedButton(
-                  child: const Text('Lägg till'),
-                  onPressed: () => runnerInfoPopup(
-                      context, searchController.text), // showDialog<String>(
-                  // context: context,
-                  // builder: (BuildContext context) => AlertDialog(
-                  //   title: const Text('Löparinformation:'),
-                  //   content: Column(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     children: [
-                  //       const SizedBox(
-                  //         height: 40,
-                  //         child: TextField(
-                  //             decoration: InputDecoration(
-                  //           icon: Icon(Icons.content_copy),
-                  //           hintText: 'Löparnummer',
-                  //         )),
-                  //       ),
-                  //       SizedBox(
-                  //         height: 40,
-                  //         child: TextField(
-                  //             decoration: InputDecoration(
-                  //           icon: Icon(Icons.person),
-                  //           hintText: 'Namn',
-                  //         )),
-                  //       ),
-                  //       SizedBox(
-                  //         height: 40,
-                  //         child: TextField(
-                  //             decoration: InputDecoration(
-                  //           icon: Icon(Icons.numbers),
-                  //           hintText: 'Personnummer',
-                  //         )),
-                  //       ),
-                  //       SizedBox(
-                  //         height: 40,
-                  //         child: TextField(
-                  //             decoration: InputDecoration(
-                  //           icon: Icon(Icons.timer),
-                  //           labelText: 'Ankomsttid...',
-                  //         )),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   actions: <Widget>[
-                  //     ElevatedButton(
-                  //       child: Text("Lägg till"),
-                  //       onPressed: () {
-                  //         Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //                 builder: (context) =>
-                  //                     const FormPage()));
-                  //       },
-                  //       style: ElevatedButton.styleFrom(
-                  //         backgroundColor: const Color(0xFF75C883),
-                  //       ),
-                  //     ),
-                  //     ElevatedButton(
-                  //         onPressed: () {
-                  //           Navigator.of(context).pop();
-                  //         },
-                  //         child: Text('Avbryt'),
-                  //         style: ElevatedButton.styleFrom(
-                  //             backgroundColor: Colors.redAccent))
-                  //   ],
-                  // ),
-
-                  //child: const Text('Lägg till'),
+                  onPressed: () {
+                    runnerInfoPopup(context, searchController.text);
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: StadiumBorder(),
-                  )),
+                  ),
+                  child: const Text('Lägg till')),
             ),
           ),
           ElevatedButton(
               onPressed: () {
                 var patientsModel = context.read<PatientsModel>();
-                patientsModel
-                    .addPatient({"name": "hejsan", "runningNumber": 40});
+                patientsModel.removePatient(0);
               },
-              child: const Text("lägg till")),
-          Consumer<PatientsModel>(builder: (context, patients, child) {
-            return Text("${patients.patientsList}");
-          })
+              child: const Text("ta bort")),
         ])),
         drawer: DrawerWidget(title: "HEj"));
   }
