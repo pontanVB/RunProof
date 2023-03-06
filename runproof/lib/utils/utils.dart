@@ -19,6 +19,11 @@ class PatientsModel with ChangeNotifier {
 
   int get activeIndex => _activeIndex;
 
+  void setAttribute(String key, var attr) {
+    _patientsList[_activeIndex][key] = attr;
+    notifyListeners();
+  }
+
   void setActiveIndex(int index) {
     _activeIndex = index;
     notifyListeners();
@@ -27,10 +32,18 @@ class PatientsModel with ChangeNotifier {
   // getter for accessing patients map
   List<Map> get patientsList => _patientsList;
 
+  void updateActivePatient(Map patient) {
+    // if we update a key, we want to notify and save
+    _patientsList[_activeIndex] = patient;
+    //notifyListeners();
+    _saveDataToPrefs();
+  }
+
   void addPatient(Map newPatient) {
     print("added new patioent $newPatient");
     _patientsList.add(newPatient);
     _activeIndex = _patientsList.length - 1; // setting it to be active
+    _addAttributes();
     notifyListeners();
     _saveDataToPrefs();
   }
@@ -65,5 +78,22 @@ class PatientsModel with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final patientsJson = jsonEncode(_patientsList);
     await prefs.setString('patients_list', patientsJson);
+  }
+
+  void _addAttributes() {
+    // adding all attributes (keys)
+
+    Map<String, dynamic> attributes = {
+      "isVal": false,
+      "isNotVal": false,
+      "isKon": false,
+      "isOko": false,
+      "isKra": false,
+      "isSal": false,
+      "isOver": false,
+      "isNotOver": false
+    };
+
+    _patientsList[_activeIndex].addAll(attributes);
   }
 }

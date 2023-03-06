@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page_2.dart';
+import 'package:provider/provider.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -28,21 +30,22 @@ class CommaFormatter extends TextInputFormatter {
 }
 
 class _FormPageState extends State<FormPage> {
-  bool isVal = false;
-  bool isNotVal = false;
-  bool isKon = false;
-  bool isOko = false;
-  bool isKra = false;
-  bool isSal = false;
-  bool isOver = false;
-  bool isNotOver = false;
-
-  int radioValue = -1;
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    var patientsModel = context.watch<PatientsModel>();
+    Map patient = patientsModel.activePatient;
+    print("$patient");
+    bool isVal = patient["isVal"];
+    bool isNotVal = patient["isNotVal"];
+    bool isKon = patient["isKon"];
+    bool isOko = patient["isOko"];
+    bool isKra = patient["isKra"];
+    bool isSal = patient["isSal"];
+    bool isOver = patient["isOver"];
+    bool isNotOver = patient["isNotOver"];
+
     return Scaffold(
         backgroundColor: const Color(0xFF1F4A7B),
         drawer: DrawerWidget(title: "RunProof"),
@@ -136,6 +139,11 @@ class _FormPageState extends State<FormPage> {
                             setState(() {
                               isNotVal = value! ? false : true;
                               isVal = value;
+                              patientsModel.setAttribute(
+                                  isVal.toString(), isVal);
+
+                              patientsModel.setAttribute(
+                                  isNotVal.toString(), isNotVal);
                             });
                           },
                           activeColor: Colors.green,
@@ -156,6 +164,11 @@ class _FormPageState extends State<FormPage> {
                             setState(() {
                               isVal = value! ? false : true;
                               isNotVal = value;
+                              patientsModel.setAttribute(
+                                  isVal.toString(), isVal);
+
+                              patientsModel.setAttribute(
+                                  isNotVal.toString(), isNotVal);
                             });
                           },
                           activeColor: Colors.red,

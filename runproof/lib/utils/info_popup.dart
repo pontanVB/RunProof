@@ -80,6 +80,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                   ElevatedButton(
                     child: Text("Lägg till"),
                     onPressed: () {
+                      Navigator.pop(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -3,6 +3,7 @@ import 'package:gbg_varvet/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:gbg_varvet/utils/db_functions.dart';
+import "package:gbg_varvet/pages/form_page.dart";
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key, required this.title});
@@ -28,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
                 child: const Text('Confirm'),
                 onPressed: () {
                   signUserOut();
-                  Navigator.of(context).pop();
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 }),
             TextButton(
               child: const Text('Cancel'),
@@ -141,6 +142,9 @@ class _PatientsList extends StatelessWidget {
                   : null,
               onTap: () {
                 patientsList.setActiveIndex(index);
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FormPage()));
               },
             ),
           );
