@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page_2.dart';
 import 'package:provider/provider.dart';
 
+// TODO: kolla om detta sättet med state är ok, typ performance eller alternativa lösningar
+
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
 
@@ -45,6 +47,8 @@ class _FormPageState extends State<FormPage> {
     bool isSal = patient["isSal"];
     bool isOver = patient["isOver"];
     bool isNotOver = patient["isNotOver"];
+    TextEditingController tempController =
+        TextEditingController(text: patient["temp"]);
 
     return Scaffold(
         backgroundColor: const Color(0xFF1F4A7B),
@@ -77,6 +81,9 @@ class _FormPageState extends State<FormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextFormField(
+                                    onChanged: (value) => patientsModel
+                                        .setAttribute("temp", value),
+                                    controller: tempController,
                                     validator: (value1) {
                                       if (value1 == null || value1.isEmpty) {
                                         return 'Vänligen fyll i temp';
@@ -139,11 +146,9 @@ class _FormPageState extends State<FormPage> {
                             setState(() {
                               isNotVal = value! ? false : true;
                               isVal = value;
-                              patientsModel.setAttribute(
-                                  isVal.toString(), isVal);
+                              patientsModel.setAttribute("isVal", isVal);
 
-                              patientsModel.setAttribute(
-                                  isNotVal.toString(), isNotVal);
+                              patientsModel.setAttribute("isNotVal", isNotVal);
                             });
                           },
                           activeColor: Colors.green,
@@ -164,11 +169,9 @@ class _FormPageState extends State<FormPage> {
                             setState(() {
                               isVal = value! ? false : true;
                               isNotVal = value;
-                              patientsModel.setAttribute(
-                                  isVal.toString(), isVal);
+                              patientsModel.setAttribute("isVal", isVal);
 
-                              patientsModel.setAttribute(
-                                  isNotVal.toString(), isNotVal);
+                              patientsModel.setAttribute("isNotVal", isNotVal);
                             });
                           },
                           activeColor: Colors.red,
@@ -210,6 +213,7 @@ class _FormPageState extends State<FormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             isKon = value!;
+                            patientsModel.setAttribute("isKon", isKon);
                           });
                         },
                         activeColor: Colors.green,
@@ -226,6 +230,7 @@ class _FormPageState extends State<FormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             isOko = value!;
+                            patientsModel.setAttribute("isOko", isOko);
                           });
                         },
                         activeColor: Colors.green,
@@ -242,6 +247,7 @@ class _FormPageState extends State<FormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             isKra = value!;
+                            patientsModel.setAttribute("isKra", isKra);
                           });
                         },
                         activeColor: Colors.green,
@@ -258,6 +264,7 @@ class _FormPageState extends State<FormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             isSal = value!;
+                            patientsModel.setAttribute("isSal", isSal);
                           });
                         },
                         activeColor: Colors.green,
@@ -299,7 +306,8 @@ class _FormPageState extends State<FormPage> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   isNotOver = value! ? false : true;
-                                  isNotOver = value;
+                                  isOver = value;
+                                  patientsModel.setAttribute("isOver", isOver);
                                 });
                               },
                               activeColor: Colors.green,
@@ -320,6 +328,8 @@ class _FormPageState extends State<FormPage> {
                                 setState(() {
                                   isOver = value! ? false : true;
                                   isNotOver = value;
+                                  patientsModel.setAttribute(
+                                      "isNotOver", isNotOver);
                                 });
                               },
                               activeColor: Colors.red,

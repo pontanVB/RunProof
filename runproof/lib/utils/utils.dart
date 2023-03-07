@@ -91,7 +91,8 @@ class PatientsModel with ChangeNotifier {
       "isKra": false,
       "isSal": false,
       "isOver": false,
-      "isNotOver": false
+      "isNotOver": false,
+      "temp": "",
     };
 
     _patientsList[_activeIndex].addAll(attributes);

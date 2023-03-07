@@ -4,7 +4,7 @@ import "package:gbg_varvet/utils/utils.dart";
 import "package:gbg_varvet/pages/form_page.dart";
 import 'package:provider/provider.dart';
 
-void errorPopup(BuildContext context, Exception error) {
+void errorPopup(BuildContext context, error) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
