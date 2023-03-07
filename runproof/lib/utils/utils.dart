@@ -93,7 +93,19 @@ class PatientsModel with ChangeNotifier {
       "isSal": false,
       "isOver": false,
       "isNotOver": false,
+      "isBlod": false,
+      "isNotBlod": false,
+      "isLak": false,
+      "isNotLak": false,
+      "isTid": false,
+      "isAst": false,
+      "isHyp": false,
+      "isDia": false,
       "temp": "",
+      "overkanslighet": "",
+      "blodsmitta": "",
+      "läkemedel": "",
+      "anamnes": ""
     };
 
     _patientsList[_activeIndex].addAll(attributes);
