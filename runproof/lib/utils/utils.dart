@@ -22,6 +22,7 @@ class PatientsModel with ChangeNotifier {
   void setAttribute(String key, var attr) {
     _patientsList[_activeIndex][key] = attr;
     notifyListeners();
+    _saveDataToPrefs();
   }
 
   void setActiveIndex(int index) {
