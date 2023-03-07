@@ -21,7 +21,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: AuthPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AuthPage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color.fromARGB(255, 31, 74, 123),
+        //brightness: Brightness.dark,
+        primaryColor: Color.fromARGB(255, 31, 74, 123),
+        primarySwatch: Colors.blue,
+        unselectedWidgetColor: Colors.white,
+        // Define the default font family.
+        //  fontFamily: 'Georgia',
+
+        // Define the default `TextTheme`. Use this to specify the default
+        // text styling for headlines, titles, bodies of text, and more.
+      ),
+    );
   }
 }
