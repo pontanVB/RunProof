@@ -44,7 +44,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                     Padding(padding: EdgeInsets.all(7.0)),
                     Row(
                       children: [
-                        Icon(Icons.content_copy),
+                        Icon(Icons.numbers),
                         Expanded(
                           child: Text(
                             'Löparnummer: $runningNumber',
@@ -55,7 +55,18 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                     Padding(padding: EdgeInsets.all(7.0)),
                     Row(
                       children: [
-                        Icon(Icons.numbers),
+                        Icon(Icons.person_outline),
+                        Expanded(
+                          child: Text(
+                            'Löparnummer: $runningNumber',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.all(7.0)),
+                    Row(
+                      children: [
+                        Icon(Icons.schedule),
                         Expanded(
                           child: Text(
                             'Name: $name',
@@ -66,7 +77,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                     Padding(padding: EdgeInsets.all(7.0)),
                     Row(
                       children: [
-                        Icon(Icons.timer),
+                        Icon(Icons.description),
                         Expanded(
                           child: Text(
                             'Personnummer: $idNumber',
