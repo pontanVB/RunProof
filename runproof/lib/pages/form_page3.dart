@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:gbg_varvet/pages/form_page_2.dart';
 import 'package:gbg_varvet/pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:gbg_varvet/utils/utils.dart';
 
 class FormPage3 extends StatefulWidget {
   const FormPage3({super.key});
@@ -16,8 +16,12 @@ class FormPage3 extends StatefulWidget {
 }
 
 class _FormPage3State extends State<FormPage3> {
-//droopdown buttion RLS
+  //droopdown buttion RLS
 // Initial Selected Value
+
+  bool isO2mask = false; //patient["isO2mask"];
+  //bool isNotO2mask = false; // patient["isNotO2mask"];
+
   String dropdownvalue = '1';
 
   // List of items in our dropdown menu
@@ -33,12 +37,11 @@ class _FormPage3State extends State<FormPage3> {
   ];
 
   //values checked
-  bool isO2mask = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 31, 74, 123),
+      //backgroundColor: // Color.fromARGB(255, 31, 74, 123),
       drawer: DrawerWidget(title: "RunProof"),
       appBar: AppBar(
         title: Image.asset('assets/images/runprooflogo.png',
@@ -330,11 +333,35 @@ class _FormPage3State extends State<FormPage3> {
                   ),
                   Spacer(flex: 2),
                   Text(
-                    'O2',
+                    "O2:",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20),
+                  ),
+                  Spacer(flex: 1),
+                  Transform.scale(
+                    scale: 1.7,
+                    child: Checkbox(
+                      autofocus: false,
+                      //selected: false,
+                      value: isO2mask,
+                      onChanged: (bool? value) {
+                        setState(
+                          () {
+                            isO2mask = value!; // ? false : true;
+
+                            //patientsModel.setAttribute(
+                            //    "isNotO2mask", isO2mask);
+                          },
+                        );
+                      },
+
+                      activeColor: Colors.red,
+                      checkColor: Colors.white,
+                      //controlAffinity: ListTileControlAffinity
+                      //   .trailing, //  <-- leading Checkbox
+                    ),
                   ),
                   Spacer(flex: 1),
                 ],
