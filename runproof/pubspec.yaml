@@ -44,8 +44,6 @@ dependencies:
   drop_shadow_image: ^0.9.1
   shared_preferences: ^2.0.18
   percent_indicator: ^4.2.3
-  percent_indicator: ^4.2.2
-  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:
