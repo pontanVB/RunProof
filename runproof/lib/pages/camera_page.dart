@@ -1,184 +1,132 @@
-// // import 'package:flutter/material.dart';
-// // import 'package:learning_input_image/learning_input_image.dart';
-// // import 'package:learning_text_recognition/learning_text_recognition.dart';
-// // import 'package:provider/provider.dart';
-// <<<<<<< Updated upstream
-// //
-// // import "package:gbg_varvet/widgets/drawer_widget.dart";
-// //
-// =======
+import 'dart:async';
+import 'dart:developer';
 
-// // import "package:gbg_varvet/widgets/drawer_widget.dart";
+import 'package:flutter/material.dart';
+import 'package:flutter_scalable_ocr/flutter_scalable_ocr.dart';
+import "package:provider/provider.dart";
+import "package:gbg_varvet/utils/utils.dart";
+import 'package:gbg_varvet/widgets/drawer_widget.dart';
 
-// >>>>>>> Stashed changes
-// // class RecognitionTest extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return MaterialApp(
-// //       debugShowCheckedModeBanner: false,
-// //       theme: ThemeData(
-// //         primarySwatch: Colors.lightBlue,
-// //         visualDensity: VisualDensity.adaptivePlatformDensity,
-// //         primaryTextTheme: TextTheme(
-// //           headline6: TextStyle(color: Colors.white),
-// //         ),
-// //       ),
-// //       home: Scaffold(
-// //         drawer: const DrawerWidget(title: 'Hej'),
-// //         body: ChangeNotifierProvider(
-// //           create: (_) => TextRecognitionState(),
-// //           child: TextRecognitionPage(),
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-// <<<<<<< Updated upstream
-// //
-// =======
 
-// >>>>>>> Stashed changes
-// // class TextRecognitionPage extends StatefulWidget {
-// //   @override
-// //   _TextRecognitionPageState createState() => _TextRecognitionPageState();
-// // }
-// <<<<<<< Updated upstream
-// //
-// // class _TextRecognitionPageState extends State<TextRecognitionPage> {
-// //   TextRecognition? _textRecognition = TextRecognition();
-// //
-// //   /* TextRecognition? _textRecognition = TextRecognition(
-// //     options: TextRecognitionOptions.Japanese
-// //   ); */
-// //
-// =======
+class CameraPage extends StatefulWidget {
+  const CameraPage({super.key});
 
-// // class _TextRecognitionPageState extends State<TextRecognitionPage> {
-// //   TextRecognition? _textRecognition = TextRecognition();
+  final String title = 'Scan';
 
-// //   /* TextRecognition? _textRecognition = TextRecognition(
-// //     options: TextRecognitionOptions.Japanese
-// //   ); */
+  @override
+  State<CameraPage> createState() => _CameraPageState();
+}
 
-// >>>>>>> Stashed changes
-// //   @override
-// //   void dispose() {
-// //     _textRecognition?.dispose();
-// //     super.dispose();
-// //   }
-// <<<<<<< Updated upstream
-// //
-// //   Future<void> _startRecognition(InputImage image) async {
-// //     TextRecognitionState state = Provider.of(context, listen: false);
-// //
-// =======
+class _CameraPageState extends State<CameraPage> {
+  String text = "";
+  final StreamController<String> controller = StreamController<String>();
 
-// //   Future<void> _startRecognition(InputImage image) async {
-// //     TextRecognitionState state = Provider.of(context, listen: false);
+  void setText(value) {
+    controller.add(value);
+  }
 
-// >>>>>>> Stashed changes
-// //     if (state.isNotProcessing) {
-// //       state.startProcessing();
-// //       state.image = image;
-// //       state.data = await _textRecognition?.process(image);
-// //       state.stopProcessing();
-// //     }
-// //   }
-// <<<<<<< Updated upstream
-// //
-// =======
+  @override
+  void dispose() {
+    controller.close();
+    super.dispose();
+  }
 
-// >>>>>>> Stashed changes
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return InputCameraView(
-// //       mode: InputCameraMode.gallery,
-// //       // resolutionPreset: ResolutionPreset.high,
-// //       title: 'Skanna löparnummer',
-// //       onImage: _startRecognition,
-// //       overlay: Consumer<TextRecognitionState>(
-// //         builder: (_, state, __) {
-// //           if (state.isNotEmpty) {
-// //             return Center(
-// //               child: Container(
-// //                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-// //                 decoration: BoxDecoration(
-// //                   color: Colors.white.withOpacity(0.8),
-// //                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
-// //                 ),
-// //                 child: Text(
-// //                   state.text,
-// //                   style: TextStyle(
-// //                     fontWeight: FontWeight.w500,
-// //                   ),
-// //                 ),
-// //               ),
-// //             );
-// //           }
-// <<<<<<< Updated upstream
-// //
-// =======
+  @override
+  Widget build(BuildContext context) {
+    var patientModel = context.watch<PatientsModel>();
+    late String currentText;
 
-// >>>>>>> Stashed changes
-// //           return Container();
-// //         },
-// //       ),
-// //     );
-// //   }
-// // }
-// <<<<<<< Updated upstream
-// //
-// =======
+    return Scaffold(
+        backgroundColor: const Color(0xFF1F4A7B),
+        drawer: const DrawerWidget(title: "RunProof"),
+        appBar: AppBar(
+          title: Image.asset('assets/images/runprooflogo.png',
+              fit: BoxFit.contain, height: 60),
+          backgroundColor: const Color.fromARGB(255, 142, 184, 223),
+        ),
+        body: Column(
+          children: <Widget>[
+            ScalableOCR(
+                paintboxCustom: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 4.0
+                  ..color = const Color.fromARGB(153, 102, 160, 241),
+                boxLeftOff: 1,
+                boxBottomOff: 15,
+                boxRightOff: 15,
+                boxTopOff: 10000,
+                boxHeight: MediaQuery.of(context).size.height / 1.5,
+                getRawData: (value) {
+                  inspect(value);
+                },
+                getScannedText: (value) {
+                  setText(value);}
+            ),
+            Center(
+              child:
+                StreamBuilder<String>(
+                  stream: controller.stream,
+                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    currentText = snapshot.data != null ? snapshot.data! : "";
+                    currentText = currentText.replaceAll(RegExp(r'[^0-9]'),'');
+                    return Result(text: currentText);
+                },)
+            ),
+            Center(
+              child:
+                ElevatedButton(
+                    onPressed: () {
+                      patientModel.searchTerm = currentText;
+                      Navigator.pop(context); },
+                    child: const Text("Acceptera resultat",
+                      style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      )
+                    )
+                ),
+            ),
+          ],
+        ),
+      );
+  }
+}
 
-// >>>>>>> Stashed changes
-// // class TextRecognitionState extends ChangeNotifier {
-// //   InputImage? _image;
-// //   RecognizedText? _data;
-// //   bool _isProcessing = false;
-// <<<<<<< Updated upstream
-// //
-// =======
+class Result extends StatelessWidget {
+  const Result({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
 
-// >>>>>>> Stashed changes
-// //   InputImage? get image => _image;
-// //   RecognizedText? get data => _data;
-// //   String get text => _data!.text;
-// //   bool get isNotProcessing => !_isProcessing;
-// //   bool get isNotEmpty => _data != null && text.isNotEmpty;
-// <<<<<<< Updated upstream
-// //
-// =======
+  final String text;
 
-// >>>>>>> Stashed changes
-// //   void startProcessing() {
-// //     _isProcessing = true;
-// //     notifyListeners();
-// //   }
-// <<<<<<< Updated upstream
-// //
-// =======
 
-// >>>>>>> Stashed changes
-// //   void stopProcessing() {
-// //     _isProcessing = false;
-// //     notifyListeners();
-// //   }
-// <<<<<<< Updated upstream
-// //
-// =======
-
-// >>>>>>> Stashed changes
-// //   set image(InputImage? image) {
-// //     _image = image;
-// //     notifyListeners();
-// //   }
-// <<<<<<< Updated upstream
-// //
-// =======
-
-// >>>>>>> Stashed changes
-// //   set data(RecognizedText? data) {
-// //     _data = data;
-// //     notifyListeners();
-// //   }
-// // }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      child: Row(
+        children: [
+          const Text(
+          "Nr: ",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "$text",
+            style: const TextStyle(
+              overflow: TextOverflow.ellipsis,
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+      ])
+    );
+  }
+}
