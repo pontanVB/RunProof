@@ -8,6 +8,7 @@ import 'dart:convert';
 
 class PatientsModel with ChangeNotifier {
   List<Map> _patientsList = [];
+  int activeFormPage = 0;
 
   PatientsModel() {
     _loadDataFromPrefs();

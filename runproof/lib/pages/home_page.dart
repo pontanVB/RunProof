@@ -99,7 +99,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Center(
             child: ListView(shrinkWrap: true, children: <Widget>[
-          Center(child: Text(currentUser.email!)),
           const Center(
               child: Text(
             'Ange löparnummer manuellt',
@@ -132,12 +131,12 @@ class _HomePageState extends State<HomePage> {
               width: 150,
               child: ElevatedButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(child: AddNewPatient());
-                        });
-                    // runnerInfoPopup(context, searchController.text);
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return Dialog(child: AddNewPatient());
+                    //     });
+                    runnerInfoPopup(context, searchController.text);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: StadiumBorder(),

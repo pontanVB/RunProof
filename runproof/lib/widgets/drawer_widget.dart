@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gbg_varvet/pages/injury/injury_page.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -142,9 +143,14 @@ class _PatientsList extends StatelessWidget {
                   : null,
               onTap: () {
                 patientsList.setActiveIndex(index);
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FormPage()));
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            patientsList.activePatient["type"] == "sickness"
+                                ? const FormPage()
+                                : const InjuryPage()));
               },
             ),
           );
