@@ -92,6 +92,7 @@ class DrawerWidget extends StatelessWidget {
           Expanded(child: _PatientsList()),
           Center(
             child: FloatingActionButton.extended(
+              heroTag: "test",
               extendedPadding: const EdgeInsets.all(20),
               onPressed: () => _showMyDialog(context),
               label: const Text('SIGN OUT'),
@@ -143,7 +144,8 @@ class _PatientsList extends StatelessWidget {
                   : null,
               onTap: () {
                 patientsList.setActiveIndex(index);
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.of(context).pop();
+                Navigator.of(context).popUntil((route) => true);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

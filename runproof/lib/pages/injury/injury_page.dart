@@ -8,6 +8,7 @@ import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/pages/form_page_2.dart';
 import 'package:provider/provider.dart';
+import "package:gbg_varvet/utils/info_popup.dart";
 
 // TODO: kolla om detta sättet med state är ok, typ performance eller alternativa lösningar
 
@@ -39,14 +40,13 @@ class _InjuryPageState extends State<InjuryPage> {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     print("$patient");
-    bool isVal = patient["isVal"];
-    bool isNotVal = patient["isNotVal"];
-    bool isKon = patient["isKon"];
-    bool isOko = patient["isOko"];
-    bool isKra = patient["isKra"];
-    bool isSal = patient["isSal"];
-    bool isOver = patient["isOver"];
-    bool isNotOver = patient["isNotOver"];
+    bool chafe = patient["injury"]["chafe"] ?? false; // skavsår
+    bool sprain = patient["injury"]["sprain"] ?? false;
+    bool pain = patient["injury"]["pain"] ?? false;
+    bool cramp = patient["injury"]["cramp"] ?? false;
+    bool home = patient["injury"]["home"] ?? false;
+    bool hospital = patient["injury"]["hospital"] ?? false;
+
     TextEditingController tempController =
         TextEditingController(text: patient["temp"]);
 
@@ -57,6 +57,25 @@ class _InjuryPageState extends State<InjuryPage> {
           title: Image.asset('assets/images/runprooflogo.png',
               fit: BoxFit.contain, height: 60),
           backgroundColor: Color.fromARGB(255, 142, 184, 223),
+          actions: [
+            Row(
+              children: [
+                Center(
+                    child: ElevatedButton(
+                  onPressed: () => SavePopup(context),
+                  child: const Text("PAUSA"),
+                  style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                      fixedSize:
+                          Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                )),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                )
+              ],
+            ),
+          ],
         ),
         body: Form(
             key: _formKey,
@@ -104,11 +123,12 @@ class _InjuryPageState extends State<InjuryPage> {
                         ),
                         autofocus: false,
                         selected: false,
-                        value: isKon,
+                        value: chafe,
                         onChanged: (bool? value) {
                           setState(() {
-                            isKon = value!;
-                            patientsModel.setAttribute("isKon", isKon);
+                            chafe = value!;
+                            patientsModel.setAttribute(
+                                "chafe", chafe, "injury");
                           });
                         },
                         activeColor: Colors.green,
@@ -121,11 +141,12 @@ class _InjuryPageState extends State<InjuryPage> {
                         ),
                         autofocus: false,
                         selected: false,
-                        value: isOko,
+                        value: sprain,
                         onChanged: (bool? value) {
                           setState(() {
-                            isOko = value!;
-                            patientsModel.setAttribute("isOko", isOko);
+                            sprain = value!;
+                            patientsModel.setAttribute(
+                                "sprain", sprain, "injury");
                           });
                         },
                         activeColor: Colors.green,
@@ -138,11 +159,11 @@ class _InjuryPageState extends State<InjuryPage> {
                         ),
                         autofocus: false,
                         selected: false,
-                        value: isKra,
+                        value: pain,
                         onChanged: (bool? value) {
                           setState(() {
-                            isKra = value!;
-                            patientsModel.setAttribute("isKra", isKra);
+                            pain = value!;
+                            patientsModel.setAttribute("pain", pain, "injury");
                           });
                         },
                         activeColor: Colors.green,
@@ -155,11 +176,12 @@ class _InjuryPageState extends State<InjuryPage> {
                         ),
                         autofocus: false,
                         selected: false,
-                        value: isSal,
+                        value: cramp,
                         onChanged: (bool? value) {
                           setState(() {
-                            isSal = value!;
-                            patientsModel.setAttribute("isSal", isSal);
+                            cramp = value!;
+                            patientsModel.setAttribute(
+                                "cramp", cramp, "injury");
                           });
                         },
                         activeColor: Colors.green,
@@ -197,12 +219,15 @@ class _InjuryPageState extends State<InjuryPage> {
                               ),
                               autofocus: false,
                               selected: false,
-                              value: isOver,
+                              value: home,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  isNotOver = value! ? false : true;
-                                  isOver = value;
-                                  patientsModel.setAttribute("isOver", isOver);
+                                  hospital = value! ? false : true;
+                                  home = value;
+                                  patientsModel.setAttribute(
+                                      "home", home, "injury");
+                                  patientsModel.setAttribute(
+                                      "hospital", hospital, "injury");
                                 });
                               },
                               activeColor: Colors.green,
@@ -218,13 +243,15 @@ class _InjuryPageState extends State<InjuryPage> {
                               ),
                               autofocus: false,
                               selected: false,
-                              value: isNotOver,
+                              value: hospital, //isNotOver,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  isOver = value! ? false : true;
-                                  isNotOver = value;
+                                  home = value! ? false : true;
+                                  hospital = value;
                                   patientsModel.setAttribute(
-                                      "isNotOver", isNotOver);
+                                      "home", home, "injury");
+                                  patientsModel.setAttribute(
+                                      "hospital", hospital, "injury");
                                 });
                               },
                               activeColor: Colors.red,

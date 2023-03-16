@@ -20,8 +20,10 @@ class PatientsModel with ChangeNotifier {
 
   int get activeIndex => _activeIndex;
 
-  void setAttribute(String key, var attr) {
-    _patientsList[_activeIndex][key] = attr;
+  void setAttribute(String key, var attr, [String? nestedKey]) {
+    nestedKey == null
+        ? _patientsList[_activeIndex][key] = attr
+        : _patientsList[_activeIndex][nestedKey][key] = attr;
     notifyListeners();
     _saveDataToPrefs();
   }
@@ -78,7 +80,8 @@ class PatientsModel with ChangeNotifier {
 
   Future<void> _saveDataToPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final patientsJson = jsonEncode(_patientsList);
+    //final patientsJson = jsonEncode(_patientsList);
+    final patientsJson = json.encode(_patientsList);
     await prefs.setString('patients_list', patientsJson);
   }
 
@@ -86,15 +89,9 @@ class PatientsModel with ChangeNotifier {
     // adding all attributes (keys)
 
     Map<String, dynamic> attributes = {
-      "isVal": false,
-      "isNotVal": false,
-      "isKon": false,
-      "isOko": false,
-      "isKra": false,
-      "isSal": false,
-      "isOver": false,
-      "isNotOver": false,
-      "temp": "",
+      "injury": <String, dynamic>{},
+      "sickness": <String, dynamic>{},
+      "filled_options": 0,
     };
 
     _patientsList[_activeIndex].addAll(attributes);
