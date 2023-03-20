@@ -41,6 +41,8 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
     print("$patient");
     bool eac = patient["eac"] ?? false; // svimnning eller kollaps
     bool abdominalPain = patient["abdominalPain"] ?? false;
+    bool breathingProblems = patient["breathingProblems"] ?? false;
+    bool chestPain = patient["chestPain"] ?? false;
 
 
     TextEditingController tempController =
@@ -92,22 +94,14 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                   indent: 20,
                   endIndent: 20,
                 ),
-                Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text('TYP AV SKADA:',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold)))),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 15.0, bottom: 8, left: 50, right: 60),
+                 Center(
                   child: Column(
                     children: [
+
+
                       CheckboxListTile(
                         title: const Text(
-                          "EAc Svim",
+                          "Svimning",
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                         autofocus: false,
@@ -141,51 +135,73 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                         activeColor: Colors.green,
                         checkColor: Colors.white,
                       ),
+                      CheckboxListTile(
+                        title: const Text(
+                          "Andningssvår",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                        autofocus: false,
+                        selected: false,
+                        value: breathingProblems,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            breathingProblems = value!;
+                            patientsModel.setAttribute(
+                                "breathingProblems", breathingProblems);
+                          });
+                        },
+                        activeColor: Colors.green,
+                        checkColor: Colors.white,
+                      ),
+                      CheckboxListTile(
+                        title: const Text(
+                          "Bröstsmärtor",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                        autofocus: false,
+                        selected: false,
+                        value: chestPain,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            chestPain = value!;
+                            patientsModel.setAttribute(
+                                "chestPain", chestPain);
+                          });
+                        },
+                        activeColor: Colors.green,
+                        checkColor: Colors.white,
+                      ),
 
                     ],
                   ),
                 ),
-                Divider(
-                  height: 10,
-                  thickness: 2,
-                  color: Colors.black,
-                  indent: 20,
-                  endIndent: 20,
-                ),
-                Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(top: 10.0, bottom: 10),
-                        child: Text('FORTSÄTTER HEM',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold)))),
 
-                Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 1),
-                        child: Text('KOMMENTAR:',
+
+             Padding(
+                        padding: EdgeInsets.only(left:20, top: 10, bottom: 1),
+                        child: Text('Övrigt:',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 18)))),
+                                TextStyle(color: Colors.white, fontSize: 18))),
                 Center(
                     child: Padding(
                         padding: EdgeInsets.only(
-                            top: 19.0, bottom: 1, left: 15, right: 15),
+                            top: 19.0, bottom: 1, left: 20, right: 20),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               TextFormField(
-                                  minLines: 4,
+                                  minLines: 1,
                                   maxLines: 6,
                                   keyboardType: TextInputType.multiline,
                                   decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white,
-                                      hintText: 'Skriv något här...',
+                                      hintText: 'Förklaring ICD.',
                                       hintStyle: TextStyle(color: Colors.grey),
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20))))),
+
                             ]))),
                 Row(
                   children: [
