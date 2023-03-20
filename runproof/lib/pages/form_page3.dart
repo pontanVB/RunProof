@@ -21,11 +21,24 @@ class _FormPage3State extends State<FormPage3> {
 
   bool isO2mask = false; //patient["isO2mask"];
   //bool isNotO2mask = false; // patient["isNotO2mask"];
-
-  String dropdownvalue = '1';
+  bool isO2grimma = false;
+  String dropdownvalue = '-';
+  String dropdownvalue2 = '-';
 
   // List of items in our dropdown menu
   var items = [
+    '-',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+  ];
+  var gcs = [
+    '-',
     '1',
     '2',
     '3',
@@ -99,7 +112,7 @@ class _FormPage3State extends State<FormPage3> {
           ),
           Divider(
             height: 10,
-            thickness: 2,
+            thickness: 1,
             color: Colors.black,
             indent: 20,
             endIndent: 20,
@@ -367,6 +380,106 @@ class _FormPage3State extends State<FormPage3> {
                 ],
               ),
             ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+                bottom: 15,
+              ),
+              child: Row(
+                children: [
+                  Text('GCS:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20)),
+                  Spacer(flex: 1),
+                  Container(
+                    padding:
+                        EdgeInsets.only(top: 1, bottom: 1, left: 5, right: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: DropdownButton(
+                      // Initial Value
+                      value: dropdownvalue2,
+
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+
+                      // Array list of items
+                      items: gcs.map((String gcs) {
+                        return DropdownMenuItem(
+                          value: gcs,
+                          child: Text(gcs),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue2 = newValue!;
+                        });
+                      },
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20),
+
+                      dropdownColor: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      //underline: Container(
+                      //  height: 2,
+                      //  color: Colors.black,
+                      //),
+                    ),
+                  ),
+                  Spacer(flex: 2),
+                  Text(
+                    "O2 grimma:",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20),
+                  ),
+                  Spacer(flex: 1),
+                  Transform.scale(
+                    scale: 1.7,
+                    child: Checkbox(
+                      autofocus: false,
+                      //selected: false,
+                      value: isO2grimma,
+                      onChanged: (bool? value) {
+                        setState(
+                          () {
+                            isO2grimma = value!; // ? false : true;
+
+                            //patientsModel.setAttribute(
+                            //    "isNotO2mask", isO2mask);
+                          },
+                        );
+                      },
+
+                      activeColor: Colors.red,
+                      checkColor: Colors.white,
+                      //controlAffinity: ListTileControlAffinity
+                      //   .trailing, //  <-- leading Checkbox
+                    ),
+                  ),
+                  Spacer(flex: 1),
+                ],
+              ),
+            ),
+          ),
+          Text("PVK"),
+          Divider(
+            height: 10,
+            thickness: 1,
+            color: Colors.black,
+            indent: 20,
+            endIndent: 20,
           ),
           Padding(
             padding: const EdgeInsets.only(
