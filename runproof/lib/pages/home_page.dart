@@ -9,6 +9,7 @@ import 'package:gbg_varvet/pages/form_page.dart';
 import 'package:gbg_varvet/utils/info_popup.dart';
 import "package:gbg_varvet/widgets/drawer_widget.dart";
 import "package:gbg_varvet/utils/utils.dart";
+import "package:gbg_varvet/widgets/add_patient.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -98,7 +99,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Center(
             child: ListView(shrinkWrap: true, children: <Widget>[
-          Center(child: Text(currentUser.email!)),
           const Center(
               child: Text(
             'Ange löparnummer manuellt',
@@ -131,6 +131,11 @@ class _HomePageState extends State<HomePage> {
               width: 150,
               child: ElevatedButton(
                   onPressed: () {
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return Dialog(child: AddNewPatient());
+                    //     });
                     runnerInfoPopup(context, searchController.text);
                   },
                   style: ElevatedButton.styleFrom(

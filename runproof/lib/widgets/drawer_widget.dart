@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gbg_varvet/pages/injury/injury_page.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -91,6 +92,7 @@ class DrawerWidget extends StatelessWidget {
           Expanded(child: _PatientsList()),
           Center(
             child: FloatingActionButton.extended(
+              heroTag: "test",
               extendedPadding: const EdgeInsets.all(20),
               onPressed: () => _showMyDialog(context),
               label: const Text('SIGN OUT'),
@@ -142,9 +144,15 @@ class _PatientsList extends StatelessWidget {
                   : null,
               onTap: () {
                 patientsList.setActiveIndex(index);
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FormPage()));
+                Navigator.of(context).pop();
+                Navigator.of(context).popUntil((route) => true);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            patientsList.activePatient["type"] == "sickness"
+                                ? const FormPage()
+                                : const InjuryPage()));
               },
             ),
           );

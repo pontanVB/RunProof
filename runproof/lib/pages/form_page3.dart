@@ -53,6 +53,16 @@ class _FormPage3State extends State<FormPage3> {
 
   @override
   Widget build(BuildContext context) {
+    var patientsModel = context.watch<PatientsModel>();
+    Map activePatient = patientsModel.activePatient;
+
+    final String datetime = activePatient.containsKey("startTime")
+        ? activePatient["startTime"]
+        : '${DateTime.now().hour} :${DateTime.now().minute}';
+
+    final TextEditingController datetimeController =
+        TextEditingController(text: datetime);
+
     return Scaffold(
       //backgroundColor: // Color.fromARGB(255, 31, 74, 123),
       drawer: DrawerWidget(title: "RunProof"),
@@ -66,17 +76,16 @@ class _FormPage3State extends State<FormPage3> {
           Center(
             child: TextFormField(
                 textAlign: TextAlign.center,
+                controller: datetimeController,
                 //minLines: 1,
                 maxLines: 1,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   filled: true,
-                  //fillColor: Colors.white,
-                  hintText: '${DateTime.now().hour} :${DateTime.now().minute}',
-                  hintStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold),
                 )),
           ),
           Padding(
@@ -489,10 +498,9 @@ class _FormPage3State extends State<FormPage3> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const FormPage2()));
+                      Navigator.pop(
+                        context,
+                      );
                     },
                     child: const Text("Back"),
                     style: ElevatedButton.styleFrom(
@@ -515,6 +523,12 @@ class _FormPage3State extends State<FormPage3> {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FormPage3()));
+                    },
+                    child: const Text("+"))
               ],
             ),
           ),
