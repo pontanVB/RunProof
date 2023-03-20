@@ -7,6 +7,7 @@ import 'package:gbg_varvet/pages/form_page_2.dart';
 import 'package:gbg_varvet/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/pages/diagnos_page.dart';
 
 class FormPage3 extends StatefulWidget {
   const FormPage3({super.key});
@@ -74,6 +75,20 @@ class _FormPage3State extends State<FormPage3> {
       body: ListView(
         children: [
           Center(
+            child: Text("Vitalparametrar",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 40)),
+          ),
+          Divider(
+            height: 10,
+            thickness: 2,
+            color: Colors.black,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Center(
             child: TextFormField(
                 textAlign: TextAlign.center,
                 controller: datetimeController,
@@ -85,7 +100,7 @@ class _FormPage3State extends State<FormPage3> {
                     fontWeight: FontWeight.bold),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  filled: true,
+                  filled: false,
                 )),
           ),
           Padding(
@@ -515,9 +530,9 @@ class _FormPage3State extends State<FormPage3> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomePage()));
+                              builder: (context) => const DiagnosisPage()));
                     },
-                    child: const Text("Home"),
+                    child: const Text("NEXT"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                     ),
