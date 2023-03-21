@@ -10,6 +10,8 @@ import 'package:gbg_varvet/utils/info_popup.dart';
 import "package:gbg_varvet/widgets/drawer_widget.dart";
 import "package:gbg_varvet/utils/utils.dart";
 import "package:gbg_varvet/widgets/add_patient.dart";
+import 'package:gbg_varvet/pages/camera_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,6 +68,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var patientModel = context.watch<PatientsModel>();
+    final searchController = TextEditingController(text: patientModel.searchTerm);
     return Scaffold(
         backgroundColor: const Color(0xFF1F4A7B),
         appBar: AppBar(
@@ -95,7 +99,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.camera_alt), onPressed: () {}),
+            child: Icon(Icons.camera_alt), onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CameraPage()),
+          );
+        }),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Center(
             child: ListView(shrinkWrap: true, children: <Widget>[
