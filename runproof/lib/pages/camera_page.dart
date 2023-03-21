@@ -346,32 +346,8 @@ class ScalableOCRState extends State<ScalableOCR> {
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-// >>>>>>> Stashed changes
-// // class RecognitionTest extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return MaterialApp(
-// //       debugShowCheckedModeBanner: false,
-// //       theme: ThemeData(
-// //         primarySwatch: Colors.lightBlue,
-// //         visualDensity: VisualDensity.adaptivePlatformDensity,
-// //         primaryTextTheme: TextTheme(
-// //           headline6: TextStyle(color: Colors.white),
-// //         ),
-// //       ),
-// //       home: Scaffold(
-// //         drawer: const DrawerWidget(title: 'Hej'),
-// //         body: ChangeNotifierProvider(
-// //           create: (_) => TextRecognitionState(),
-// //           child: TextRecognitionPage(),
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-// <<<<<<< Updated upstream
-// //
-// =======
+    processImage(inputImage);
+  }
 
     final inputImageFormat =
         InputImageFormatValue.fromRawValue(image.format.raw);
