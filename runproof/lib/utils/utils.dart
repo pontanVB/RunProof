@@ -8,12 +8,20 @@ import 'dart:convert';
 
 class PatientsModel with ChangeNotifier {
   List<Map> _patientsList = [];
+  String _searchTerm = "";
 
   PatientsModel() {
     _loadDataFromPrefs();
   }
 
   int _activeIndex = 0;
+
+  String get searchTerm => _searchTerm;
+
+  set searchTerm(searchTerm) {
+    _searchTerm = searchTerm;
+    notifyListeners();
+  }
 
   Map get activePatient => _patientsList[_activeIndex];
 
