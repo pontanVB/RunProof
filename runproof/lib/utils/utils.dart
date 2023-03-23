@@ -89,7 +89,6 @@ class PatientsModel with ChangeNotifier {
     // adding all attributes (keys)
 
     Map<String, dynamic> attributes = {
-<<<<<<< HEAD
       "isVal": false,
       "isNotVal": false,
       "isKon": false,
@@ -110,12 +109,12 @@ class PatientsModel with ChangeNotifier {
       "overkanslighet": "",
       "blodsmitta": "",
       "läkemedel": "",
-      "anamnes": ""
-=======
+      "anamnes": "",
       "injury": <String, dynamic>{},
       "sickness": <String, dynamic>{},
       "filled_options": 0,
->>>>>>> rikards-branch
+      "puls": "",
+      "blodtryck": "",
     };
 
     _patientsList[_activeIndex].addAll(attributes);
