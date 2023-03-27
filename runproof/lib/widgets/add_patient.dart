@@ -25,18 +25,7 @@ class AddNewPatient extends StatelessWidget {
           Padding(padding: EdgeInsets.all(7.0)),
           Row(
             children: [
-              Icon(Icons.person_outline),
-              Expanded(
-                child: Text(
-                  'Löparnummer: ',
-                ),
-              ),
-            ],
-          ),
-          Padding(padding: EdgeInsets.all(7.0)),
-          Row(
-            children: [
-              Icon(Icons.schedule),
+              Icon(Icons.person),
               Expanded(
                 child: Text(
                   'Name: ',
@@ -47,7 +36,7 @@ class AddNewPatient extends StatelessWidget {
           Padding(padding: EdgeInsets.all(7.0)),
           Row(
             children: [
-              Icon(Icons.description),
+              Icon(Icons.numbers),
               Expanded(
                 child: Text(
                   'Personnummer: ',

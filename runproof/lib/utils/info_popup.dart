@@ -37,50 +37,65 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
             showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text('Löparinformation:'),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                contentPadding: const EdgeInsets.all(40),
+                title: const Text('Löparinformation:', textAlign: TextAlign.center, style: TextStyle(fontSize: 25),),
+                backgroundColor: const Color(0xFF94B0DA),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(padding: EdgeInsets.all(7.0)),
+                    const Text('Löparnummer:' ),
                     Row(
                       children: [
-                        Icon(Icons.numbers),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.document_scanner_outlined, size: 40),
+                        ),
                         Expanded(
-                          child: Text(
-                            'Löparnummer: $runningNumber',
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white,),
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              '$runningNumber', style: TextStyle(fontSize: 25), textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.all(7.0)),
+                    const Padding(padding: EdgeInsets.all(15.0)),
+                    const Text('Namn:' ),
                     Row(
                       children: [
-                        Icon(Icons.person_outline),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.person_2_outlined, size: 40),
+                        ),
                         Expanded(
-                          child: Text(
-                            'Löparnummer: $runningNumber',
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white,),
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              '$name', textAlign: TextAlign.center, style: const TextStyle(fontSize: 25),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.all(7.0)),
+                    const Padding(padding: EdgeInsets.all(15)),
+                    const Text('Personnummer:'),
                     Row(
                       children: [
-                        Icon(Icons.schedule),
-                        Expanded(
-                          child: Text(
-                            'Name: $name',
-                          ),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.numbers, size: 40),
                         ),
-                      ],
-                    ),
-                    Padding(padding: EdgeInsets.all(7.0)),
-                    Row(
-                      children: [
-                        Icon(Icons.description),
                         Expanded(
-                          child: Text(
-                            'Personnummer: $idNumber',
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white,),
+                            padding: const EdgeInsets.all(5),
+                            child: Text(
+                              '$idNumber', textAlign: TextAlign.center, style: const TextStyle(fontSize: 25),
+                            ),
                           ),
                         ),
                       ],
@@ -88,30 +103,41 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                   ],
                 ),
                 actions: <Widget>[
-                  ElevatedButton(
-                    child: Text("Lägg till"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ChoicePage()));
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ChoicePage()));
 
-                      Provider.of<PatientsModel>(context, listen: false)
-                          .addPatient(
+                          Provider.of<PatientsModel>(context, listen: false)
+                              .addPatient(
                               {"name": name, "runningNumber": runningNumber});
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF75C883),
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Avbryt'),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent))
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: const Color(0xFF75C883),
+                        ),
+                        child: const Text("Lägg till", style: TextStyle(fontSize: 18),),
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              backgroundColor: Colors.redAccent),
+                          child: const Text('Avbryt', style: TextStyle(fontSize: 18),)
+                      ),
+                      const Spacer(),
+                    ],),
+                  )
                 ],
               ),
             )
