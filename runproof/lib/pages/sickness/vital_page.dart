@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:gbg_varvet/utils/utils.dart';
-import 'package:gbg_varvet/pages/behandling_page.dart';
+import 'package:gbg_varvet/pages/sickness/behandling_page.dart';
 
 class VitalPage extends StatefulWidget {
   const VitalPage({super.key});

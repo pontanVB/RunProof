@@ -3,18 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gbg_varvet/pages/behandling_page.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
-import "package:provider/provider.dart";
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
-import 'package:gbg_varvet/pages/utceck_page.dart';
+import 'package:gbg_varvet/pages/sickness/diag_page.dart';
 
-class DiagPage extends StatefulWidget {
-  const DiagPage({super.key});
+class BehandlingPage extends StatefulWidget {
+  const BehandlingPage({super.key});
 
   @override
-  _DiagPageState createState() => _DiagPageState();
+  _BehandlingPageState createState() => _BehandlingPageState();
 }
 
 class CommaFormatter extends TextInputFormatter {
@@ -30,27 +29,24 @@ class CommaFormatter extends TextInputFormatter {
   }
 }
 
-class _DiagPageState extends State<DiagPage> {
-  bool isAnd = true;
-  bool isBrost = true;
-  bool isBuk = true;
-  bool isSvim = true;
+class _BehandlingPageState extends State<BehandlingPage> {
+  bool isIntra = true;
+  bool isGlucos = true;
+  bool isBenso = true;
+  bool inhalisPressed = true;
 
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
-
-  final List<Map> myProducts =
-      List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-          .toList();
 
   @override
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     print("$patient");
-    TextEditingController diagKommentar =
-        TextEditingController(text: patient["diagnos"]);
+
+    TextEditingController behandKommentar =
+        TextEditingController(text: patient["behandling"]);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -80,7 +76,7 @@ class _DiagPageState extends State<DiagPage> {
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
-                                  child: Text('HUVUDDIAGNOS',
+                                  child: Text('BEHANDLING',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 25,
@@ -109,18 +105,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isAnd = !isAnd;
+                                isIntra = !isIntra;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Andningssvårighet',
+                          child: Text('Intravenös vätska',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isAnd
+                            primary: isIntra
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -138,18 +134,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBrost = !isBrost;
+                                isGlucos = !isGlucos;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Bröstsmärta',
+                          child: Text('Glukos',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBrost
+                            primary: isGlucos
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -167,18 +163,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBuk = !isBuk;
+                                isBenso = !isBenso;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Buksmärta',
+                          child: Text('Benso diasepiner',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBuk
+                            primary: isBenso
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -197,18 +193,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isSvim = !isSvim;
+                                inhalisPressed = !inhalisPressed;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Svimning',
+                          child: Text('Inhalation',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isSvim
+                            primary: inhalisPressed
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -229,8 +225,8 @@ class _DiagPageState extends State<DiagPage> {
                               children: [
                                 TextFormField(
                                     onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("diagnos", value),
-                                    controller: diagKommentar,
+                                        .setAttribute("bahandling", value),
+                                    controller: behandKommentar,
                                     minLines: 4,
                                     maxLines: 6,
                                     keyboardType: TextInputType.multiline,
@@ -269,7 +265,7 @@ class _DiagPageState extends State<DiagPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const UtcheckPage()))
+                                              const DiagPage()))
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.green,

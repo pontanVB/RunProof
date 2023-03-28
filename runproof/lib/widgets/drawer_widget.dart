@@ -4,7 +4,7 @@ import 'package:gbg_varvet/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:gbg_varvet/utils/db_functions.dart';
-import "package:gbg_varvet/pages/form_page.dart";
+import "package:gbg_varvet/pages/sickness/vital_page.dart";
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key, required this.title});
@@ -151,7 +151,7 @@ class _PatientsList extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) =>
                             patientsList.activePatient["type"] == "sickness"
-                                ? const FormPage()
+                                ? const VitalPage()
                                 : const InjuryPage()));
               },
             ),

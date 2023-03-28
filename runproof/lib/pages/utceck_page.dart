@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gbg_varvet/pages/behandling_page.dart';
+import 'package:gbg_varvet/pages/sickness/behandling_page.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import "package:provider/provider.dart";
 import 'package:flutter/services.dart';
