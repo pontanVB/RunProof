@@ -3,18 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gbg_varvet/pages/behandling_page.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
-import "package:provider/provider.dart";
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/pages/diag_page.dart';
 import 'package:gbg_varvet/pages/utceck_page.dart';
 
-class DiagPage extends StatefulWidget {
-  const DiagPage({super.key});
+class InjuryPage extends StatefulWidget {
+  const InjuryPage({super.key});
 
   @override
-  _DiagPageState createState() => _DiagPageState();
+  _InjuryPageState createState() => _InjuryPageState();
 }
 
 class CommaFormatter extends TextInputFormatter {
@@ -30,27 +30,24 @@ class CommaFormatter extends TextInputFormatter {
   }
 }
 
-class _DiagPageState extends State<DiagPage> {
-  bool isAnd = true;
-  bool isBrost = true;
-  bool isBuk = true;
-  bool isSvim = true;
+class _InjuryPageState extends State<InjuryPage> {
+  bool isSkav = true;
+  bool isFotled = true;
+  bool isMuskel = true;
+  bool isKramp = true;
 
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
-
-  final List<Map> myProducts =
-      List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-          .toList();
 
   @override
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     print("$patient");
-    TextEditingController diagKommentar =
-        TextEditingController(text: patient["diagnos"]);
+
+    TextEditingController skadaKommentar =
+        TextEditingController(text: patient["skada"]);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -80,7 +77,7 @@ class _DiagPageState extends State<DiagPage> {
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
-                                  child: Text('HUVUDDIAGNOS',
+                                  child: Text('SKADA',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 25,
@@ -109,18 +106,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isAnd = !isAnd;
+                                isSkav = !isSkav;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Andningssvårighet',
+                          child: Text('Skavsår',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isAnd
+                            primary: isSkav
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -138,18 +135,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBrost = !isBrost;
+                                isFotled = !isFotled;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Bröstsmärta',
+                          child: Text('Stukad fotled',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBrost
+                            primary: isFotled
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -167,18 +164,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBuk = !isBuk;
+                                isMuskel = !isMuskel;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Buksmärta',
+                          child: Text('Muskelvärk',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBuk
+                            primary: isMuskel
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -197,18 +194,18 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isSvim = !isSvim;
+                                isKramp = !isKramp;
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Svimning',
+                          child: Text('Kramp',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isSvim
+                            primary: isKramp
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -229,8 +226,8 @@ class _DiagPageState extends State<DiagPage> {
                               children: [
                                 TextFormField(
                                     onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("diagnos", value),
-                                    controller: diagKommentar,
+                                        .setAttribute("skada", value),
+                                    controller: skadaKommentar,
                                     minLines: 4,
                                     maxLines: 6,
                                     keyboardType: TextInputType.multiline,

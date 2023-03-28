@@ -48,18 +48,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
     Map patient = patientsModel.activePatient;
 
     print("$patient");
-    bool isVal = patient["isVal"];
-    bool isNotVal = patient["isNotVal"];
-    bool isKon = patient["isKon"];
-    bool isOko = patient["isOko"];
-    bool isKra = patient["isKra"];
-    bool isSal = patient["isSal"];
-    bool isOver = patient["isOver"];
-    bool isNotOver = patient["isNotOver"];
-    TextEditingController tempController =
-        TextEditingController(text: patient["temp"]);
-    TextEditingController overKommentar =
-        TextEditingController(text: patient["overkanslighet"]);
+    TextEditingController checkKommentar =
+        TextEditingController(text: patient["utcheckning"]);
 
     final String datetime = patient.containsKey("startTime")
         ? patient["startTime"]
@@ -86,23 +76,31 @@ class _UtcheckPageState extends State<UtcheckPage> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Center(
-                        child: Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 1),
-                            child: Text('UTCHECKNING',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold)))),
-                  ),
-                  Divider(
-                    height: 10,
-                    thickness: 2,
-                    color: Colors.black,
-                    indent: 20,
-                    endIndent: 20,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 187, 205, 231)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 20, bottom: 1),
+                                  child: Text('UTCHECKNING',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold)))),
+                        ),
+                        Divider(
+                          height: 10,
+                          thickness: 2,
+                          color: Colors.black,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                      ],
+                    ),
                   ),
                   Center(
                     child: TextFormField(
@@ -120,7 +118,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                        bottom: 15.0, left: 15, right: 15, top: 30),
                     child: Center(
                       child: SizedBox(
                         width: 350,
@@ -149,7 +148,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Center(
                       child: SizedBox(
                         width: 350,
@@ -178,7 +177,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Center(
                       child: SizedBox(
                         width: 350,
@@ -207,7 +206,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: 10, left: 30),
+                      padding: EdgeInsets.only(top: 20, left: 30),
                       child: Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
@@ -219,8 +218,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               children: [
                                 TextFormField(
                                     onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("overkanslighet", value),
-                                    controller: overKommentar,
+                                        .setAttribute("utcheckning", value),
+                                    controller: checkKommentar,
                                     minLines: 4,
                                     maxLines: 6,
                                     keyboardType: TextInputType.multiline,

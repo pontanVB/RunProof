@@ -67,23 +67,33 @@ class _VitalPageState extends State<VitalPage> {
       body: ListView(
         key: _formKey,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: const Center(
-                child: Text("VITALPARAMETRAR",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold))),
+          Container(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 187, 205, 231)),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Center(
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 20, bottom: 1),
+                          child: Text('VITALPARAMETRAR',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold)))),
+                ),
+                Divider(
+                  height: 10,
+                  thickness: 2,
+                  color: Colors.black,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 20, width: 20),
-          Divider(
-            height: 10,
-            thickness: 2,
-            color: Colors.black,
-            indent: 20,
-            endIndent: 20,
-          ),
+          const SizedBox(height: 8, width: 20),
           Center(
             child: TextFormField(
                 textAlign: TextAlign.center,

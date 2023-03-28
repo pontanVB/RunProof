@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import "package:gbg_varvet/pages/form_page.dart";
 import "package:gbg_varvet/utils/utils.dart";
 import "package:provider/provider.dart";
-import "package:gbg_varvet/pages/injury/injury_page.dart";
 import "package:gbg_varvet/pages/vital_page.dart";
+import "package:gbg_varvet/pages/injury_page.dart";
 
 class ChoicePage extends StatelessWidget {
   const ChoicePage({super.key});
