@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AuthPage(),
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromARGB(255, 31, 74, 123),
+        scaffoldBackgroundColor: Colors.white,
         //brightness: Brightness.dark,
-        primaryColor: Color.fromARGB(255, 31, 74, 123),
+        primaryColor: Colors.white,
         primarySwatch: Colors.blue,
         unselectedWidgetColor: Colors.white,
         // Define the default font family.
