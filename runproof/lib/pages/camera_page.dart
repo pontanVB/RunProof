@@ -14,7 +14,6 @@ import 'package:camera/camera.dart';
 
 //Largely based on https://pub.dev/packages/flutter_scalable_ocr
 
-
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
 
@@ -44,17 +43,16 @@ class _CameraPageState extends State<CameraPage> {
     late String currentText;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1F4A7B),
+      backgroundColor: Colors.white,
       drawer: const DrawerWidget(title: "RunProof"),
       appBar: AppBar(
         title: Image.asset('assets/images/runprooflogo.png',
             fit: BoxFit.contain, height: 60),
-        backgroundColor: const Color.fromARGB(255, 142, 184, 223),
+        backgroundColor: const Color.fromARGB(255, 16, 47, 83),
       ),
       body: Column(
         children: <Widget>[
           ScalableOCR(
-
               paintboxCustom: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = 4.0
@@ -68,31 +66,33 @@ class _CameraPageState extends State<CameraPage> {
                 inspect(value);
               },
               getScannedText: (value) {
-                setText(value);}
-          ),
+                setText(value);
+              }),
           Center(
-              child:
-              StreamBuilder<String>(
-                stream: controller.stream,
-                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  currentText = snapshot.data != null ? snapshot.data! : "";
-                  currentText = currentText.replaceAll(RegExp(r'[^0-9]'),'');
-                  return Result(text: currentText);
-                },)
-          ),
-          Center(
-            child:
-            ElevatedButton(
-                onPressed: () {
-                  patientModel.searchTerm = currentText;
-                  Navigator.pop(context); },
-                child: const Text("Acceptera resultat",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )
-                )
+              child: StreamBuilder<String>(
+            stream: controller.stream,
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              currentText = snapshot.data != null ? snapshot.data! : "";
+              currentText = currentText.replaceAll(RegExp(r'[^0-9]'), '');
+              return Result(text: currentText);
+            },
+          )),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Center(
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 66, 190, 122)),
+                  onPressed: () {
+                    patientModel.searchTerm = currentText;
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Acceptera resultat",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ))),
             ),
           ),
         ],
@@ -109,49 +109,49 @@ class Result extends StatelessWidget {
 
   final String text;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 187, 205, 231),
+            borderRadius: BorderRadius.circular(20)),
         width: 300,
-        child: Row(
-            children: [
-              const Text(
-                "Nr: ",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "$text",
-                style: const TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ])
-    );
+        child: Row(children: [
+          const Text(
+            "Nr: ",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "$text",
+            style: const TextStyle(
+              overflow: TextOverflow.ellipsis,
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ]));
   }
 }
-
 
 @override
 class ScalableOCR extends StatefulWidget {
   const ScalableOCR(
       {Key? key,
-        this.boxLeftOff = 4,
-        this.boxRightOff = 4,
-        this.boxBottomOff = 2.7,
-        this.boxTopOff = 2.7,
-        this.boxHeight,
-        required this.getScannedText,
-        this.getRawData,
-        this.paintboxCustom})
+      this.boxLeftOff = 4,
+      this.boxRightOff = 4,
+      this.boxBottomOff = 2.7,
+      this.boxTopOff = 2.7,
+      this.boxHeight,
+      required this.getScannedText,
+      this.getRawData,
+      this.paintboxCustom})
       : super(key: key);
 
   /// Offset on recalculated image left
@@ -225,12 +225,12 @@ class ScalableOCRState extends State<ScalableOCR> {
           child: Column(
             children: [
               _controller == null ||
-                  _controller?.value == null ||
-                  _controller?.value.isInitialized == false
+                      _controller?.value == null ||
+                      _controller?.value.isInitialized == false
                   ? Container(
-                width: MediaQuery.of(context).size.width,
-                height: sizeH * 19,
-              )
+                      width: MediaQuery.of(context).size.width,
+                      height: sizeH * 19,
+                    )
                   : _liveFeedBody(),
               SizedBox(height: sizeH * 2),
             ],
@@ -255,7 +255,7 @@ class ScalableOCRState extends State<ScalableOCR> {
             Center(
               child: SizedBox(
                 height:
-                widget.boxHeight ?? MediaQuery.of(context).size.height / 5,
+                    widget.boxHeight ?? MediaQuery.of(context).size.height / 5,
                 key: cameraPrev,
                 child: AspectRatio(
                   aspectRatio: 1 / previewAspectRatio,
@@ -267,8 +267,8 @@ class ScalableOCRState extends State<ScalableOCR> {
                             previewAspectRatio,
                         child: Center(
                           child: CameraPreview(cameraController, child:
-                          LayoutBuilder(builder: (BuildContext context,
-                              BoxConstraints constraints) {
+                              LayoutBuilder(builder: (BuildContext context,
+                                  BoxConstraints constraints) {
                             maxWidth = constraints.maxWidth;
                             maxHeight = constraints.maxHeight;
 
@@ -290,17 +290,17 @@ class ScalableOCRState extends State<ScalableOCR> {
             if (customPaint != null)
               LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    maxWidth = constraints.maxWidth;
-                    maxHeight = constraints.maxHeight;
-                    return GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onScaleStart: _handleScaleStart,
-                      onScaleUpdate: _handleScaleUpdate,
-                      onTapDown: (TapDownDetails details) =>
-                          onViewFinderTap(details, constraints),
-                      child: customPaint!,
-                    );
-                  }),
+                maxWidth = constraints.maxWidth;
+                maxHeight = constraints.maxHeight;
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onScaleStart: _handleScaleStart,
+                  onScaleUpdate: _handleScaleUpdate,
+                  onTapDown: (TapDownDetails details) =>
+                      onViewFinderTap(details, constraints),
+                  child: customPaint!,
+                );
+              }),
           ],
         ),
       );
@@ -353,19 +353,19 @@ class ScalableOCRState extends State<ScalableOCR> {
     final bytes = allBytes.done().buffer.asUint8List();
 
     final Size imageSize =
-    Size(image.width.toDouble(), image.height.toDouble());
+        Size(image.width.toDouble(), image.height.toDouble());
 
     final camera = _cameras[0];
     final imageRotation =
-    InputImageRotationValue.fromRawValue(camera.sensorOrientation);
+        InputImageRotationValue.fromRawValue(camera.sensorOrientation);
     if (imageRotation == null) return;
 
     final inputImageFormat =
-    InputImageFormatValue.fromRawValue(image.format.raw);
+        InputImageFormatValue.fromRawValue(image.format.raw);
     if (inputImageFormat == null) return;
 
     final planeData = image.planes.map(
-          (Plane plane) {
+      (Plane plane) {
         return InputImagePlaneMetadata(
           bytesPerRow: plane.bytesPerRow,
           height: plane.height,
@@ -382,7 +382,7 @@ class ScalableOCRState extends State<ScalableOCR> {
     );
 
     final inputImage =
-    InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
+        InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
 
     processImage(inputImage);
   }
@@ -439,7 +439,7 @@ class ScalableOCRState extends State<ScalableOCR> {
         inputImage.inputImageData?.imageRotation != null &&
         cameraPrev.currentContext != null) {
       final RenderBox renderBox =
-      cameraPrev.currentContext?.findRenderObject() as RenderBox;
+          cameraPrev.currentContext?.findRenderObject() as RenderBox;
 
       var painter = TextRecognizerPainter(
           recognizedText,
