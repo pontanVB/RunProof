@@ -8,6 +8,8 @@ import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import "package:provider/provider.dart";
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/utils/db_functions.dart';
+import '../utils/info_popup.dart';
 
 class UtcheckPage extends StatefulWidget {
   const UtcheckPage({super.key});
@@ -30,17 +32,9 @@ class CommaFormatter extends TextInputFormatter {
 }
 
 class _UtcheckPageState extends State<UtcheckPage> {
-  bool isHem = true;
-  bool isSjuk = true;
-  bool isForts = true;
-
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
-
-  final List<Map> myProducts =
-      List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-          .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +44,10 @@ class _UtcheckPageState extends State<UtcheckPage> {
     print("$patient");
     TextEditingController checkKommentar =
         TextEditingController(text: patient["utcheckning"]);
+
+    bool isHem = true;
+    bool isSjuk = true;
+    bool isForts = true;
 
     final String datetime = patient.containsKey("startTime")
         ? patient["startTime"]
@@ -66,10 +64,28 @@ class _UtcheckPageState extends State<UtcheckPage> {
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
           appBar: AppBar(
-            centerTitle: true,
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            actions: [
+              Row(
+                children: [
+                  Center(
+                      child: ElevatedButton(
+                    onPressed: () => SavePopup(context),
+                    child: const Text("PAUSA"),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                        fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                  )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  )
+                ],
+              ),
+            ],
           ),
           body: Form(
               key: _formKey,
@@ -80,9 +96,9 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     decoration: BoxDecoration(
                         color: Color.fromARGB(255, 187, 205, 231)),
                     child: Column(
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.only(bottom: 10),
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
@@ -254,11 +270,10 @@ class _UtcheckPageState extends State<UtcheckPage> {
                             child: ElevatedButton(
                               onPressed: () => {
                                 if (_formKey.currentState!.validate())
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const BehandlingPage()))
+                                  {
+                                    Navigator.of(context)
+                                        .popUntil((route) => route.isFirst)
+                                  }
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.green,

@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/utils/info_popup.dart';
 import 'package:gbg_varvet/pages/sickness/diag_page.dart';
 
 class BehandlingPage extends StatefulWidget {
@@ -30,11 +29,6 @@ class CommaFormatter extends TextInputFormatter {
 }
 
 class _BehandlingPageState extends State<BehandlingPage> {
-  bool isIntra = true;
-  bool isGlucos = true;
-  bool isBenso = true;
-  bool inhalisPressed = true;
-
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
@@ -43,7 +37,10 @@ class _BehandlingPageState extends State<BehandlingPage> {
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
-    print("$patient");
+    bool intravenousFluid = patient["sickness"]["intravenousFluid"] ?? true;
+    bool glucose = patient["sickness"]["givenGlucose"] ?? true;
+    bool benso = patient["sickness"]["benso"] ?? true;
+    bool inhalation = patient["sickness"]["inhalation"] ?? true;
 
     TextEditingController behandKommentar =
         TextEditingController(text: patient["behandling"]);
@@ -56,10 +53,28 @@ class _BehandlingPageState extends State<BehandlingPage> {
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
           appBar: AppBar(
-            centerTitle: true,
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            actions: [
+              Row(
+                children: [
+                  Center(
+                      child: ElevatedButton(
+                    onPressed: () => SavePopup(context),
+                    child: const Text("PAUSA"),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                        fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                  )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  )
+                ],
+              ),
+            ],
           ),
           body: Form(
               key: _formKey,
@@ -70,9 +85,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     decoration: BoxDecoration(
                         color: Color.fromARGB(255, 187, 205, 231)),
                     child: Column(
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 10),
+                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
@@ -105,7 +120,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isIntra = !isIntra;
+                                intravenousFluid = !intravenousFluid;
+                                patientsModel.setAttribute("intravenousFluid",
+                                    intravenousFluid, "sickness");
                               },
                             );
                           },
@@ -116,7 +133,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isIntra
+                            primary: intravenousFluid
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -134,7 +151,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isGlucos = !isGlucos;
+                                glucose = !glucose;
+                                patientsModel.setAttribute(
+                                    "givenGlucose", glucose, "sickness");
                               },
                             );
                           },
@@ -145,7 +164,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isGlucos
+                            primary: glucose
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -163,7 +182,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBenso = !isBenso;
+                                benso = !benso;
+                                patientsModel.setAttribute(
+                                    "benso", benso, "sickness");
                               },
                             );
                           },
@@ -174,7 +195,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBenso
+                            primary: benso
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -193,7 +214,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                           onPressed: () {
                             setState(
                               () {
-                                inhalisPressed = !inhalisPressed;
+                                inhalation = !inhalation;
+                                patientsModel.setAttribute(
+                                    "inhalation", inhalation, "sickness");
                               },
                             );
                           },
@@ -204,7 +227,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: inhalisPressed
+                            primary: inhalation
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -224,8 +247,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextFormField(
-                                    onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("bahandling", value),
+                                    onFieldSubmitted: (value) =>
+                                        patientsModel.setAttribute(
+                                            "bahandling", value, "sickness"),
                                     controller: behandKommentar,
                                     minLines: 4,
                                     maxLines: 6,

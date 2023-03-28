@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/pages/utceck_page.dart';
 
+import '../../utils/info_popup.dart';
+
 class DiagPage extends StatefulWidget {
   const DiagPage({super.key});
 
@@ -30,24 +32,19 @@ class CommaFormatter extends TextInputFormatter {
 }
 
 class _DiagPageState extends State<DiagPage> {
-  bool isAnd = true;
-  bool isBrost = true;
-  bool isBuk = true;
-  bool isSvim = true;
-
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
-
-  final List<Map> myProducts =
-      List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-          .toList();
 
   @override
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
-    print("$patient");
+    bool breathingDifficulty =
+        patient["sickness"]["breathingDifficulty"] ?? true;
+    bool chestPain = patient["sickness"]["chestPain"] ?? true;
+    bool stomachAche = patient["sickness"]["stomachAche"] ?? true;
+    bool fainted = patient["sickness"]["fainted"] ?? true;
     TextEditingController diagKommentar =
         TextEditingController(text: patient["diagnos"]);
 
@@ -59,10 +56,28 @@ class _DiagPageState extends State<DiagPage> {
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
           appBar: AppBar(
-            centerTitle: true,
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            actions: [
+              Row(
+                children: [
+                  Center(
+                      child: ElevatedButton(
+                    onPressed: () => SavePopup(context),
+                    child: const Text("PAUSA"),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                        fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                  )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  )
+                ],
+              ),
+            ],
           ),
           body: Form(
               key: _formKey,
@@ -73,9 +88,9 @@ class _DiagPageState extends State<DiagPage> {
                     decoration: BoxDecoration(
                         color: Color.fromARGB(255, 187, 205, 231)),
                     child: Column(
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 10),
+                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
@@ -86,7 +101,7 @@ class _DiagPageState extends State<DiagPage> {
                                           fontWeight: FontWeight.bold)))),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Divider(
                             height: 10,
                             thickness: 2,
@@ -108,7 +123,11 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isAnd = !isAnd;
+                                breathingDifficulty = !breathingDifficulty;
+                                patientsModel.setAttribute(
+                                    "breathingDifficulty",
+                                    breathingDifficulty,
+                                    "sickness");
                               },
                             );
                           },
@@ -119,7 +138,7 @@ class _DiagPageState extends State<DiagPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isAnd
+                            primary: breathingDifficulty
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -137,7 +156,9 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBrost = !isBrost;
+                                chestPain = !chestPain;
+                                patientsModel.setAttribute(
+                                    "chestPain", chestPain, "sickness");
                               },
                             );
                           },
@@ -148,7 +169,7 @@ class _DiagPageState extends State<DiagPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBrost
+                            primary: chestPain
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -166,7 +187,9 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isBuk = !isBuk;
+                                stomachAche = !stomachAche;
+                                patientsModel.setAttribute(
+                                    "stomachAche", stomachAche, "sickness");
                               },
                             );
                           },
@@ -177,7 +200,7 @@ class _DiagPageState extends State<DiagPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isBuk
+                            primary: stomachAche
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -196,7 +219,9 @@ class _DiagPageState extends State<DiagPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isSvim = !isSvim;
+                                fainted = !fainted;
+                                patientsModel.setAttribute(
+                                    "fainted", fainted, "sickness");
                               },
                             );
                           },
@@ -207,7 +232,7 @@ class _DiagPageState extends State<DiagPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isSvim
+                            primary: fainted
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
