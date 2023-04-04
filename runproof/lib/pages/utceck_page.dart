@@ -42,12 +42,12 @@ class _UtcheckPageState extends State<UtcheckPage> {
     Map patient = patientsModel.activePatient;
 
     print("$patient");
-    TextEditingController checkKommentar =
-        TextEditingController(text: patient["utcheckning"]);
+    TextEditingController checkComment =
+        TextEditingController(text: patient["checkComment"]);
 
-    bool isHem = true;
-    bool isSjuk = true;
-    bool isForts = true;
+    bool goingHome = patient["goingHome"] ?? true;
+    bool hospital = patient["hospital"] ?? true;
+    bool continueing = patient["continueing"] ?? true;
 
     final String datetime = patient.containsKey("startTime")
         ? patient["startTime"]
@@ -144,7 +144,9 @@ class _UtcheckPageState extends State<UtcheckPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isHem = !isHem;
+                                goingHome = !goingHome;
+                                patientsModel.setAttribute(
+                                    "goingHome", goingHome);
                               },
                             );
                           },
@@ -155,7 +157,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isHem
+                            primary: goingHome
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -173,7 +175,9 @@ class _UtcheckPageState extends State<UtcheckPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isSjuk = !isSjuk;
+                                hospital = !hospital;
+                                patientsModel.setAttribute(
+                                    "hospital", hospital);
                               },
                             );
                           },
@@ -184,7 +188,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isSjuk
+                            primary: hospital
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -202,7 +206,9 @@ class _UtcheckPageState extends State<UtcheckPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isForts = !isForts;
+                                continueing = !continueing;
+                                patientsModel.setAttribute(
+                                    "continueing", continueing);
                               },
                             );
                           },
@@ -213,7 +219,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isForts
+                            primary: continueing
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -234,8 +240,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               children: [
                                 TextFormField(
                                     onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("utcheckning", value),
-                                    controller: checkKommentar,
+                                        .setAttribute("checkComment", value),
+                                    controller: checkComment,
                                     minLines: 4,
                                     maxLines: 6,
                                     keyboardType: TextInputType.multiline,
@@ -271,6 +277,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               onPressed: () => {
                                 if (_formKey.currentState!.validate())
                                   {
+                                    sendToDatabase(patient, "4"),
                                     Navigator.of(context)
                                         .popUntil((route) => route.isFirst)
                                   }

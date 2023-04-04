@@ -19,7 +19,7 @@ void signUserOut() {
   FirebaseAuth.instance.signOut();
 }
 
-void sendToDatabase(Map<String, dynamic> payload, String id) {
+void sendToDatabase(Map<dynamic, dynamic> payload, String id) {
   ref.child("/$id").set(payload);
   print(payload);
 }

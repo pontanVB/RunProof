@@ -145,7 +145,7 @@ class _PatientsList extends StatelessWidget {
               onTap: () {
                 patientsList.setActiveIndex(index);
                 Navigator.of(context).pop();
-                Navigator.of(context).popUntil((route) => true);
+                Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

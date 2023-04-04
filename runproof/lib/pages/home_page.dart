@@ -69,157 +69,163 @@ class _HomePageState extends State<HomePage> {
     var patientModel = context.watch<PatientsModel>();
     final searchController =
         TextEditingController(text: patientModel.searchTerm);
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.cover, height: 60.0, width: 60.0),
-            centerTitle: true,
-            backgroundColor: Color.fromARGB(255, 16, 47, 83),
-            actions: <Widget>[
-              IconButton(
-                  onPressed: _showMyDialog,
-                  icon: const Icon(Icons.logout_outlined))
-            ]),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: Row(
-            children: [
-              Spacer(),
-              IconButton(
-                  icon: Icon(Icons.add, color: Colors.grey),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const FormPage()));
-                    // var patients = context.read<PatientsModel>();
-                  }),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton.large(
-            backgroundColor: Colors.grey,
-            child: Icon(
-              Icons.camera_alt,
+    return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onVerticalDragEnd: (DragEndDetails details) =>
+            FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+                title: Image.asset('assets/images/runprooflogo.png',
+                    fit: BoxFit.cover, height: 60.0, width: 60.0),
+                centerTitle: true,
+                backgroundColor: Color.fromARGB(255, 16, 47, 83),
+                actions: <Widget>[
+                  IconButton(
+                      onPressed: _showMyDialog,
+                      icon: const Icon(Icons.logout_outlined))
+                ]),
+            bottomNavigationBar: BottomAppBar(
               color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CameraPage()),
-              );
-            }),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: Center(
-            child: ListView(shrinkWrap: true, children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40.0, top: 60),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Center(
-                      child: Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 1),
-                          child: Text('SKANNA LÖPARNUMMER',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold)))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Divider(
-                    height: 10,
-                    thickness: 2,
-                    color: Colors.black,
-                    indent: 20,
-                    endIndent: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 187, 205, 231),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(
+              child: Row(
                 children: [
-                  const Center(
-                      child: Text(
-                    'Eller ange löparnummer manuellt',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  )),
-                  Padding(padding: EdgeInsets.all(7.0)),
-                  Center(
-                    child: SizedBox(
-                      width: 300,
-                      child: TextField(
-                        controller: searchController,
-                        decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0)),
-                            ),
-                            hintText: "Löparnummer"),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                  ),
+                  Spacer(),
+                  IconButton(
+                      icon: Icon(Icons.add, color: Colors.grey),
+                      onPressed: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const FormPage()));
+                        // var patients = context.read<PatientsModel>();
+                      }),
                 ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 5.0, top: 40),
-            child: Center(
-              child: SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                    onPressed: () {
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (BuildContext context) {
-                      //       return Dialog(child: AddNewPatient());
-                      //     });
-                      runnerInfoPopup(context, searchController.text);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
-                        primary: Color.fromARGB(255, 66, 190, 122)),
-                    child: const Text('Lägg till')),
+            floatingActionButton: FloatingActionButton.large(
+                backgroundColor: Colors.grey,
+                child: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CameraPage()),
+                  );
+                }),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            body: Center(
+                child: ListView(shrinkWrap: true, children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40.0, top: 60),
+                child: Column(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Center(
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 20, bottom: 1),
+                              child: Text('SKANNA LÖPARNUMMER',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold)))),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Divider(
+                        height: 10,
+                        thickness: 2,
+                        color: Colors.black,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: SizedBox(
-              width: 50,
-              child: ElevatedButton(
-                  onPressed: () {
-                    var patientsModel = context.read<PatientsModel>();
-                    patientsModel.removePatient(0);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      primary: Color.fromARGB(255, 208, 56, 71)),
-                  child: const Text("Ta bort patient")),
-            ),
-          ),
-        ])),
-        drawer: DrawerWidget(title: "Hej"));
+              Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 187, 205, 231),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    children: [
+                      const Center(
+                          child: Text(
+                        'Eller ange löparnummer manuellt',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      )),
+                      Padding(padding: EdgeInsets.all(7.0)),
+                      Center(
+                        child: SizedBox(
+                          width: 300,
+                          child: TextField(
+                            controller: searchController,
+                            decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50.0)),
+                                ),
+                                hintText: "Löparnummer"),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0, top: 40),
+                child: Center(
+                  child: SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (BuildContext context) {
+                          //       return Dialog(child: AddNewPatient());
+                          //     });
+                          print("TEEEXT ${searchController.text}");
+                          runnerInfoPopup(context, searchController.text);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            primary: Color.fromARGB(255, 66, 190, 122)),
+                        child: const Text('Lägg till')),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: SizedBox(
+                  width: 50,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        var patientsModel = context.read<PatientsModel>();
+                        patientsModel.removePatient(0);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          primary: Color.fromARGB(255, 208, 56, 71)),
+                      child: const Text("Ta bort patient")),
+                ),
+              ),
+            ])),
+            drawer: DrawerWidget(title: "Hej")));
   }
 }

@@ -29,11 +29,6 @@ class CommaFormatter extends TextInputFormatter {
 }
 
 class _InjuryPageState extends State<InjuryPage> {
-  bool isSkav = true;
-  bool isFotled = true;
-  bool isMuskel = true;
-  bool isKramp = true;
-
   int radioValue = -1;
 
   final _formKey = GlobalKey<FormState>();
@@ -43,9 +38,13 @@ class _InjuryPageState extends State<InjuryPage> {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     print("$patient");
+    bool chafe = patient["injury"]["chafe"] ?? true;
+    bool ankle = patient["injury"]["ankle"] ?? true;
+    bool muscle = patient["injury"]["muscle"] ?? true;
+    bool cramp = patient["injury"]["cramp"] ?? true;
 
-    TextEditingController skadaKommentar =
-        TextEditingController(text: patient["skada"]);
+    TextEditingController injuryComment =
+        TextEditingController(text: patient["injuryComment"]);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -66,12 +65,12 @@ class _InjuryPageState extends State<InjuryPage> {
                 shrinkWrap: true,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 187, 205, 231)),
                     child: Column(
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 10),
+                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
                           child: Center(
                               child: Padding(
                                   padding: EdgeInsets.only(top: 20, bottom: 1),
@@ -82,7 +81,7 @@ class _InjuryPageState extends State<InjuryPage> {
                                           fontWeight: FontWeight.bold)))),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Divider(
                             height: 10,
                             thickness: 2,
@@ -104,18 +103,20 @@ class _InjuryPageState extends State<InjuryPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isSkav = !isSkav;
+                                chafe = !chafe;
+                                patientsModel.setAttribute(
+                                    "chafe", chafe, "injury");
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Skavsår',
+                          child: const Text('Skavsår',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isSkav
+                            primary: chafe
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -133,18 +134,20 @@ class _InjuryPageState extends State<InjuryPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isFotled = !isFotled;
+                                ankle = !ankle;
+                                patientsModel.setAttribute(
+                                    "ankle", ankle, "injury");
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Stukad fotled',
+                          child: const Text('Stukad fotled',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isFotled
+                            primary: ankle
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -162,18 +165,20 @@ class _InjuryPageState extends State<InjuryPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isMuskel = !isMuskel;
+                                muscle = !muscle;
+                                patientsModel.setAttribute(
+                                    "muscle", muscle, "injury");
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Muskelvärk',
+                          child: const Text('Muskelvärk',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isMuskel
+                            primary: muscle
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -192,18 +197,20 @@ class _InjuryPageState extends State<InjuryPage> {
                           onPressed: () {
                             setState(
                               () {
-                                isKramp = !isKramp;
+                                cramp = !cramp;
+                                patientsModel.setAttribute(
+                                    "cramp", cramp, "injury");
                               },
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Kramp',
+                          child: const Text('Kramp',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
                               )),
                           style: ElevatedButton.styleFrom(
-                            primary: isKramp
+                            primary: cramp
                                 ? Color(0xFF94B0DA)
                                 : Color.fromARGB(255, 114, 194, 116),
                           ),
@@ -211,25 +218,25 @@ class _InjuryPageState extends State<InjuryPage> {
                       ),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.only(top: 10, left: 30),
                       child: Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
                       child: Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 10.0, bottom: 1, left: 15, right: 15),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextFormField(
                                     onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("skada", value),
-                                    controller: skadaKommentar,
+                                        .setAttribute("injuryComment", value),
+                                    controller: injuryComment,
                                     minLines: 4,
                                     maxLines: 6,
                                     keyboardType: TextInputType.multiline,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
                                         hintText: 'Skriv något här...',

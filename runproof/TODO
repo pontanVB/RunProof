@@ -1,19 +1,5 @@
-BACKEND:
+Fixa felmeddelanden, ex fel input i sök
 
-    API:
-        fixa api med flask (bearer token?)
-        securiy?????
+hitta sätt eller ta bort progressbar?
 
-
-
-FRONTEND:
-
-    LOGIN:
-        felmeddelanden vid login
-        design login (typ göm pw input)
-
-
-ALLMÄNT:
-    securechecka allt, testa corner cases 
-    bygg unit tests
-
+meddela om personen redan finns inne
