@@ -25,15 +25,24 @@ void errorPopup(BuildContext context, error) {
 
 void runnerInfoPopup(BuildContext context, String searchNumber) {
   String? name;
+  String? sex;
   int runningNumber;
-  int idNumber;
+  int age;
+
+  showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(child: CircularProgressIndicator());
+      });
 
   getFromDatabase(searchNumber)
       .then((value) => {
+            Navigator.pop(context),
             print(value),
-            runningNumber = value["runningNumber"],
+            sex = value["sex"],
+            age = value["age"],
             name = value["name"],
-            // idNumber = value["idNumber"],
+            runningNumber = value["runningNumber"],
             showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
@@ -74,7 +83,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                       ],
                     ),
                     const Padding(padding: EdgeInsets.all(15.0)),
-                    const Text('Namn:'),
+                    const Text('Kön:'),
                     Row(
                       children: [
                         const Padding(
@@ -89,7 +98,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                             ),
                             padding: EdgeInsets.all(5),
                             child: Text(
-                              '$name',
+                              '$sex',
                               textAlign: TextAlign.center,
                               style: const TextStyle(fontSize: 25),
                             ),
@@ -98,7 +107,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                       ],
                     ),
                     const Padding(padding: EdgeInsets.all(15)),
-                    const Text('Personnummer:'),
+                    const Text('Ålder:'),
                     Row(
                       children: [
                         const Padding(
@@ -113,9 +122,9 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                             ),
                             padding: const EdgeInsets.all(5),
                             child: Text(
-                              '',
+                              '$age',
                               textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 25),
                             ),
                           ),
                         ),
