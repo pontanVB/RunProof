@@ -97,23 +97,19 @@ class _VitalPageState extends State<VitalPage> {
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.cover, height: 60.0, width: 60.0),
+                fit: BoxFit.cover, width: MediaQuery.of(context).size.width * 0.15),
             centerTitle: true,
             actions: [
               Row(
                 children: [
-                  Center(
-                      child: ElevatedButton(
-                        onPressed: () => SavePopup(context),
-                        style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                            borderRadius: BorderRadius.circular(12)),
-                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
-                        fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
-                        child: const Text("PAUSA"),
-                  ),
+                  ElevatedButton(
+                    onPressed: () => SavePopup(context),
+                    style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      //to set border radius to button
+                        borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: Color.fromARGB(255, 108, 211, 92),),
+                    child: const Text("PAUSA"),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
@@ -126,14 +122,13 @@ class _VitalPageState extends State<VitalPage> {
             key: _formKey,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.08,
                 color: Color.fromARGB(255, 187, 205, 231),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                   child: Column(
-                    children: const [
+                    children: [
                       Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),
                           child: Text('VITALPARAMETRAR',
                               style: TextStyle(
                                   color: Colors.black,
@@ -178,7 +173,7 @@ class _VitalPageState extends State<VitalPage> {
                     filled: true,
                   )),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
                 child: Center(
                   child: Row(
                     children: [
@@ -236,18 +231,18 @@ class _VitalPageState extends State<VitalPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Color.fromARGB(255, 187, 205, 231),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.03),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                           child: Row(
                             children: [
                               Spacer(),
@@ -305,7 +300,7 @@ class _VitalPageState extends State<VitalPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                           child: Row(
                             children: [
                               Spacer(),
@@ -372,7 +367,7 @@ class _VitalPageState extends State<VitalPage> {
                             ],),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                           child: Row(
                             children: [
                               Spacer(),
@@ -409,7 +404,7 @@ class _VitalPageState extends State<VitalPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                           child: Row(
                             children: [
                               Spacer(),
@@ -452,7 +447,7 @@ class _VitalPageState extends State<VitalPage> {
                             style: TextStyle(
                                 color: Colors.black, fontSize: 18)),
                         Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -483,7 +478,7 @@ class _VitalPageState extends State<VitalPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                 child: Row(
                   children: [
                     Spacer(),
@@ -505,7 +500,7 @@ class _VitalPageState extends State<VitalPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                 child: Row(
                   children: [
                     Spacer(),
