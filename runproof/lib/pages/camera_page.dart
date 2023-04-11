@@ -12,6 +12,8 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:camera/camera.dart';
 
+import 'package:dfunc/dfunc.dart';
+
 //Largely based on https://pub.dev/packages/flutter_scalable_ocr
 
 class CameraPage extends StatefulWidget {
@@ -48,51 +50,63 @@ class _CameraPageState extends State<CameraPage> {
       appBar: AppBar(
         title: Image.asset('assets/images/runprooflogo.png',
             fit: BoxFit.contain, height: 60),
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 16, 47, 83),
       ),
       body: Column(
         children: <Widget>[
-          ScalableOCR(
-              paintboxCustom: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 4.0
-                ..color = const Color.fromARGB(153, 102, 160, 241),
-              boxLeftOff: 1,
-              boxBottomOff: 2,
-              boxRightOff: 15,
-              boxTopOff: 4,
-              boxHeight: MediaQuery.of(context).size.height / 1.5,
-              getRawData: (value) {
-                inspect(value);
-              },
-              getScannedText: (value) {
-                setText(value);
-              }),
-          Center(
-              child: StreamBuilder<String>(
-            stream: controller.stream,
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              currentText = snapshot.data != null ? snapshot.data! : "";
-              currentText = currentText.replaceAll(RegExp(r'[^0-9]'), '');
-              return Result(text: currentText);
-            },
-          )),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 66, 190, 122)),
-                  onPressed: () {
-                    patientModel.searchTerm = currentText;
-                    Navigator.pop(context);
+          Stack(
+            children: [
+              ScalableOCR(
+                  paintboxCustom: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 4.0
+                    ..color = const Color.fromARGB(153, 102, 160, 241),
+                  boxLeftOff: 1,
+                  boxBottomOff: 2,
+                  boxRightOff: 15,
+                  boxTopOff: 4,
+                  boxHeight: MediaQuery.of(context).size.height / 1.5,
+                  getRawData: (value) {
+                    inspect(value);
                   },
-                  child: const Text("Acceptera resultat",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ))),
+                  getScannedText: (value) {
+                    setText(value);
+                  }),
+              Positioned(
+                left: MediaQuery.of(context).size.width / 9,
+                top: MediaQuery.of(context).size.height / 2.3,
+                child: StreamBuilder<String>(
+                  stream: controller.stream,
+                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    currentText = snapshot.data != null ? snapshot.data! : "";
+                    final limit5 = limit(5);
+                    currentText = currentText.replaceAll(RegExp(r'\D'), '');
+                    currentText = limit5(currentText);
+                    return Result(text: currentText);
+                  },
+                )),
+            ],
+          ),
+
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Center(
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 66, 190, 122)),
+                    onPressed: () {
+                      patientModel.searchTerm = currentText;
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Acceptera resultat",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ))),
+              ),
             ),
           ),
         ],
@@ -112,9 +126,9 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 187, 205, 231),
+            color: const Color.fromARGB(255, 187, 205, 231),
             borderRadius: BorderRadius.circular(20)),
         width: 300,
         child: Row(children: [
@@ -128,7 +142,7 @@ class Result extends StatelessWidget {
             ),
           ),
           Text(
-            "$text",
+            text,
             style: const TextStyle(
               overflow: TextOverflow.ellipsis,
               color: Colors.white,
@@ -220,7 +234,7 @@ class ScalableOCRState extends State<ScalableOCR> {
   Widget build(BuildContext context) {
     double sizeH = MediaQuery.of(context).size.height / 100;
     return Padding(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         child: SingleChildScrollView(
           child: Column(
             children: [
