@@ -38,10 +38,10 @@ class _InjuryPageState extends State<InjuryPage> {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     print("$patient");
-    bool chafe = patient["injury"]["chafe"] ?? true;
-    bool ankle = patient["injury"]["ankle"] ?? true;
-    bool muscle = patient["injury"]["muscle"] ?? true;
-    bool cramp = patient["injury"]["cramp"] ?? true;
+    bool chafe = patient["injury"]["chafe"] ?? false;
+    bool ankle = patient["injury"]["ankle"] ?? false;
+    bool muscle = patient["injury"]["muscle"] ?? false;
+    bool cramp = patient["injury"]["cramp"] ?? false;
 
     TextEditingController injuryComment =
         TextEditingController(text: patient["injuryComment"]);
@@ -117,8 +117,8 @@ class _InjuryPageState extends State<InjuryPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: chafe
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -148,8 +148,8 @@ class _InjuryPageState extends State<InjuryPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: ankle
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -179,8 +179,8 @@ class _InjuryPageState extends State<InjuryPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: muscle
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -211,8 +211,8 @@ class _InjuryPageState extends State<InjuryPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: cramp
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -235,6 +235,7 @@ class _InjuryPageState extends State<InjuryPage> {
                                     controller: injuryComment,
                                     minLines: 4,
                                     maxLines: 6,
+                                    textInputAction: TextInputAction.done,
                                     keyboardType: TextInputType.multiline,
                                     decoration: const InputDecoration(
                                         filled: true,
