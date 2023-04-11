@@ -122,6 +122,12 @@ class _PatientsList extends StatelessWidget {
 
           final name = patient["name"];
           final runningNumber = patient["runningNumber"];
+          String typ;
+
+          final patientStatus = patient["type"];
+
+          if (patientStatus == 'sickness') {typ = 'SJUK'; } else{ typ = 'SKADAD';}
+
 
           return Card(
             child: ListTile(
@@ -131,10 +137,10 @@ class _PatientsList extends StatelessWidget {
                 backgroundColor: Colors.black12,
                 progressColor: const Color(0xFF75C883),
               ),
-              title: Text('$name'.toUpperCase(), textScaleFactor: 1.4),
+              title: Text('#$runningNumber'.toUpperCase(), textScaleFactor: 1.4),
               subtitle: Text(
-                '#$runningNumber',
-                textScaleFactor: 1.2,
+                typ,
+                textScaleFactor: 1,
               ),
               trailing: (patientsList.activeIndex == index)
                   ? const Text('AKTIV',
