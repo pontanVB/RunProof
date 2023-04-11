@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Spacer(),
                   IconButton(
-                      icon: Icon(Icons.add, color: Colors.grey),
+                      icon: Icon(Icons.add, color: Colors.white),
                       onPressed: () {
                         // Navigator.push(
                         //     context,
