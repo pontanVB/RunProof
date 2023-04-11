@@ -147,10 +147,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                                     builder: (context) => const ChoicePage()));
 
                             Provider.of<PatientsModel>(context, listen: false)
-                                .addPatient({
-                              "name": name,
-                              "runningNumber": runningNumber
-                            });
+                                .addPatient(value);
                           },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(

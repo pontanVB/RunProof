@@ -55,9 +55,13 @@ class PatientsModel with ChangeNotifier {
     print("added new patioent $newPatient");
     _patientsList.add(newPatient);
     _activeIndex = _patientsList.length - 1; // setting it to be active
-    _addAttributes();
+    if (!newPatient.containsKey("type")) {
+      _addAttributes();
+    }
     notifyListeners();
     _saveDataToPrefs();
+    print("afgter");
+    print(patientsList[_activeIndex]);
   }
 
   Map getPatient(int index) {
