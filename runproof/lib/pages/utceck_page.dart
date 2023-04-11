@@ -45,9 +45,9 @@ class _UtcheckPageState extends State<UtcheckPage> {
     TextEditingController checkComment =
         TextEditingController(text: patient["checkComment"]);
 
-    bool goingHome = patient["goingHome"] ?? true;
-    bool hospital = patient["hospital"] ?? true;
-    bool continueing = patient["continueing"] ?? true;
+    bool goingHome = patient["goingHome"] ?? false;
+    bool hospital = patient["hospital"] ?? false;
+    bool continueing = patient["continueing"] ?? false;
 
     final String datetime = patient.containsKey("startTime")
         ? patient["startTime"]
@@ -158,8 +158,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: goingHome
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -189,8 +189,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: hospital
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -220,8 +220,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: continueing
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
