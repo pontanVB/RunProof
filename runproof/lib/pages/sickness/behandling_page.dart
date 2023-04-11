@@ -37,10 +37,10 @@ class _BehandlingPageState extends State<BehandlingPage> {
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
-    bool intravenousFluid = patient["sickness"]["intravenousFluid"] ?? true;
-    bool glucose = patient["sickness"]["givenGlucose"] ?? true;
-    bool benso = patient["sickness"]["benso"] ?? true;
-    bool inhalation = patient["sickness"]["inhalation"] ?? true;
+    bool intravenousFluid = patient["sickness"]["intravenousFluid"] ?? false;
+    bool glucose = patient["sickness"]["givenGlucose"] ?? false;
+    bool benso = patient["sickness"]["benso"] ?? false;
+    bool inhalation = patient["sickness"]["inhalation"] ?? false;
 
     TextEditingController behandKommentar =
         TextEditingController(text: patient["behandling"]);
@@ -114,8 +114,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -134,8 +134,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: intravenousFluid
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -145,8 +145,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -165,8 +165,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: glucose
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -176,8 +176,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -196,8 +196,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: benso
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -208,8 +208,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         top: 8.0, left: 8.0, right: 8.0, bottom: 15),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -228,77 +228,93 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: inhalation
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: 10, left: 30),
+                      padding: EdgeInsets.only(
+                        top: 10,
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
                       child: Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
                       child: Padding(
                           padding: EdgeInsets.only(
-                              top: 10.0, bottom: 1, left: 15, right: 15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextFormField(
-                                    onFieldSubmitted: (value) =>
-                                        patientsModel.setAttribute(
-                                            "bahandling", value, "sickness"),
-                                    controller: behandKommentar,
-                                    minLines: 4,
-                                    maxLines: 6,
-                                    keyboardType: TextInputType.multiline,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: 'Skriv något här...',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20))))),
-                              ]))),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 80, top: 10),
-                        child: SizedBox(
-                          width: 100,
-                          child: ElevatedButton(
-                              onPressed: () => Navigator.pop(context),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 165, 39, 75),
-                                  onPrimary: Colors.white),
-                              child: const Text("TILLBAKA")),
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 80, top: 10),
+                              top: 10, bottom: 1, left: 15, right: 15),
                           child: SizedBox(
-                            width: 100,
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                if (_formKey.currentState!.validate())
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const DiagPage()))
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  onPrimary: Colors.white),
-                              child: const Text("NÄSTA"),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextFormField(
+                                        onFieldSubmitted: (value) =>
+                                            patientsModel.setAttribute(
+                                                "bahandling",
+                                                value,
+                                                "sickness"),
+                                        controller: behandKommentar,
+                                        minLines: 2,
+                                        maxLines: 6,
+                                        keyboardType: TextInputType.multiline,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            hintText: 'Skriv något här...',
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))))),
+                                  ])))),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 0,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("TILLBAKA"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 163, 28, 71),
+                              padding: EdgeInsets.symmetric(
+                                  vertical:
+                                      MediaQuery.of(context).size.width * 0.05),
                             ),
-                          )),
-                    ],
-                  )
+                          ),
+                        ),
+                        Spacer(flex: 1),
+                        Expanded(
+                          flex: 7,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const DiagPage()));
+                            },
+                            child: const Text("NÄSTA"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              padding: EdgeInsets.symmetric(
+                                  vertical:
+                                      MediaQuery.of(context).size.width * 0.05),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ))),
     );

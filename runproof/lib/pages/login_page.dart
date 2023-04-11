@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: usernameController.text, password: passwordController.text);
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (error) {
       Navigator.of(context).pop();
 
@@ -122,7 +123,6 @@ class _LoginPageState extends State<LoginPage> {
             });
       }
     }
-    Navigator.of(context).pop();
   }
 
   @override
@@ -134,182 +134,185 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
           backgroundColor: const Color(0xFF1F4A7B),
           body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 25),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 4,
-                          child: DropShadowImage(
-                            offset: const Offset(3, 3),
-                            scale: 1,
-                            blurRadius: 5,
-                            borderRadius: 3,
-                            image: Image.asset(
-                              'assets/images/runprooflogo.png',
-                            ),
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 6,
-                          child: Text(
-                            'RunProof',
-                            style: TextStyle(
-                              fontSize: 52,
-                              color: Color(0xFF94B0DA),
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(3, 3),
-                                  blurRadius: 3,
-                                  color: Colors.black54,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      children: const [
-                        Expanded(child: Spacer()),
-                        Expanded(
-                            flex: 5,
-                            child: Text(
-                              'Användarnamn',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Colors.white,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: DropShadowImage(
+                              offset: const Offset(3, 3),
+                              scale: 1,
+                              blurRadius: 5,
+                              borderRadius: 3,
+                              image: Image.asset(
+                                'assets/images/runprooflogo.png',
                               ),
-                            )),
-                        Expanded(child: Spacer()),
-                      ],
+                            ),
+                          ),
+                          const Expanded(
+                            flex: 6,
+                            child: Text(
+                              'RunProof',
+                              style: TextStyle(
+                                fontSize: 52,
+                                color: Color(0xFF94B0DA),
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    offset: Offset(3, 3),
+                                    blurRadius: 3,
+                                    color: Colors.black54,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: Row(
-                      children: [
-                        const Expanded(child: Spacer()),
-                        Expanded(
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        children: const [
+                          Expanded(child: Spacer()),
+                          Expanded(
+                              flex: 5,
+                              child: Text(
+                                'Användarnamn',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                ),
+                              )),
+                          Expanded(child: Spacer()),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: Row(
+                        children: [
+                          const Expanded(child: Spacer()),
+                          Expanded(
+                              flex: 5,
+                              child: TextField(
+                                textAlign: TextAlign.left,
+                                controller: usernameController,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: "e-mail",
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                ),
+                              )),
+                          const Expanded(child: Spacer()),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Row(
+                        children: const [
+                          Expanded(child: Spacer()),
+                          Expanded(
+                              flex: 5,
+                              child: Text(
+                                'Lösenord',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                ),
+                              )),
+                          Expanded(child: Spacer()),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: Row(
+                        children: [
+                          const Expanded(child: Spacer()),
+                          Expanded(
                             flex: 5,
                             child: TextField(
                               textAlign: TextAlign.left,
-                              controller: usernameController,
+                              controller: passwordController,
                               style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
-                                hintText: "e-mail",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
-                            )),
-                        const Expanded(child: Spacer()),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      children: const [
-                        Expanded(child: Spacer()),
-                        Expanded(
-                            flex: 5,
-                            child: Text(
-                              'Lösenord',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                            )),
-                        Expanded(child: Spacer()),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    child: Row(
-                      children: [
-                        const Expanded(child: Spacer()),
-                        Expanded(
-                          flex: 5,
-                          child: TextField(
-                            textAlign: TextAlign.left,
-                            controller: passwordController,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
+                                  hintText: "* * * * *",
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  suffix: InkWell(
+                                    onTap: _togglePasswordView,
+                                    child: Icon(
+                                      _isHidden
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                    ),
+                                  )),
+                              obscureText: _isHidden,
+                              enableSuggestions: false,
+                              autocorrect: false,
                             ),
-                            decoration: InputDecoration(
-                                hintText: "* * * * *",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          const Expanded(child: Spacer())
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: Row(
+                        children: [
+                          const Expanded(child: Spacer()),
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                                onPressed: signUserIn,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(
+                                      0xFF75C883), //background color of button
+                                  elevation: 10, //elevation of button
+                                  shape: RoundedRectangleBorder(
+                                      //to set border radius to button
+                                      borderRadius: BorderRadius.circular(15)),
+                                  padding: const EdgeInsets.all(10),
                                 ),
-                                suffix: InkWell(
-                                  onTap: _togglePasswordView,
-                                  child: Icon(
-                                    _isHidden
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
+                                child: const Text(
+                                  'LOGGA IN',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
                                   ),
                                 )),
-                            obscureText: _isHidden,
-                            enableSuggestions: false,
-                            autocorrect: false,
                           ),
-                        ),
-                        const Expanded(child: Spacer())
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    child: Row(
-                      children: [
-                        const Expanded(child: Spacer()),
-                        Expanded(
-                          flex: 1,
-                          child: ElevatedButton(
-                              onPressed: signUserIn,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(
-                                    0xFF75C883), //background color of button
-                                elevation: 10, //elevation of button
-                                shape: RoundedRectangleBorder(
-                                    //to set border radius to button
-                                    borderRadius: BorderRadius.circular(15)),
-                                padding: const EdgeInsets.all(10),
-                              ),
-                              child: const Text(
-                                'LOGGA IN',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              )),
-                        ),
-                        const Expanded(child: Spacer())
-                      ],
-                    ),
-                  )
-                ]),
+                          const Expanded(child: Spacer())
+                        ],
+                      ),
+                    )
+                  ]),
+            ),
           )),
     );
   }

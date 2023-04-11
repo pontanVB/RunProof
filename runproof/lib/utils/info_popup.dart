@@ -48,84 +48,154 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
               builder: (BuildContext context) => AlertDialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                contentPadding: const EdgeInsets.all(40),
-                title: const Text(
-                  'Löparinformation:',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 25),
+                contentPadding: const EdgeInsets.all(30),
+                title: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.04),
+                  child: const Text('LÖPARINFORMATION',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 23)),
                 ),
-                backgroundColor: const Color(0xFF94B0DA),
+                backgroundColor: Colors.white,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('Löparnummer:'),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.03),
+                      child: Divider(
+                        height: 10,
+                        thickness: 2,
+                        color: Colors.black,
+                        indent: MediaQuery.of(context).size.width * 0.01,
+                        endIndent: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                    ),
                     Row(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child:
-                              Icon(Icons.document_scanner_outlined, size: 40),
+                        Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.03),
+                            child:
+                                Icon(Icons.document_scanner_outlined, size: 40),
+                          ),
                         ),
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              '$runningNumber',
-                              style: TextStyle(fontSize: 25),
-                              textAlign: TextAlign.center,
-                            ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.01),
+                                child: const Text(
+                                  'Löparnummer:',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                width: 150,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Color.fromARGB(255, 16, 47, 83),
+                                        width: 2)),
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  '$runningNumber',
+                                  style: TextStyle(fontSize: 25),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                     const Padding(padding: EdgeInsets.all(15.0)),
-                    const Text('Kön:'),
                     Row(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Icon(Icons.person_2_outlined, size: 40),
+                        Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.03),
+                            child: Icon(Icons.person, size: 40),
+                          ),
                         ),
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              '$sex',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 25),
-                            ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.01),
+                                child: const Text('Kön:'),
+                              ),
+                              Container(
+                                width: 150,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Color.fromARGB(255, 16, 47, 83),
+                                        width: 2)),
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  '$sex',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontSize: 25),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                     const Padding(padding: EdgeInsets.all(15)),
-                    const Text('Ålder:'),
                     Row(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Icon(Icons.numbers, size: 40),
+                        Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.03),
+                            child: Icon(Icons.numbers, size: 40),
+                          ),
                         ),
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            padding: const EdgeInsets.all(5),
-                            child: Text(
-                              '$age',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25),
-                            ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.01),
+                                child: const Text(
+                                  'Ålder:',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                width: 150,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Color.fromARGB(255, 16, 47, 83),
+                                        width: 2)),
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  '$age',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
