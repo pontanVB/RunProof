@@ -8,6 +8,7 @@ import "package:provider/provider.dart";
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/pages/utceck_page.dart';
+import 'package:gbg_varvet/widgets/bottom_bar_widget.dart';
 
 import '../../utils/info_popup.dart';
 
@@ -55,6 +56,12 @@ class _DiagPageState extends State<DiagPage> {
       child: Scaffold(
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
+          bottomNavigationBar: BottomBarWidget(
+            forwardText: "NÄSTA",
+            title: "R",
+            nextPage:
+                MaterialPageRoute(builder: (context) => const UtcheckPage()),
+          ),
           appBar: AppBar(
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
@@ -118,7 +125,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -151,7 +158,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -182,7 +189,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -214,7 +221,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -274,51 +281,6 @@ class _DiagPageState extends State<DiagPage> {
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(20))))),
                                   ])))),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      bottom: 0,
-                      left: MediaQuery.of(context).size.width * 0.05,
-                      right: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 7,
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text("TILLBAKA"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 163, 28, 71),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height *
-                                      0.03),
-                            ),
-                          ),
-                        ),
-                        Spacer(flex: 1),
-                        Expanded(
-                          flex: 7,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const UtcheckPage()));
-                            },
-                            child: const Text("NÄSTA"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height *
-                                      0.03),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ))),
     );

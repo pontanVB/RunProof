@@ -138,8 +138,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                         bottom: 15.0, left: 15, right: 15, top: 30),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -169,8 +169,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     padding: const EdgeInsets.all(15.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -200,8 +200,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     padding: const EdgeInsets.all(15.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -228,34 +228,40 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: 20, left: 30),
+                      padding: EdgeInsets.only(
+                        top: 20,
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
                       child: Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
                       child: Padding(
                           padding: EdgeInsets.only(
                               top: 10.0, bottom: 1, left: 15, right: 15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextFormField(
-                                    onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("checkComment", value),
-                                    controller: checkComment,
-                                    minLines: 4,
-                                    maxLines: 6,
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.multiline,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: 'Skriv något här...',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20))))),
-                              ]))),
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextFormField(
+                                        onFieldSubmitted: (value) =>
+                                            patientsModel.setAttribute(
+                                                "checkComment", value),
+                                        controller: checkComment,
+                                        minLines: 2,
+                                        maxLines: 6,
+                                        textInputAction: TextInputAction.done,
+                                        keyboardType: TextInputType.multiline,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            hintText: 'Skriv något här...',
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))))),
+                                  ])))),
                   Row(
                     children: [
                       Padding(
