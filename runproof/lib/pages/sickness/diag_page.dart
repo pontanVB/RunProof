@@ -117,8 +117,8 @@ class _DiagPageState extends State<DiagPage> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -151,7 +151,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.width * 0.26,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -182,7 +182,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.width * 0.26,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -214,7 +214,7 @@ class _DiagPageState extends State<DiagPage> {
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.width * 0.26,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -241,36 +241,46 @@ class _DiagPageState extends State<DiagPage> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: 5, left: 30),
+                      padding: EdgeInsets.only(
+                        top: 5,
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
                       child: Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
                       child: Padding(
                           padding: EdgeInsets.only(
                               top: 10.0, bottom: 1, left: 15, right: 15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextFormField(
-                                    onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("diagnos", value),
-                                    controller: diagKommentar,
-                                    minLines: 4,
-                                    maxLines: 6,
-                                    keyboardType: TextInputType.multiline,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: 'Skriv något här...',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20))))),
-                              ]))),
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextFormField(
+                                        onFieldSubmitted: (value) =>
+                                            patientsModel.setAttribute(
+                                                "diagnos", value),
+                                        controller: diagKommentar,
+                                        minLines: 2,
+                                        maxLines: 6,
+                                        keyboardType: TextInputType.multiline,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            hintText: 'Skriv något här...',
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))))),
+                                  ])))),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, bottom: 0, left: 15, right: 15),
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 0,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -281,8 +291,8 @@ class _DiagPageState extends State<DiagPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 163, 28, 71),
                               padding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.03),
                             ),
                           ),
                         ),
@@ -301,8 +311,8 @@ class _DiagPageState extends State<DiagPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                               padding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.03),
                             ),
                           ),
                         ),
