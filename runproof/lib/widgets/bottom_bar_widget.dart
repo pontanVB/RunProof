@@ -15,30 +15,29 @@ class BottomBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 16, 47, 83),
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_back),
-              label: 'Tillbaka'
-          ),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.arrow_forward),
-              label: forwardText,
-          )
-        ],
-      onTap: (int index) {
-        switch (index) {
-          case 0:
-            Navigator.of(context).pop();
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              nextPage);
-            break;
-        }
-      }
+    return BottomAppBar(
+        color: const Color.fromARGB(255, 16, 47, 83),
+        child: Row(
+          children: [
+            const Spacer(),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color.fromARGB(255, 165, 39, 75)
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: const Text('TILLBAKA')),
+            const Spacer(),
+            const Spacer(),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.green),
+                onPressed: () => Navigator.push(context, nextPage),
+                child: Text(forwardText)),
+            const Spacer()
+          ],
+        ),
     );
   }
 }
