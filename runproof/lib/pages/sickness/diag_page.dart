@@ -41,10 +41,10 @@ class _DiagPageState extends State<DiagPage> {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
     bool breathingDifficulty =
-        patient["sickness"]["breathingDifficulty"] ?? true;
-    bool chestPain = patient["sickness"]["chestPain"] ?? true;
-    bool stomachAche = patient["sickness"]["stomachAche"] ?? true;
-    bool fainted = patient["sickness"]["fainted"] ?? true;
+        patient["sickness"]["breathingDifficulty"] ?? false;
+    bool chestPain = patient["sickness"]["chestPain"] ?? false;
+    bool stomachAche = patient["sickness"]["stomachAche"] ?? false;
+    bool fainted = patient["sickness"]["fainted"] ?? false;
     TextEditingController diagKommentar =
         TextEditingController(text: patient["diagnos"]);
 
@@ -139,8 +139,8 @@ class _DiagPageState extends State<DiagPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: breathingDifficulty
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -170,8 +170,8 @@ class _DiagPageState extends State<DiagPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: chestPain
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -201,8 +201,8 @@ class _DiagPageState extends State<DiagPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: stomachAche
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -233,8 +233,8 @@ class _DiagPageState extends State<DiagPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: fainted
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),

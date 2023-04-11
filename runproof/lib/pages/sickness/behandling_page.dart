@@ -37,10 +37,10 @@ class _BehandlingPageState extends State<BehandlingPage> {
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
-    bool intravenousFluid = patient["sickness"]["intravenousFluid"] ?? true;
-    bool glucose = patient["sickness"]["givenGlucose"] ?? true;
-    bool benso = patient["sickness"]["benso"] ?? true;
-    bool inhalation = patient["sickness"]["inhalation"] ?? true;
+    bool intravenousFluid = patient["sickness"]["intravenousFluid"] ?? false;
+    bool glucose = patient["sickness"]["givenGlucose"] ?? false;
+    bool benso = patient["sickness"]["benso"] ?? false;
+    bool inhalation = patient["sickness"]["inhalation"] ?? false;
 
     TextEditingController behandKommentar =
         TextEditingController(text: patient["behandling"]);
@@ -134,8 +134,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: intravenousFluid
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -165,8 +165,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: glucose
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -196,8 +196,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: benso
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -228,8 +228,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: inhalation
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
