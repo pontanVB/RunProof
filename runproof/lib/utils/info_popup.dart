@@ -26,8 +26,8 @@ void errorPopup(BuildContext context, error) {
 void runnerInfoPopup(BuildContext context, String searchNumber) {
   String? name;
   String? sex;
-  int runningNumber;
-  int age;
+  int? runningNumber;
+  int? age;
 
   showDialog(
       context: context,
@@ -38,7 +38,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
   getFromDatabase(searchNumber)
       .then((value) => {
             Navigator.pop(context),
-            print(value),
+            value = renameAttributes(value, fromDatabase: true),
             sex = value["sex"],
             age = value["age"],
             name = value["name"],

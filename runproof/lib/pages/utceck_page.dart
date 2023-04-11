@@ -278,10 +278,11 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               onPressed: () => {
                                 if (_formKey.currentState!.validate())
                                   {
+                                    patient = renameAttributes(patient,
+                                        fromDatabase: false),
                                     _whatToSend(patient),
                                     Navigator.of(context)
                                         .popUntil((route) => route.isFirst),
-                                    print(patientsModel.activeIndex),
                                     patientsModel.removePatient(
                                         patientsModel.activeIndex),
                                   }
@@ -302,10 +303,12 @@ class _UtcheckPageState extends State<UtcheckPage> {
 
 void _whatToSend(Map patient) {
   // helper function for removing uncessesary information when sending to databse
+
   if (patient["type"] == "injury") {
-    patient.remove("sickness");
+    patient.remove("sjukdom");
   } else if (patient["type"] == "sickness") {
-    patient.remove("injury");
+    patient.remove("skada");
   }
-  sendToDatabase(patient, "4");
+
+  sendToDatabase(patient, "6");
 }

@@ -24,10 +24,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   final User currentUser = FirebaseAuth.instance.currentUser!;
-  final DatabaseReference ref = FirebaseDatabase.instance.ref("/users");
-  // final refreshTokenPromise = FirebaseAuth.instance.currentUser
-  //     ?.getIdToken()
-  //     .then((value) => print(value));
 
   final searchController = TextEditingController();
 
@@ -67,6 +63,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var patientModel = context.watch<PatientsModel>();
+
     final searchController =
         TextEditingController(text: patientModel.searchTerm);
     return GestureDetector(
