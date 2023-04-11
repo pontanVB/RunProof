@@ -83,7 +83,7 @@ class _VitalPageState extends State<VitalPage> {
 
     final String datetime = activePatient.containsKey("startTime")
         ? activePatient["startTime"]
-        : '${DateTime.now().hour} :${DateTime.now().minute}';
+        : '${DateTime.now().hour}:${DateTime.now().minute}';
 
     final TextEditingController datetimeController =
         TextEditingController(text: datetime);

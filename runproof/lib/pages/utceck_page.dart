@@ -45,13 +45,13 @@ class _UtcheckPageState extends State<UtcheckPage> {
     TextEditingController checkComment =
         TextEditingController(text: patient["checkComment"]);
 
-    bool goingHome = patient["goingHome"] ?? true;
-    bool hospital = patient["hospital"] ?? true;
-    bool continueing = patient["continueing"] ?? true;
+    bool goingHome = patient["goingHome"] ?? false;
+    bool hospital = patient["hospital"] ?? false;
+    bool continueing = patient["continueing"] ?? false;
 
     final String datetime = patient.containsKey("startTime")
         ? patient["startTime"]
-        : '${DateTime.now().hour} :${DateTime.now().minute}';
+        : '${DateTime.now().hour}:${DateTime.now().minute}';
 
     final TextEditingController datetimeController =
         TextEditingController(text: datetime);
@@ -158,8 +158,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: goingHome
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -189,8 +189,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: hospital
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -220,8 +220,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               )),
                           style: ElevatedButton.styleFrom(
                             primary: continueing
-                                ? Color(0xFF94B0DA)
-                                : Color.fromARGB(255, 114, 194, 116),
+                                ? Color.fromARGB(255, 114, 194, 116)
+                                : Color(0xFF94B0DA),
                           ),
                         ),
                       ),
@@ -244,6 +244,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                     controller: checkComment,
                                     minLines: 4,
                                     maxLines: 6,
+                                    textInputAction: TextInputAction.done,
                                     keyboardType: TextInputType.multiline,
                                     decoration: InputDecoration(
                                         filled: true,
@@ -277,9 +278,12 @@ class _UtcheckPageState extends State<UtcheckPage> {
                               onPressed: () => {
                                 if (_formKey.currentState!.validate())
                                   {
-                                    sendToDatabase(patient, "4"),
+                                    _whatToSend(patient),
                                     Navigator.of(context)
-                                        .popUntil((route) => route.isFirst)
+                                        .popUntil((route) => route.isFirst),
+                                    print(patientsModel.activeIndex),
+                                    patientsModel.removePatient(
+                                        patientsModel.activeIndex),
                                   }
                               },
                               style: ElevatedButton.styleFrom(
@@ -294,4 +298,14 @@ class _UtcheckPageState extends State<UtcheckPage> {
               ))),
     );
   }
+}
+
+void _whatToSend(Map patient) {
+  // helper function for removing uncessesary information when sending to databse
+  if (patient["type"] == "injury") {
+    patient.remove("sickness");
+  } else if (patient["type"] == "sickness") {
+    patient.remove("injury");
+  }
+  sendToDatabase(patient, "4");
 }
