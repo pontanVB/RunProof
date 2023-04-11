@@ -52,16 +52,11 @@ class PatientsModel with ChangeNotifier {
   }
 
   void addPatient(Map newPatient) {
-    print("added new patioent $newPatient");
     _patientsList.add(newPatient);
     _activeIndex = _patientsList.length - 1; // setting it to be active
-    if (!newPatient.containsKey("type")) {
-      _addAttributes();
-    }
+    _addAttributes();
     notifyListeners();
     _saveDataToPrefs();
-    print("afgter");
-    print(patientsList[_activeIndex]);
   }
 
   Map getPatient(int index) {
@@ -70,6 +65,7 @@ class PatientsModel with ChangeNotifier {
 
   void removePatient(int index) {
     _patientsList.removeAt(index);
+    _activeIndex = 0;
     notifyListeners();
     _saveDataToPrefs(); // OVERWRITE OLD
   }
@@ -92,19 +88,35 @@ class PatientsModel with ChangeNotifier {
 
   Future<void> _saveDataToPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    //final patientsJson = jsonEncode(_patientsList);
     final patientsJson = json.encode(_patientsList);
     await prefs.setString('patients_list', patientsJson);
   }
 
   void _addAttributes() {
     // adding all attributes (keys)
+    Map currentPatient = _patientsList[_activeIndex];
 
-    Map<String, dynamic> attributes = {
-      "injury": <String, dynamic>{},
-      "sickness": <String, dynamic>{},
-    };
+    //if the patient is already registrered, we add a map for the missing injury/sickness map
+    if (!currentPatient.containsKey("injury")) {
+      _patientsList[activeIndex]["injury"] = {};
+    } else if (!currentPatient.containsKey("sickness")) {
+      _patientsList[activeIndex]["sickness"] = {};
+    } else {
+      Map<String, dynamic> attributes = {
+        "injury": <String, dynamic>{},
+        "sickness": <String, dynamic>{},
+      };
+      _patientsList[_activeIndex].addAll(attributes);
+    }
+  }
 
-    _patientsList[_activeIndex].addAll(attributes);
+  void _changeAttributeNames({bool fromDatabase = false}) {
+    if (fromDatabase) {
+      // convert from "pretty names" to dev names
+
+      // Map<String, String> convertMap = {
+      //   ""
+      // }
+    }
   }
 }
