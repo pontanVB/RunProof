@@ -288,8 +288,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 163, 28, 71),
                               padding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.03),
                             ),
                           ),
                         ),
@@ -307,8 +307,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                               padding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.03),
                             ),
                           ),
                         ),
