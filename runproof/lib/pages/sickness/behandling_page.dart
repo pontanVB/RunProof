@@ -96,7 +96,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                           padding: EdgeInsets.only(top: 8.0, bottom: 10),
                           child: Center(
                               child: Padding(
-                                  padding: EdgeInsets.only(top: 20, bottom: 1),
+                                  padding: EdgeInsets.only(top: 0, bottom: 0),
                                   child: Text('BEHANDLING',
                                       style: TextStyle(
                                           color: Colors.black,

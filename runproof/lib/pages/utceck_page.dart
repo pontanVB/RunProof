@@ -88,220 +88,229 @@ class _UtcheckPageState extends State<UtcheckPage> {
             ],
           ),
           body: Form(
-              key: _formKey,
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 187, 205, 231)),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 20, bottom: 1),
-                                  child: Text('UTCHECKNING',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)))),
-                        ),
-                        Divider(
-                          height: 10,
-                          thickness: 2,
-                          color: Colors.black,
-                          indent: 20,
-                          endIndent: 20,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: TextFormField(
-                        textAlign: TextAlign.center,
-                        controller: datetimeController,
-                        //minLines: 1,
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          filled: true,
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 15.0, left: 15, right: 15, top: 30),
-                    child: Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                goingHome = !goingHome;
-                                patientsModel.setAttribute(
-                                    "goingHome", goingHome);
-                              },
-                            );
-                          },
-                          // ignore: sort_child_properties_last
-                          child: Text('Hemgång',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                              )),
-                          style: ElevatedButton.styleFrom(
-                            primary: goingHome
-                                ? Color.fromARGB(255, 114, 194, 116)
-                                : Color(0xFF94B0DA),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                hospital = !hospital;
-                                patientsModel.setAttribute(
-                                    "hospital", hospital);
-                              },
-                            );
-                          },
-                          // ignore: sort_child_properties_last
-                          child: Text('Sjukhus',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                              )),
-                          style: ElevatedButton.styleFrom(
-                            primary: hospital
-                                ? Color.fromARGB(255, 114, 194, 116)
-                                : Color(0xFF94B0DA),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.14,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                continueing = !continueing;
-                                patientsModel.setAttribute(
-                                    "continueing", continueing);
-                              },
-                            );
-                          },
-                          // ignore: sort_child_properties_last
-                          child: Text('Fortsätter loppet',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                              )),
-                          style: ElevatedButton.styleFrom(
-                            primary: continueing
-                                ? Color.fromARGB(255, 114, 194, 116)
-                                : Color(0xFF94B0DA),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                        top: 20,
-                        left: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      child: Text('ÖVRIGT:',
-                          style: TextStyle(color: Colors.black, fontSize: 18))),
-                  Center(
-                      child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 10.0, bottom: 1, left: 15, right: 15),
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextFormField(
-                                        onFieldSubmitted: (value) =>
-                                            patientsModel.setAttribute(
-                                                "checkComment", value),
-                                        controller: checkComment,
-                                        minLines: 2,
-                                        maxLines: 6,
-                                        textInputAction: TextInputAction.done,
-                                        keyboardType: TextInputType.multiline,
-                                        decoration: InputDecoration(
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            hintText: 'Skriv något här...',
-                                            hintStyle:
-                                                TextStyle(color: Colors.grey),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20))))),
-                                  ])))),
-                  Row(
-                    children: [
+            key: _formKey,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Container(
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 187, 205, 231)),
+                  child: Column(
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.only(left: 80, top: 10),
-                        child: SizedBox(
-                          width: 100,
-                          child: ElevatedButton(
-                              onPressed: () => Navigator.pop(context),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 165, 39, 75),
-                                  onPrimary: Colors.white),
-                              child: const Text("TILLBAKA")),
-                        ),
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Center(
+                            child: Padding(
+                                padding: EdgeInsets.only(top: 20, bottom: 1),
+                                child: Text('UTCHECKNING',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold)))),
                       ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 80, top: 10),
-                          child: SizedBox(
-                            width: 100,
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                if (_formKey.currentState!.validate())
-                                  {
-                                    _whatToSend(patient),
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst),
-                                    print(patientsModel.activeIndex),
-                                    patientsModel.removePatient(
-                                        patientsModel.activeIndex),
-                                  }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  onPrimary: Colors.white),
-                              child: const Text("CHECKA UT"),
-                            ),
-                          )),
+                      Divider(
+                        height: 10,
+                        thickness: 2,
+                        color: Colors.black,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
                     ],
-                  )
-                ],
-              ))),
+                  ),
+                ),
+                Center(
+                  child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: datetimeController,
+                      //minLines: 1,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        filled: true,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              goingHome = !goingHome;
+                              patientsModel.setAttribute(
+                                  "goingHome", goingHome);
+                            },
+                          );
+                        },
+                        // ignore: sort_child_properties_last
+                        child: Text('Hemgång',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                            )),
+                        style: ElevatedButton.styleFrom(
+                          primary: goingHome
+                              ? Color.fromARGB(255, 114, 194, 116)
+                              : Color(0xFF94B0DA),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              hospital = !hospital;
+                              patientsModel.setAttribute("hospital", hospital);
+                            },
+                          );
+                        },
+                        // ignore: sort_child_properties_last
+                        child: Text('Sjukhus',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                            )),
+                        style: ElevatedButton.styleFrom(
+                          primary: hospital
+                              ? Color.fromARGB(255, 114, 194, 116)
+                              : Color(0xFF94B0DA),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(
+                            () {
+                              continueing = !continueing;
+                              patientsModel.setAttribute(
+                                  "continueing", continueing);
+                            },
+                          );
+                        },
+                        // ignore: sort_child_properties_last
+                        child: Text('Fortsätter loppet',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                            )),
+                        style: ElevatedButton.styleFrom(
+                          primary: continueing
+                              ? Color.fromARGB(255, 114, 194, 116)
+                              : Color(0xFF94B0DA),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: Text('ÖVRIGT:',
+                        style: TextStyle(color: Colors.black, fontSize: 18))),
+                Center(
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 10.0, bottom: 1, left: 15, right: 15),
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextFormField(
+                                      onFieldSubmitted: (value) => patientsModel
+                                          .setAttribute("checkComment", value),
+                                      controller: checkComment,
+                                      minLines: 2,
+                                      maxLines: 6,
+                                      textInputAction: TextInputAction.done,
+                                      keyboardType: TextInputType.multiline,
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          hintText: 'Skriv något här...',
+                                          hintStyle:
+                                              TextStyle(color: Colors.grey),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))))),
+                                ])))),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 0,
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 7,
+                        child: ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(255, 165, 39, 75),
+                                onPrimary: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.02)),
+                            child: const Text("TILLBAKA")),
+                      ),
+                      Spacer(flex: 1),
+                      Expanded(
+                        flex: 7,
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            if (_formKey.currentState!.validate())
+                              {
+                                _whatToSend(patient),
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst),
+                                print(patientsModel.activeIndex),
+                                patientsModel
+                                    .removePatient(patientsModel.activeIndex),
+                              }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              onPrimary: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.02)),
+                          child: const Text("CHECKA UT"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
