@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/utils/info_popup.dart';
 import 'package:gbg_varvet/pages/sickness/behandling_page.dart';
+import 'package:gbg_varvet/widgets/bottom_bar_widget.dart';
 import 'dart:io' show Platform;
 
 class VitalPage extends StatefulWidget {
@@ -95,6 +96,12 @@ class _VitalPageState extends State<VitalPage> {
         child: Scaffold(
           //backgroundColor: // Color.fromARGB(255, 31, 74, 123),
           drawer: DrawerWidget(title: "RunProof"),
+          bottomNavigationBar: BottomBarWidget(
+            forwardText: "NÄSTA",
+            title: "R",
+            nextPage:
+                MaterialPageRoute(builder: (context) => const BehandlingPage()),
+          ),
           appBar: AppBar(
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
@@ -529,43 +536,6 @@ class _VitalPageState extends State<VitalPage> {
                       child: const Text("+"),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 61, 104, 129)))),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 15, left: 40.0, right: 40),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(
-                            context,
-                          );
-                        },
-                        child: const Text("Back"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 163, 28, 71),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const BehandlingPage()));
-                        },
-                        child: const Text("NÄSTA"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ));
