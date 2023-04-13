@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/pages/sickness/diag_page.dart';
 import 'package:gbg_varvet/pages/utceck_page.dart';
+import 'package:gbg_varvet/widgets/bottom_bar_widget.dart';
 
 class InjuryPage extends StatefulWidget {
   const InjuryPage({super.key});
@@ -53,6 +54,12 @@ class _InjuryPageState extends State<InjuryPage> {
       child: Scaffold(
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
+          bottomNavigationBar: BottomBarWidget(
+            forwardText: "NÄSTA",
+            title: "R",
+            nextPage:
+                MaterialPageRoute(builder: (context) => const UtcheckPage()),
+          ),
           appBar: AppBar(
             centerTitle: true,
             title: Image.asset('assets/images/runprooflogo.png',
@@ -97,8 +104,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -128,8 +135,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -159,8 +166,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -191,8 +198,8 @@ class _InjuryPageState extends State<InjuryPage> {
                         top: 8.0, left: 8.0, right: 8.0, bottom: 15),
                     child: Center(
                       child: SizedBox(
-                        width: 350,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.10,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
@@ -233,7 +240,7 @@ class _InjuryPageState extends State<InjuryPage> {
                                     onFieldSubmitted: (value) => patientsModel
                                         .setAttribute("injuryComment", value),
                                     controller: injuryComment,
-                                    minLines: 4,
+                                    minLines: 2,
                                     maxLines: 6,
                                     textInputAction: TextInputAction.done,
                                     keyboardType: TextInputType.multiline,
@@ -247,41 +254,6 @@ class _InjuryPageState extends State<InjuryPage> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20))))),
                               ]))),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 80, top: 10),
-                        child: SizedBox(
-                          width: 100,
-                          child: ElevatedButton(
-                              onPressed: () => Navigator.pop(context),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 165, 39, 75),
-                                  onPrimary: Colors.white),
-                              child: const Text("TILLBAKA")),
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 80, top: 10),
-                          child: SizedBox(
-                            width: 100,
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                if (_formKey.currentState!.validate())
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const UtcheckPage()))
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  onPrimary: Colors.white),
-                              child: const Text("NÄSTA"),
-                            ),
-                          )),
-                    ],
-                  )
                 ],
               ))),
     );
