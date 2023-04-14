@@ -63,6 +63,52 @@ class _UtcheckPageState extends State<UtcheckPage> {
       child: Scaffold(
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
+          bottomNavigationBar: BottomAppBar(
+            color: const Color.fromARGB(255, 16, 47, 83),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 10,
+                bottom: 0,
+                left: MediaQuery.of(context).size.width * 0.05,
+                right: MediaQuery.of(context).size.width * 0.05,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: const Color.fromARGB(255, 165, 39, 75),
+                            padding: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height * 0.02)),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('TILLBAKA')),
+                  ),
+                  Spacer(flex: 1),
+                  Expanded(
+                    flex: 7,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.green,
+                            padding: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height * 0.02)),
+                        onPressed: () => {
+                          if (_formKey.currentState!.validate())
+                            {
+                              _whatToSend(patient),
+                              Navigator.of(context).popUntil((route) => route.isFirst),
+                              print(patientsModel.activeIndex),
+                              patientsModel.removePatient(patientsModel.activeIndex),
+                            }
+                        },
+                        child: Text('Checka ut')),
+                  ),
+                ],
+              ),
+            ),
+          ),
           appBar: AppBar(
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),
@@ -258,55 +304,10 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))))),
-                                ])))),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 10,
-                    bottom: 0,
-                    left: MediaQuery.of(context).size.width * 0.05,
-                    right: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 7,
-                        child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 165, 39, 75),
-                                onPrimary: Colors.white,
-                                padding: EdgeInsets.symmetric(
-                                    vertical:
-                                        MediaQuery.of(context).size.height *
-                                            0.02)),
-                            child: const Text("TILLBAKA")),
-                      ),
-                      Spacer(flex: 1),
-                      Expanded(
-                        flex: 7,
-                        child: ElevatedButton(
-                          onPressed: () => {
-                            if (_formKey.currentState!.validate())
-                              {
-                                _whatToSend(patient),
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst),
-                                print(patientsModel.activeIndex),
-                                patientsModel
-                                    .removePatient(patientsModel.activeIndex),
-                              }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
-                              onPrimary: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height *
-                                      0.02)),
-                          child: const Text("CHECKA UT"),
-                        ),
-                      ),
-                    ],
-                  ),
+                                ]
+                            )
+                        )
+                    )
                 ),
               ],
             ),
