@@ -57,8 +57,7 @@ class _InjuryPageState extends State<InjuryPage> {
           bottomNavigationBar: BottomBarWidget(
             forwardText: "NÄSTA",
             title: "R",
-            nextPage:
-                MaterialPageRoute(builder: (context) => const UtcheckPage()),
+            nextPage: UtcheckPage(),
           ),
           appBar: AppBar(
             centerTitle: true,

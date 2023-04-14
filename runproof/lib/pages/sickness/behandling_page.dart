@@ -54,10 +54,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
           backgroundColor: Colors.white,
           drawer: DrawerWidget(title: "RunProof"),
           bottomNavigationBar: BottomBarWidget(
-            forwardText: "NÄSTA",
-            title: "R",
-            nextPage: MaterialPageRoute(builder: (context) => const DiagPage()),
-          ),
+              forwardText: "NÄSTA", title: "R", nextPage: DiagPage()),
           appBar: AppBar(
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.contain, height: 60),

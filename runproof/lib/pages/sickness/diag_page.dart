@@ -59,8 +59,7 @@ class _DiagPageState extends State<DiagPage> {
           bottomNavigationBar: BottomBarWidget(
             forwardText: "NÄSTA",
             title: "R",
-            nextPage:
-                MaterialPageRoute(builder: (context) => const UtcheckPage()),
+            nextPage: UtcheckPage(),
           ),
           appBar: AppBar(
             title: Image.asset('assets/images/runprooflogo.png',

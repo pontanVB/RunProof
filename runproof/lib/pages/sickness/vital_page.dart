@@ -96,11 +96,7 @@ class _VitalPageState extends State<VitalPage> {
         child: Scaffold(
           drawer: DrawerWidget(title: "RunProof"),
           bottomNavigationBar: BottomBarWidget(
-            forwardText: "NÄSTA",
-            title: "R",
-            nextPage:
-                MaterialPageRoute(builder: (context) => const BehandlingPage()),
-          ),
+              forwardText: "NÄSTA", title: "R", nextPage: BehandlingPage()),
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',

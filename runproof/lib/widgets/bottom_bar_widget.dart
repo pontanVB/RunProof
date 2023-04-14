@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gbg_varvet/pages/sickness/diag_page.dart';
 
 class BottomBarWidget extends StatelessWidget {
   const BottomBarWidget(
@@ -9,7 +10,7 @@ class BottomBarWidget extends StatelessWidget {
 
   final String title;
   final String forwardText;
-  final MaterialPageRoute nextPage;
+  final Widget nextPage;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,8 @@ class BottomBarWidget extends StatelessWidget {
                       backgroundColor: Colors.green,
                       padding: EdgeInsets.symmetric(
                           vertical: MediaQuery.of(context).size.height * 0.02)),
-                  onPressed: () => Navigator.push(context, nextPage),
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => nextPage)),
                   child: Text(forwardText)),
             ),
           ],
