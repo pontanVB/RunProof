@@ -321,3 +321,37 @@ void SavePopup(BuildContext context) {
     ),
   );
 }
+
+void CheckoutPopup(BuildContext context, int runningNumber) {
+  showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Text("Utcheckning lyckades",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          content: SingleChildScrollView(
+              child: Column(
+            children: <Widget>[
+              Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Patient med löparnummer ',
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: '$runningNumber ',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      const TextSpan(text: 'har nu checkats ut'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ))));
+}

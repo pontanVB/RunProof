@@ -79,9 +79,11 @@ class _UtcheckPageState extends State<UtcheckPage> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
-                            backgroundColor: const Color.fromARGB(255, 165, 39, 75),
+                            backgroundColor:
+                                const Color.fromARGB(255, 165, 39, 75),
                             padding: EdgeInsets.symmetric(
-                                vertical: MediaQuery.of(context).size.height * 0.02)),
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.02)),
                         onPressed: () => Navigator.pop(context),
                         child: const Text('TILLBAKA')),
                   ),
@@ -93,16 +95,25 @@ class _UtcheckPageState extends State<UtcheckPage> {
                             foregroundColor: Colors.white,
                             backgroundColor: Colors.green,
                             padding: EdgeInsets.symmetric(
-                                vertical: MediaQuery.of(context).size.height * 0.02)),
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.02)),
                         onPressed: () => {
-                          if (_formKey.currentState!.validate())
-                            {
-                              _whatToSend(patient),
-                              Navigator.of(context).popUntil((route) => route.isFirst),
-                              print(patientsModel.activeIndex),
-                              patientsModel.removePatient(patientsModel.activeIndex),
-                            }
-                        },
+                              if (_formKey.currentState!.validate())
+                                {
+                                  _whatToSend(patient),
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst),
+                                  CheckoutPopup(
+                                      context,
+                                      patientsModel
+                                          .activePatient["runningNumber"]),
+                                  Future.delayed(Duration(seconds: 1), () {
+                                    // Your code here
+                                    patientsModel.removePatient(
+                                        patientsModel.activeIndex);
+                                  }),
+                                }
+                            },
                         child: Text('Checka ut')),
                   ),
                 ],
@@ -304,11 +315,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))))),
-                                ]
-                            )
-                        )
-                    )
-                ),
+                                ])))),
               ],
             ),
           )),
