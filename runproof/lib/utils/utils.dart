@@ -99,24 +99,115 @@ class PatientsModel with ChangeNotifier {
     //if the patient is already registrered, we add a map for the missing injury/sickness map
     if (!currentPatient.containsKey("injury")) {
       _patientsList[activeIndex]["injury"] = {};
-    } else if (!currentPatient.containsKey("sickness")) {
+    }
+    if (!currentPatient.containsKey("sickness")) {
       _patientsList[activeIndex]["sickness"] = {};
     } else {
       Map<String, dynamic> attributes = {
         "injury": <String, dynamic>{},
         "sickness": <String, dynamic>{},
       };
+      print(currentPatient);
       _patientsList[_activeIndex].addAll(attributes);
     }
   }
+}
 
-  void _changeAttributeNames({bool fromDatabase = false}) {
-    if (fromDatabase) {
-      // convert from "pretty names" to dev names
-
-      // Map<String, String> convertMap = {
-      //   ""
-      // }
-    }
+Map renameAttributes(Map patient, {bool fromDatabase = false}) {
+  if (fromDatabase) {
+    // convert from "pretty names" to dev names
+    Map changedMap = {"sickness": {}, "injury": {}};
+    Map<String, dynamic> convertMap = {
+      "skada": {
+        "kramp": "cramp",
+        "muskelvärk": "muscle",
+        "stukad fotled": "ankle",
+        "skavsår": "chafe"
+      },
+      "sjukdom": {
+        "puls": "pulse",
+        "blodtryck": "bloodPressure",
+        "glukos": "glucose",
+        "intravenös vätska": "intravenousFluid",
+        "glukos givet": "givenGlucose",
+        "andningssvårigheter": "breathingDifficulty",
+        "bröstsmärta": "chestPain",
+        "buksmärta": "stomachAche",
+        "svimning": "fainted",
+        "sysytole": "sysytole",
+        "diastole": "diastole",
+        "sats": "sats",
+        "benso": "benso",
+      },
+      "fortsätter loppet": "continueing",
+      "löparnummer": "runningNumber",
+      "fortsätter till sjukhus": "hospital",
+      "fortsätter hem": "goingHome",
+      "ålder": "age",
+      "kön": "sex"
+    };
+    patient.forEach((key, value) {
+      if (convertMap.containsKey(key)) {
+        if (value is Map) {
+          value.forEach((innerKey, innerValue) {
+            String? renamedAttribute = convertMap[key][innerKey];
+            String newKey = (key == "sjukdom") ? "sickness" : "injury";
+            changedMap[newKey][renamedAttribute] = innerValue;
+          });
+        } else {
+          changedMap[convertMap[key]] = value;
+        }
+      } else {
+        changedMap[key] = value;
+      }
+    });
+    return changedMap;
+  } else {
+    Map changedMap = {"sjukdom": {}, "skada": {}};
+    Map<String, dynamic> convertMap = {
+      "injury": {
+        "cramp": "kramp",
+        "muscle": "muskelvärk",
+        "ankle": "stukad fotled",
+        "chafe": "skavsår"
+      },
+      "sickness": {
+        "pulse": "puls",
+        "bloodPressure": "blodtryck",
+        "glucose": "glukos",
+        "intravenousFluid": "intravenös vätska",
+        "givenGlucose": "glukos givet",
+        "breathingDifficulty": "andningssvårigheter",
+        "chestPain": "bröstsmärta",
+        "stomachAche": "buksmärta",
+        "fainted": "svimning",
+        "sysytole": "sysytole",
+        "diastole": "diastole",
+        "sats": "sats",
+        "benso": "benso",
+      },
+      "continueing": "fortsätter loppet",
+      "runningNumber": "löparnummer",
+      "hospital": "fortsätter till sjukhus",
+      "goingHome": "fortsätter hem",
+      "age": "ålder",
+      "sex": "kön"
+    };
+    patient.forEach((key, value) {
+      if (convertMap.containsKey(key)) {
+        if (value is Map) {
+          value.forEach((innerKey, innerValue) {
+            String? renamedAttribute = convertMap[key][innerKey];
+            String newKey = (key == "sickness") ? "sjukdom" : "skada";
+            changedMap[newKey][renamedAttribute] = innerValue;
+          });
+        } else {
+          changedMap[convertMap[key]] = value;
+        }
+      } else {
+        changedMap[key] = value;
+      }
+    });
+    return changedMap;
   }
 }
