@@ -5,6 +5,7 @@ import 'package:gbg_varvet/widgets/drawer_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/utils/info_popup.dart';
 import 'package:gbg_varvet/pages/sickness/diag_page.dart';
 import 'package:gbg_varvet/pages/utceck_page.dart';
 import 'package:gbg_varvet/widgets/bottom_bar_widget.dart';
@@ -53,17 +54,37 @@ class _InjuryPageState extends State<InjuryPage> {
           FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
           backgroundColor: Colors.white,
-          drawer: DrawerWidget(title: "RunProof"),
-          bottomNavigationBar: BottomBarWidget(
+          drawer: const DrawerWidget(title: "RunProof"),
+          bottomNavigationBar: const BottomBarWidget(
             forwardText: "NÄSTA",
             title: "R",
             nextPage: UtcheckPage(),
           ),
           appBar: AppBar(
-            centerTitle: true,
-            title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            title: Image.asset('assets/images/runprooflogo.png',
+                fit: BoxFit.cover,
+                height:60),
+            centerTitle: true,
+            actions: [
+              Row(
+                children: [
+                  Center(
+                      child: ElevatedButton(
+                        onPressed: () => SavePopup(context),
+                        style: ElevatedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            backgroundColor: Colors.green,
+                            fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                        child: const Text("PAUSA"),
+                      )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  )
+                ],
+              ),
+            ],
           ),
           body: Form(
               key: _formKey,
@@ -71,36 +92,36 @@ class _InjuryPageState extends State<InjuryPage> {
                 shrinkWrap: true,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 187, 205, 231)),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
-                          child: Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 20, bottom: 1),
-                                  child: Text('SKADA',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)))),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: Divider(
+                    color: const Color.fromARGB(255, 187, 205, 231),
+                    child: Padding(
+                      padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      child: Column(
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.005),
+                              child: const Text('SKADA',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold))),
+                          const Divider(
                             height: 10,
                             thickness: 2,
                             color: Colors.black,
                             indent: 20,
                             endIndent: 20,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -131,7 +152,7 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -162,7 +183,7 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -193,8 +214,7 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8.0, left: 8.0, right: 8.0, bottom: 15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -224,35 +244,44 @@ class _InjuryPageState extends State<InjuryPage> {
                       ),
                     ),
                   ),
-                  const Padding(
-                      padding: EdgeInsets.only(top: 10, left: 30),
-                      child: Text('ÖVRIGT:',
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                        top: 5,
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: const Text('ÖVRIGT:',
                           style: TextStyle(color: Colors.black, fontSize: 18))),
                   Center(
                       child: Padding(
                           padding: const EdgeInsets.only(
                               top: 10.0, bottom: 1, left: 15, right: 15),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextFormField(
-                                    onFieldSubmitted: (value) => patientsModel
-                                        .setAttribute("injuryComment", value),
-                                    controller: injuryComment,
-                                    minLines: 2,
-                                    maxLines: 6,
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.multiline,
-                                    decoration: const InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: 'Skriv något här...',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20))))),
-                              ]))),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextFormField(
+                                      onFieldSubmitted: (value) => patientsModel
+                                          .setAttribute("injuryComment", value),
+                                      controller: injuryComment,
+                                      minLines: 2,
+                                      maxLines: 6,
+                                      textInputAction: TextInputAction.done,
+                                      keyboardType: TextInputType.multiline,
+                                      decoration: const InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          hintText: 'Skriv något här...',
+                                          hintStyle:
+                                              TextStyle(color: Colors.grey),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))))),
+                                ]),
+                          ))),
                 ],
               ))),
     );

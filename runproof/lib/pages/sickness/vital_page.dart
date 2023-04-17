@@ -101,21 +101,21 @@ class _VitalPageState extends State<VitalPage> {
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',
                 fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.15),
+                height:60),
             centerTitle: true,
             actions: [
               Row(
                 children: [
-                  ElevatedButton(
-                    onPressed: () => SavePopup(context),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                          borderRadius: BorderRadius.circular(12)),
-                      backgroundColor: Color.fromARGB(255, 108, 211, 92),
-                    ),
-                    child: const Text("PAUSA"),
-                  ),
+                  Center(
+                      child: ElevatedButton(
+                        onPressed: () => SavePopup(context),
+                        style: ElevatedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            backgroundColor: Colors.green,
+                            fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                        child: const Text("PAUSA"),
+                      )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                   )
@@ -241,7 +241,7 @@ class _VitalPageState extends State<VitalPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 187, 205, 231),
+                    color: Color(0xFF94B0DA),
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(

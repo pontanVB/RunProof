@@ -62,21 +62,23 @@ class _DiagPageState extends State<DiagPage> {
             nextPage: UtcheckPage(),
           ),
           appBar: AppBar(
-            title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            title: Image.asset('assets/images/runprooflogo.png',
+                fit: BoxFit.cover,
+                height:60),
+            centerTitle: true,
             actions: [
               Row(
                 children: [
                   Center(
                       child: ElevatedButton(
-                    onPressed: () => SavePopup(context),
-                    child: const Text("PAUSA"),
-                    style: ElevatedButton.styleFrom(
+                        onPressed: () => SavePopup(context),
+                        style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
-                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                        backgroundColor: Colors.green,
                         fixedSize:
                             Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                          child: const Text("PAUSA"),
                   )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
@@ -91,36 +93,36 @@ class _DiagPageState extends State<DiagPage> {
                 shrinkWrap: true,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 187, 205, 231)),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
-                          child: Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 20, bottom: 1),
-                                  child: Text('HUVUDDIAGNOS',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)))),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: Divider(
+                    color: Color.fromARGB(255, 187, 205, 231),
+                    child: Padding(
+                      padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      child: Column(
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.005),
+                              child: Text('HUVUDDIAGNOS',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold))),
+                          Divider(
                             height: 10,
                             thickness: 2,
                             color: Colors.black,
                             indent: 20,
                             endIndent: 20,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -153,7 +155,7 @@ class _DiagPageState extends State<DiagPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -184,7 +186,7 @@ class _DiagPageState extends State<DiagPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -215,8 +217,7 @@ class _DiagPageState extends State<DiagPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8.0, left: 8.0, right: 8.0, bottom: 15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -245,6 +246,9 @@ class _DiagPageState extends State<DiagPage> {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Padding(
                       padding: EdgeInsets.only(
