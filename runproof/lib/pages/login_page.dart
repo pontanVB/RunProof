@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
       onVerticalDragEnd: (DragEndDetails details) =>
           FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-          backgroundColor: const Color(0xFF1F4A7B),
+          backgroundColor: const Color.fromARGB(255, 16, 47, 83),
           body: Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(15),
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const Expanded(
-                            flex: 6,
+                            flex: 8,
                             child: Text(
                               'RunProof',
                               style: TextStyle(
