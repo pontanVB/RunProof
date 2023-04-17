@@ -119,29 +119,26 @@ class _HomePageState extends State<HomePage> {
             body: Center(
                 child: ListView(shrinkWrap: true, children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 40.0, top: 60),
+                padding: const EdgeInsets.only(bottom: 40.0, top: 40),
                 child: Column(
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(bottom: 20),
                       child: Center(
                           child: Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 1),
+                              padding: EdgeInsets.only(bottom: 1),
                               child: Text('SKANNA LÖPARNUMMER',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold)))),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Divider(
-                        height: 10,
-                        thickness: 2,
-                        color: Colors.black,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
+                    Divider(
+                      height: 10,
+                      thickness: 2,
+                      color: Colors.black,
+                      indent: 20,
+                      endIndent: 20,
                     ),
                   ],
                 ),
@@ -166,22 +163,23 @@ class _HomePageState extends State<HomePage> {
                       Padding(padding: EdgeInsets.all(7.0)),
                       Center(
                         child: SizedBox(
-                          width: 300,
-                          child: TextField(
-                            controller: searchController,
-                            decoration: const InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50.0)),
-                                ),
-                                hintText: "Löparnummer"),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                          ),
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: TextFormField(
+                              controller: searchController,
+                              minLines: 1,
+                              maxLines: 1,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Skriv in löparnummer här...',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))))),
                         ),
                       ),
                     ],
@@ -189,10 +187,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 5.0, top: 40),
+                padding: const EdgeInsets.only(bottom: 5.0, top: 20),
                 child: Center(
                   child: SizedBox(
-                    width: 200,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     child: ElevatedButton(
                         onPressed: () {
                           // showDialog(
@@ -206,23 +205,11 @@ class _HomePageState extends State<HomePage> {
                         style: ElevatedButton.styleFrom(
                             shape: StadiumBorder(),
                             primary: Color.fromARGB(255, 66, 190, 122)),
-                        child: const Text('Lägg till')),
+                        child: const Text(
+                          'Lägg till',
+                          style: TextStyle(fontSize: 20),
+                        )),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0),
-                child: SizedBox(
-                  width: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        var patientsModel = context.read<PatientsModel>();
-                        patientsModel.removePatient(0);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          primary: Color.fromARGB(255, 208, 56, 71)),
-                      child: const Text("Ta bort patient")),
                 ),
               ),
             ])),
