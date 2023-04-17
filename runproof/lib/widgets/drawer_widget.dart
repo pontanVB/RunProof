@@ -58,7 +58,7 @@ class DrawerWidget extends StatelessWidget {
             child: DrawerHeader(
               padding: const EdgeInsets.all(0),
               decoration: const BoxDecoration(
-                color: Color(0xFF1F4A7B),
+                color: const Color.fromARGB(255, 16, 47, 83),
               ),
               child: Row(
                 children: [
@@ -126,8 +126,11 @@ class _PatientsList extends StatelessWidget {
 
           final patientStatus = patient["type"];
 
-          if (patientStatus == 'sickness') {typ = 'SJUK'; } else{ typ = 'SKADAD';}
-
+          if (patientStatus == 'sickness') {
+            typ = 'SJUK';
+          } else {
+            typ = 'SKADAD';
+          }
 
           return Card(
             child: ListTile(
@@ -137,7 +140,8 @@ class _PatientsList extends StatelessWidget {
                 backgroundColor: Colors.black12,
                 progressColor: const Color(0xFF75C883),
               ),
-              title: Text('#$runningNumber'.toUpperCase(), textScaleFactor: 1.4),
+              title:
+                  Text('#$runningNumber'.toUpperCase(), textScaleFactor: 1.4),
               subtitle: Text(
                 typ,
                 textScaleFactor: 1,
