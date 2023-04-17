@@ -40,6 +40,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
+    int runningNumber = patient["runningNumber"];
 
     print("$patient");
     TextEditingController checkComment =
@@ -100,7 +101,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
                         onPressed: () => {
                               if (_formKey.currentState!.validate())
                                 {
-                                  _whatToSend(patient),
+                                  patient = renameAttributes(patient),
+                                  _whatToSend(patient, runningNumber),
                                   Navigator.of(context)
                                       .popUntil((route) => route.isFirst),
                                   CheckoutPopup(
@@ -323,12 +325,13 @@ class _UtcheckPageState extends State<UtcheckPage> {
   }
 }
 
-void _whatToSend(Map patient) {
+void _whatToSend(Map patient, int key) {
   // helper function for removing uncessesary information when sending to databse
+
   if (patient["type"] == "injury") {
     patient.remove("sickness");
   } else if (patient["type"] == "sickness") {
     patient.remove("injury");
   }
-  sendToDatabase(patient, "4");
+  sendToDatabase(patient, key.toString());
 }

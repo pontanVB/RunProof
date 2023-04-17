@@ -161,6 +161,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         changedMap[key] = value;
       }
     });
+    print(changedMap);
     return changedMap;
   } else {
     Map changedMap = {"sjukdom": {}, "skada": {}};
@@ -208,6 +209,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         changedMap[key] = value;
       }
     });
+
     return changedMap;
   }
 }
