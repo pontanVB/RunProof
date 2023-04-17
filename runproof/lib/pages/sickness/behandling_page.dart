@@ -56,21 +56,23 @@ class _BehandlingPageState extends State<BehandlingPage> {
           bottomNavigationBar: BottomBarWidget(
               forwardText: "NÄSTA", title: "R", nextPage: DiagPage()),
           appBar: AppBar(
-            title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.contain, height: 60),
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
+            title: Image.asset('assets/images/runprooflogo.png',
+                fit: BoxFit.cover,
+                height:60),
+            centerTitle: true,
             actions: [
               Row(
                 children: [
                   Center(
                       child: ElevatedButton(
-                    onPressed: () => SavePopup(context),
-                    child: const Text("PAUSA"),
-                    style: ElevatedButton.styleFrom(
+                        onPressed: () => SavePopup(context),
+                        style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
-                        backgroundColor: Color.fromARGB(255, 108, 211, 92),
+                        backgroundColor: Colors.green,
                         fixedSize:
                             Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                        child: const Text("PAUSA"),
                   )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
@@ -85,36 +87,36 @@ class _BehandlingPageState extends State<BehandlingPage> {
                 shrinkWrap: true,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 187, 205, 231)),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.0, bottom: 10),
-                          child: Center(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 0, bottom: 0),
-                                  child: Text('BEHANDLING',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)))),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Divider(
+                    color: Color.fromARGB(255, 187, 205, 231),
+                    child: Padding(
+                      padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      child: Column(
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.005),
+                              child: Text('BEHANDLING',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold))),
+                          Divider(
                             height: 10,
                             thickness: 2,
                             color: Colors.black,
                             indent: 20,
                             endIndent: 20,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -122,7 +124,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                              () {
+                                  () {
                                 intravenousFluid = !intravenousFluid;
                                 patientsModel.setAttribute("intravenousFluid",
                                     intravenousFluid, "sickness");
@@ -145,7 +147,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -153,7 +155,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                              () {
+                                  () {
                                 glucose = !glucose;
                                 patientsModel.setAttribute(
                                     "givenGlucose", glucose, "sickness");
@@ -176,7 +178,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -184,7 +186,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                              () {
+                                  () {
                                 benso = !benso;
                                 patientsModel.setAttribute(
                                     "benso", benso, "sickness");
@@ -192,7 +194,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                             );
                           },
                           // ignore: sort_child_properties_last
-                          child: Text('Benso diasepiner',
+                          child: Text('Benso diazepiner',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
@@ -207,8 +209,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8.0, left: 8.0, right: 8.0, bottom: 15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -216,7 +217,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                              () {
+                                  () {
                                 inhalation = !inhalation;
                                 patientsModel.setAttribute(
                                     "inhalation", inhalation, "sickness");
@@ -237,6 +238,9 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Padding(
                       padding: EdgeInsets.only(
