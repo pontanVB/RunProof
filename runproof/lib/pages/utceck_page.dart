@@ -116,7 +116,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                                   }),
                                 }
                             },
-                        child: Text('Checka ut')),
+                        child: Text('CHECKA UT')),
                   ),
                 ],
               ),
