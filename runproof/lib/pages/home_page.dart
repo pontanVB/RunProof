@@ -194,12 +194,6 @@ class _HomePageState extends State<HomePage> {
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: ElevatedButton(
                         onPressed: () {
-                          // showDialog(
-                          //     context: context,
-                          //     builder: (BuildContext context) {
-                          //       return Dialog(child: AddNewPatient());
-                          //     });
-                          print("TEEEXT ${searchController.text}");
                           runnerInfoPopup(context, searchController.text);
                         },
                         style: ElevatedButton.styleFrom(

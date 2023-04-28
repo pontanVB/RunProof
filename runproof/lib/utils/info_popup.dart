@@ -1,4 +1,7 @@
+import "dart:io";
+
 import 'package:flutter/material.dart';
+import "package:flutter/services.dart";
 import "package:gbg_varvet/utils/db_functions.dart";
 import "package:gbg_varvet/utils/utils.dart";
 import 'package:provider/provider.dart';
@@ -23,6 +26,252 @@ void errorPopup(BuildContext context, error) {
   );
 }
 
+void errorPopupWithOption(BuildContext context, error) {
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      scrollable: true,
+      title: Text("$error"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [Text("Vill du lägga till som ny patient?")],
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+            onPressed: () => showEditableInfo(context),
+            child: const Text("JA")),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('NEJ'),
+        ),
+      ],
+    ),
+  );
+}
+
+void showEditableInfo(BuildContext context) {
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController runningNumberController = TextEditingController();
+  final TextEditingController sexController = TextEditingController();
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      contentPadding: const EdgeInsets.all(20),
+      title: Padding(
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.001),
+        child: const Text('LÖPARINFORMATION',
+            textAlign: TextAlign.center, style: TextStyle(fontSize: 23)),
+      ),
+      backgroundColor: Colors.white,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.01),
+            child: Divider(
+              height: 0,
+              thickness: 2,
+              color: Colors.black,
+              indent: MediaQuery.of(context).size.width * 0.01,
+              endIndent: MediaQuery.of(context).size.width * 0.01,
+            ),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 15.0),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.0),
+                  child: Icon(Icons.document_scanner_outlined, size: 40),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.01),
+                      child: const Text(
+                        'Löparnummer:',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Color.fromARGB(255, 16, 47, 83),
+                              width: 2)),
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        keyboardType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
+                        controller: runningNumberController,
+                        style: TextStyle(fontSize: 25),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(5.0)),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 15.0),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03),
+                  child: Icon(Icons.person, size: 40),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.01),
+                      child: const Text('Kön:'),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Color.fromARGB(255, 16, 47, 83),
+                              width: 2)),
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        controller: sexController,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 25),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(5)),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 15.0),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03),
+                  child: Icon(Icons.numbers, size: 40),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.01),
+                      child: const Text(
+                        'Ålder:',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Color.fromARGB(255, 16, 47, 83),
+                              width: 2)),
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        keyboardType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
+                        controller: ageController,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChoicePage()));
+
+                    Provider.of<PatientsModel>(context, listen: false)
+                        .addPatient({
+                      "sex": sexController.text,
+                      "runningNumber": int.parse(runningNumberController.text),
+                      "age": int.parse(ageController.text)
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    backgroundColor: const Color(0xFF75C883),
+                  ),
+                  child: const Text(
+                    "Lägg till",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        backgroundColor: Colors.redAccent),
+                    child: const Text(
+                      'Avbryt',
+                      style: TextStyle(fontSize: 18),
+                    )),
+                const Spacer(),
+              ],
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
 void runnerInfoPopup(BuildContext context, String searchNumber) {
   String? name;
   String? sex;
@@ -41,11 +290,12 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
             value = renameAttributes(value, fromDatabase: true),
             sex = value["sex"],
             age = value["age"],
-            name = value["name"],
+            print("HEERE"),
             runningNumber = value["runningNumber"],
             showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
+                scrollable: true,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 contentPadding: const EdgeInsets.all(30),
@@ -57,151 +307,172 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
                       style: TextStyle(fontSize: 23)),
                 ),
                 backgroundColor: Colors.white,
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.03),
-                      child: Divider(
-                        height: 10,
-                        thickness: 2,
-                        color: Colors.black,
-                        indent: MediaQuery.of(context).size.width * 0.01,
-                        endIndent: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 15.0),
-                          child: Padding(
+                content: CustomScrollView(slivers: [
+                  SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
                             padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.03),
-                            child:
-                                Icon(Icons.document_scanner_outlined, size: 40),
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            child: Divider(
+                              height: 10,
+                              thickness: 2,
+                              color: Colors.black,
+                              indent: MediaQuery.of(context).size.width * 0.01,
+                              endIndent:
+                                  MediaQuery.of(context).size.width * 0.01,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
+                          Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.01),
-                                child: const Text(
-                                  'Löparnummer:',
-                                  textAlign: TextAlign.center,
+                                padding: EdgeInsets.only(right: 15.0),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.03),
+                                  child: Icon(Icons.document_scanner_outlined,
+                                      size: 40),
                                 ),
                               ),
-                              Container(
-                                width: 150,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: Color.fromARGB(255, 16, 47, 83),
-                                        width: 2)),
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  '$runningNumber',
-                                  style: TextStyle(fontSize: 25),
-                                  textAlign: TextAlign.center,
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
+                                      child: const Text(
+                                        'Löparnummer:',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  255, 16, 47, 83),
+                                              width: 2)),
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        '$runningNumber',
+                                        style: TextStyle(fontSize: 25),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const Padding(padding: EdgeInsets.all(15.0)),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 15.0),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.03),
-                            child: Icon(Icons.person, size: 40),
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
+                          const Padding(padding: EdgeInsets.all(15.0)),
+                          Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.01),
-                                child: const Text('Kön:'),
+                                padding: EdgeInsets.only(right: 15.0),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.03),
+                                  child: Icon(Icons.person, size: 40),
+                                ),
                               ),
-                              Container(
-                                width: 150,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: Color.fromARGB(255, 16, 47, 83),
-                                        width: 2)),
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  '$sex',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 25),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
+                                      child: const Text('Kön:'),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  255, 16, 47, 83),
+                                              width: 2)),
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        '$sex',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(fontSize: 25),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const Padding(padding: EdgeInsets.all(15)),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 15.0),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.03),
-                            child: Icon(Icons.numbers, size: 40),
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
+                          const Padding(padding: EdgeInsets.all(15)),
+                          Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.01),
-                                child: const Text(
-                                  'Ålder:',
-                                  textAlign: TextAlign.center,
+                                padding: EdgeInsets.only(right: 15.0),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.03),
+                                  child: Icon(Icons.numbers, size: 40),
                                 ),
                               ),
-                              Container(
-                                width: 150,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: Color.fromARGB(255, 16, 47, 83),
-                                        width: 2)),
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  '$age',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 25),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
+                                      child: const Text(
+                                        'Ålder:',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  255, 16, 47, 83),
+                                              width: 2)),
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        '$age',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 25),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      ))
+                ]),
                 actions: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -250,7 +521,13 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
               ),
             )
           })
-      .catchError((error) => {print("$error"), errorPopup(context, error)});
+      .catchError((error) => {
+            Navigator.pop(context),
+            if (error is TypeError)
+              {errorPopup(context, error)}
+            else
+              {print("$error"), errorPopupWithOption(context, error)}
+          });
 }
 
 void SavePopup(BuildContext context) {

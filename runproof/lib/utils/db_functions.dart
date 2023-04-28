@@ -26,13 +26,11 @@ void sendToDatabase(Map<dynamic, dynamic> payload, String id) {
 
 Future getFromDatabase(String id) async {
   final snapshot = await ref.child("/$id").get();
+
   //await Future.delayed(Duration(seconds: 2));
   if (snapshot.exists) {
     Map<dynamic, dynamic> map = snapshot.value as Map;
 
-    String responseName = map["name"];
-    print("getting from api");
-    print("got $responseName");
     return map;
   } else {
     throw Exception("$id not in database");
