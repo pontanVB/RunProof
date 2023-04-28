@@ -33,7 +33,7 @@ Future getFromDatabase(String id) async {
 
     return map;
   } else {
-    throw Exception("$id not in database");
+    throw Exception("$id finns inte i databasen");
   }
 }
 // Map<String, dynamic> datar

@@ -14,7 +14,7 @@ void errorPopup(BuildContext context, error) {
       title: const Text('Försök igen!'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [Text("$error")],
+        children: [Text("${error.message}")],
       ),
       actions: <Widget>[
         TextButton(
@@ -31,7 +31,7 @@ void errorPopupWithOption(BuildContext context, error) {
     context: context,
     builder: (BuildContext context) => AlertDialog(
       scrollable: true,
-      title: Text("$error"),
+      title: Text("Patient ${error.message}"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [Text("Vill du lägga till som ny patient?")],
@@ -49,10 +49,16 @@ void errorPopupWithOption(BuildContext context, error) {
   );
 }
 
-void showEditableInfo(BuildContext context) {
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController runningNumberController = TextEditingController();
-  final TextEditingController sexController = TextEditingController();
+void showEditableInfo(BuildContext context, {Map? patient}) {
+  final TextEditingController ageController = patient != null
+      ? TextEditingController(text: patient["age"].toString())
+      : TextEditingController();
+  final TextEditingController runningNumberController = patient != null
+      ? TextEditingController(text: patient["runningNumber"].toString())
+      : TextEditingController();
+  final TextEditingController sexController = patient != null
+      ? TextEditingController(text: patient["sex"].toString())
+      : TextEditingController();
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -226,6 +232,7 @@ void showEditableInfo(BuildContext context) {
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () {
+                    closeKeyboard(context);
                     Navigator.pop(context);
                     Navigator.push(
                         context,
@@ -288,238 +295,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
       .then((value) => {
             Navigator.pop(context),
             value = renameAttributes(value, fromDatabase: true),
-            sex = value["sex"],
-            age = value["age"],
-            print("HEERE"),
-            runningNumber = value["runningNumber"],
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                scrollable: true,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                contentPadding: const EdgeInsets.all(30),
-                title: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.04),
-                  child: const Text('LÖPARINFORMATION',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 23)),
-                ),
-                backgroundColor: Colors.white,
-                content: CustomScrollView(slivers: [
-                  SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.03),
-                            child: Divider(
-                              height: 10,
-                              thickness: 2,
-                              color: Colors.black,
-                              indent: MediaQuery.of(context).size.width * 0.01,
-                              endIndent:
-                                  MediaQuery.of(context).size.width * 0.01,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 15.0),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.03),
-                                  child: Icon(Icons.document_scanner_outlined,
-                                      size: 40),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      child: const Text(
-                                        'Löparnummer:',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 150,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Color.fromARGB(
-                                                  255, 16, 47, 83),
-                                              width: 2)),
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        '$runningNumber',
-                                        style: TextStyle(fontSize: 25),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Padding(padding: EdgeInsets.all(15.0)),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 15.0),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.03),
-                                  child: Icon(Icons.person, size: 40),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      child: const Text('Kön:'),
-                                    ),
-                                    Container(
-                                      width: 150,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Color.fromARGB(
-                                                  255, 16, 47, 83),
-                                              width: 2)),
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        '$sex',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(fontSize: 25),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Padding(padding: EdgeInsets.all(15)),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 15.0),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.03),
-                                  child: Icon(Icons.numbers, size: 40),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      child: const Text(
-                                        'Ålder:',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 150,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Color.fromARGB(
-                                                  255, 16, 47, 83),
-                                              width: 2)),
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        '$age',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 25),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ))
-                ]),
-                actions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const ChoicePage()));
-
-                            Provider.of<PatientsModel>(context, listen: false)
-                                .addPatient(value);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            backgroundColor: const Color(0xFF75C883),
-                          ),
-                          child: const Text(
-                            "Lägg till",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        const Spacer(),
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                backgroundColor: Colors.redAccent),
-                            child: const Text(
-                              'Avbryt',
-                              style: TextStyle(fontSize: 18),
-                            )),
-                        const Spacer(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
+            showEditableInfo(context, patient: value)
           })
       .catchError((error) => {
             Navigator.pop(context),
@@ -631,4 +407,8 @@ void CheckoutPopup(BuildContext context, int runningNumber) {
               ),
             ],
           ))));
+}
+
+void closeKeyboard(BuildContext context) {
+  SystemChannels.textInput.invokeMethod('TextInput.hide');
 }
