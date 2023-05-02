@@ -134,12 +134,19 @@ class _PatientsList extends StatelessWidget {
 
           return Card(
             child: ListTile(
-              leading: CircularPercentIndicator(
-                radius: 20,
-                percent: 0.5,
-                backgroundColor: Colors.black12,
-                progressColor: const Color(0xFF75C883),
+              leading: Icon(
+                Icons.person,
+                size: 40,
+                color: (patientsList.activeIndex == index)
+                    ? Colors.green
+                    : Colors.grey,
               ),
+              // leading: CircularPercentIndicator(
+              //   radius: 20,
+              //   percent: 0.5,
+              //   backgroundColor: Colors.black12,
+              //   progressColor: const Color(0xFF75C883),
+              // ),
               title:
                   Text('#$runningNumber'.toUpperCase(), textScaleFactor: 1.4),
               subtitle: Text(
@@ -149,8 +156,7 @@ class _PatientsList extends StatelessWidget {
               trailing: (patientsList.activeIndex == index)
                   ? const Text('AKTIV',
                       style: TextStyle(
-                          color: Color(0xFF75C883),
-                          fontWeight: FontWeight.bold))
+                          color: Colors.green, fontWeight: FontWeight.bold))
                   : null,
               onTap: () {
                 patientsList.setActiveIndex(index);

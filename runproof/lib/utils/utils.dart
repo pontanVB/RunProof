@@ -32,6 +32,7 @@ class PatientsModel with ChangeNotifier {
     nestedKey == null
         ? _patientsList[_activeIndex][key] = attr
         : _patientsList[_activeIndex][nestedKey][key] = attr;
+
     notifyListeners();
     _saveDataToPrefs();
   }
@@ -95,21 +96,26 @@ class PatientsModel with ChangeNotifier {
   void _addAttributes() {
     // adding all attributes (keys)
     Map currentPatient = _patientsList[_activeIndex];
+    print("CURRENT, $currentPatient");
 
     //if the patient is already registrered, we add a map for the missing injury/sickness map
+    if (!currentPatient.containsKey("injury") &&
+        !currentPatient.containsKey("sickness")) {
+      Map<String, dynamic> attributes = {
+        "injury": <String, dynamic>{},
+        "sickness": <String, dynamic>{},
+      };
+
+      _patientsList[_activeIndex].addAll(attributes);
+    }
     if (!currentPatient.containsKey("injury")) {
       _patientsList[activeIndex]["injury"] = {};
     }
     if (!currentPatient.containsKey("sickness")) {
       _patientsList[activeIndex]["sickness"] = {};
-    } else {
-      Map<String, dynamic> attributes = {
-        "injury": <String, dynamic>{},
-        "sickness": <String, dynamic>{},
-      };
-      print(currentPatient);
-      _patientsList[_activeIndex].addAll(attributes);
     }
+
+    print("AFTER ARR $currentPatient");
   }
 }
 
@@ -161,6 +167,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         changedMap[key] = value;
       }
     });
+    print("CHANGED");
     print(changedMap);
     return changedMap;
   } else {

@@ -49,6 +49,7 @@ class ChoicePage extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       var patientsModel = context.read<PatientsModel>();
+                      print("addinngngngg ${patientsModel.activePatient}");
                       patientsModel.setAttribute("type", "injury");
 
                       Navigator.push(

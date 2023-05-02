@@ -58,21 +58,20 @@ class _BehandlingPageState extends State<BehandlingPage> {
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.cover,
-                height:60),
+                fit: BoxFit.cover, height: 60),
             centerTitle: true,
             actions: [
               Row(
                 children: [
                   Center(
                       child: ElevatedButton(
-                        onPressed: () => SavePopup(context),
-                        style: ElevatedButton.styleFrom(
+                    onPressed: () => SavePopup(context),
+                    style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
                         backgroundColor: Colors.green,
                         fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
-                        child: const Text("PAUSA"),
+                            Size(MediaQuery.of(context).size.width * 0.22, 20)),
+                    child: const Text("PAUSA"),
                   )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
@@ -89,8 +88,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                   Container(
                     color: Color.fromARGB(255, 187, 205, 231),
                     child: Padding(
-                      padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
                       child: Column(
                         children: [
                           Padding(
@@ -116,7 +115,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -124,7 +124,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                                  () {
+                              () {
                                 intravenousFluid = !intravenousFluid;
                                 patientsModel.setAttribute("intravenousFluid",
                                     intravenousFluid, "sickness");
@@ -147,7 +147,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -155,7 +156,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                                  () {
+                              () {
                                 glucose = !glucose;
                                 patientsModel.setAttribute(
                                     "givenGlucose", glucose, "sickness");
@@ -178,7 +179,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -186,7 +188,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                                  () {
+                              () {
                                 benso = !benso;
                                 patientsModel.setAttribute(
                                     "benso", benso, "sickness");
@@ -209,7 +211,8 @@ class _BehandlingPageState extends State<BehandlingPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -217,7 +220,7 @@ class _BehandlingPageState extends State<BehandlingPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(
-                                  () {
+                              () {
                                 inhalation = !inhalation;
                                 patientsModel.setAttribute(
                                     "inhalation", inhalation, "sickness");

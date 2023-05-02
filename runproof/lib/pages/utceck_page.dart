@@ -137,7 +137,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
                         shape: StadiumBorder(),
                         backgroundColor: Colors.green,
                         fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
+                            Size(MediaQuery.of(context).size.width * 0.22, 20)),
                     child: const Text("PAUSA"),
                   )),
                   SizedBox(

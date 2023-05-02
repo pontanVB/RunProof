@@ -100,22 +100,21 @@ class _VitalPageState extends State<VitalPage> {
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.cover,
-                height:60),
+                fit: BoxFit.cover, height: 60),
             centerTitle: true,
             actions: [
               Row(
                 children: [
                   Center(
                       child: ElevatedButton(
-                        onPressed: () => SavePopup(context),
-                        style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            backgroundColor: Colors.green,
-                            fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
-                        child: const Text("PAUSA"),
-                      )),
+                    onPressed: () => SavePopup(context),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        backgroundColor: Colors.green,
+                        fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.22, 20)),
+                    child: const Text("PAUSA"),
+                  )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                   )

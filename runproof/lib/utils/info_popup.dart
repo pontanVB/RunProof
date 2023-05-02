@@ -30,6 +30,7 @@ void errorPopupWithOption(BuildContext context, error) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       scrollable: true,
       title: Text("Patient ${error.message}"),
       content: Column(
@@ -38,9 +39,18 @@ void errorPopupWithOption(BuildContext context, error) {
       ),
       actions: <Widget>[
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              backgroundColor: const Color(0xFF75C883),
+            ),
             onPressed: () => showEditableInfo(context),
             child: const Text("JA")),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              backgroundColor: Colors.redAccent),
           onPressed: () => Navigator.pop(context, 'OK'),
           child: const Text('NEJ'),
         ),
@@ -239,12 +249,22 @@ void showEditableInfo(BuildContext context, {Map? patient}) {
                         MaterialPageRoute(
                             builder: (context) => const ChoicePage()));
 
-                    Provider.of<PatientsModel>(context, listen: false)
-                        .addPatient({
-                      "sex": sexController.text,
-                      "runningNumber": int.parse(runningNumberController.text),
-                      "age": int.parse(ageController.text)
-                    });
+                    if (patient == null) {
+                      Provider.of<PatientsModel>(context, listen: false)
+                          .addPatient({
+                        "sex": sexController.text,
+                        "runningNumber":
+                            int.parse(runningNumberController.text),
+                        "age": int.parse(ageController.text),
+                      });
+                    } else {
+                      patient["sex"] = sexController.text;
+                      patient["runningNumber"] =
+                          int.parse(runningNumberController.text);
+                      patient["age"] = int.parse(ageController.text);
+                      Provider.of<PatientsModel>(context, listen: false)
+                          .addPatient(patient);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -259,7 +279,9 @@ void showEditableInfo(BuildContext context, {Map? patient}) {
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Provider.of<PatientsModel>(context, listen: false)
+                          .removePatient(0);
+                      // Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

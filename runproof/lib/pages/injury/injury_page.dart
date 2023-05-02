@@ -39,7 +39,7 @@ class _InjuryPageState extends State<InjuryPage> {
   Widget build(BuildContext context) {
     var patientsModel = context.watch<PatientsModel>();
     Map patient = patientsModel.activePatient;
-    print("$patient");
+    print("in injury $patient");
     bool chafe = patient["injury"]["chafe"] ?? false;
     bool ankle = patient["injury"]["ankle"] ?? false;
     bool muscle = patient["injury"]["muscle"] ?? false;
@@ -63,22 +63,21 @@ class _InjuryPageState extends State<InjuryPage> {
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 16, 47, 83),
             title: Image.asset('assets/images/runprooflogo.png',
-                fit: BoxFit.cover,
-                height:60),
+                fit: BoxFit.cover, height: 60),
             centerTitle: true,
             actions: [
               Row(
                 children: [
                   Center(
                       child: ElevatedButton(
-                        onPressed: () => SavePopup(context),
-                        style: ElevatedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            backgroundColor: Colors.green,
-                            fixedSize:
-                            Size(MediaQuery.of(context).size.width * 0.2, 20)),
-                        child: const Text("PAUSA"),
-                      )),
+                    onPressed: () => SavePopup(context),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        backgroundColor: Colors.green,
+                        fixedSize:
+                            Size(MediaQuery.of(context).size.width * 0.22, 20)),
+                    child: const Text("PAUSA"),
+                  )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                   )
@@ -94,8 +93,8 @@ class _InjuryPageState extends State<InjuryPage> {
                   Container(
                     color: const Color.fromARGB(255, 187, 205, 231),
                     child: Padding(
-                      padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
                       child: Column(
                         children: [
                           Padding(
@@ -121,7 +120,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -152,7 +152,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -183,7 +184,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -214,7 +216,8 @@ class _InjuryPageState extends State<InjuryPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * 0.01),
                     child: Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
