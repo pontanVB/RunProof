@@ -72,25 +72,32 @@ class _CameraPageState extends State<CameraPage> {
         children: <Widget>[
           Stack(
             children: [
-              ScalableOCR(
-                  paintboxCustom: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 4.0
-                    ..color = const Color.fromARGB(153, 102, 160, 241),
-                  boxLeftOff: 1,
-                  boxBottomOff: 2,
-                  boxRightOff: 15,
-                  boxTopOff: 4,
-                  boxHeight: MediaQuery.of(context).size.height / 1.5,
-                  getRawData: (value) {
-                    inspect(value);
-                  },
-                  getScannedText: (value) {
-                    setText(value);
-                  }),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: ScalableOCR(
+                    paintboxCustom: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 4.0
+                      ..color = const Color.fromARGB(153, 102, 160, 241),
+                    boxLeftOff: 1,
+                    boxBottomOff: 2,
+                    boxRightOff: 15,
+                    boxTopOff: 4,
+                    boxHeight: MediaQuery.of(context).size.height / 1.5,
+                    getRawData: (value) {
+                      inspect(value);
+                    },
+                    getScannedText: (value) {
+                      setText(value);
+                    },
+                  ),
+                ),
+              ),
               Positioned(
                   left: MediaQuery.of(context).size.width / 9,
-                  top: MediaQuery.of(context).size.height / 2.3,
+                  top: MediaQuery.of(context).size.height / 2,
                   child: StreamBuilder<String>(
                     stream: controller.stream,
                     builder:
@@ -262,7 +269,7 @@ class ScalableOCRState extends State<ScalableOCR> {
                       height: sizeH * 19,
                     )
                   : _liveFeedBody(),
-              SizedBox(height: sizeH * 2),
+              SizedBox(height: sizeH * 0),
             ],
           ),
         ));
