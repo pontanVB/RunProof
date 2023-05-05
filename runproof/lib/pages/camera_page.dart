@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import "package:provider/provider.dart";
 import "package:gbg_varvet/utils/utils.dart";
 import 'package:gbg_varvet/widgets/drawer_widget.dart';
+import 'package:gbg_varvet/utils/info_popup.dart';
 
 import 'package:flutter_scalable_ocr/text_recognizer_painter.dart';
 
@@ -26,8 +31,16 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+  final User currentUser = FirebaseAuth.instance.currentUser!;
+  final DatabaseReference ref = FirebaseDatabase.instance.ref("/users");
+
   String text = "";
   final StreamController<String> controller = StreamController<String>();
+  final searchController = TextEditingController();
 
   void setText(value) {
     controller.add(value);
@@ -42,6 +55,8 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     var patientModel = context.watch<PatientsModel>();
+    final searchController =
+        TextEditingController(text: patientModel.searchTerm);
     late String currentText;
 
     return Scaffold(
@@ -74,38 +89,39 @@ class _CameraPageState extends State<CameraPage> {
                     setText(value);
                   }),
               Positioned(
-                left: MediaQuery.of(context).size.width / 9,
-                top: MediaQuery.of(context).size.height / 2.3,
-                child: StreamBuilder<String>(
-                  stream: controller.stream,
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    currentText = snapshot.data != null ? snapshot.data! : "";
-                    final limit5 = limit(5);
-                    currentText = currentText.replaceAll(RegExp(r'\D'), '');
-                    currentText = limit5(currentText);
-                    return Result(text: currentText);
-                  },
-                )),
+                  left: MediaQuery.of(context).size.width / 9,
+                  top: MediaQuery.of(context).size.height / 2.3,
+                  child: StreamBuilder<String>(
+                    stream: controller.stream,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      currentText = snapshot.data != null ? snapshot.data! : "";
+                      final limit5 = limit(5);
+                      currentText = currentText.replaceAll(RegExp(r'\D'), '');
+                      currentText = limit5(currentText);
+                      return Result(text: currentText);
+                    },
+                  )),
             ],
           ),
-
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Center(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5.0, top: 20),
+            child: Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.07,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 66, 190, 122)),
                     onPressed: () {
                       patientModel.searchTerm = currentText;
-                      Navigator.pop(context);
+                      runnerInfoPopup(context, patientModel.searchTerm);
                     },
-                    child: const Text("Acceptera resultat",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ))),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        primary: Color.fromARGB(255, 66, 190, 122)),
+                    child: const Text(
+                      'Lägg till',
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ),
           ),
