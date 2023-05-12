@@ -69,7 +69,6 @@ class _VitalPageState extends State<VitalPage> {
         text: activePatient["sickness"]["bloodPressureComment"] ?? "");
     TextEditingController pulseController =
         TextEditingController(text: activePatient["sickness"]["pulse"] ?? "");
-    print(activePatient);
     // map for all controllers so we update all at the same time
     Map<String, TextEditingController> controllersMap = {
       "temp": tempController,
@@ -84,7 +83,14 @@ class _VitalPageState extends State<VitalPage> {
 
     final String datetime = activePatient.containsKey("startTime")
         ? activePatient["startTime"]
-        : '${DateTime.now().hour}:${DateTime.now().minute}';
+        : '${DateTime.now().hour}:${DateTime.now().minute}'.padLeft(5, '0');
+
+    if (!activePatient.containsKey("startTime")) {
+      String hour = datetime.substring(0, 2);
+      String minutes = datetime.substring(2, 4);
+      String newTime = "$hour:$minutes";
+      patientsModel.setAttribute("startTime", newTime);
+    }
 
     final TextEditingController datetimeController =
         TextEditingController(text: datetime);

@@ -96,7 +96,6 @@ class PatientsModel with ChangeNotifier {
   void _addAttributes() {
     // adding all attributes (keys)
     Map currentPatient = _patientsList[_activeIndex];
-    print("CURRENT, $currentPatient");
 
     //if the patient is already registrered, we add a map for the missing injury/sickness map
     if (!currentPatient.containsKey("injury") &&
@@ -114,8 +113,6 @@ class PatientsModel with ChangeNotifier {
     if (!currentPatient.containsKey("sickness")) {
       _patientsList[activeIndex]["sickness"] = {};
     }
-
-    print("AFTER ARR $currentPatient");
   }
 }
 
@@ -150,7 +147,9 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
       "fortsätter till sjukhus": "hospital",
       "fortsätter hem": "goingHome",
       "ålder": "age",
-      "kön": "sex"
+      "kön": "sex",
+      "starttid": "startTime",
+      "sluttid": "endTime"
     };
     patient.forEach((key, value) {
       if (convertMap.containsKey(key)) {
@@ -167,8 +166,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         changedMap[key] = value;
       }
     });
-    print("CHANGED");
-    print(changedMap);
+
     return changedMap;
   } else {
     Map changedMap = {"sjukdom": {}, "skada": {}};
@@ -199,7 +197,9 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
       "hospital": "fortsätter till sjukhus",
       "goingHome": "fortsätter hem",
       "age": "ålder",
-      "sex": "kön"
+      "sex": "kön",
+      "startTime": "starttid",
+      "endTime": "sluttid"
     };
     patient.forEach((key, value) {
       if (convertMap.containsKey(key)) {

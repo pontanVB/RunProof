@@ -29,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
             TextButton(
                 child: const Text('Confirm'),
                 onPressed: () {
-                  signUserOut();
+                  FirebaseAuthHelper.signUserOut();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 }),
             TextButton(

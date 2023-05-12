@@ -3,13 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:gbg_varvet/pages/auth_page.dart';
 import 'firebase_options.dart';
 import 'package:gbg_varvet/utils/utils.dart';
+import 'package:gbg_varvet/utils/db_functions.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform, name: "App");
-
+  FirebaseAuthHelper.initialize();
   runApp(ChangeNotifierProvider(
     create: (context) => PatientsModel(),
     child: const MyApp(),

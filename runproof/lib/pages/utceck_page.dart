@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:gbg_varvet/utils/utils.dart';
 import 'package:gbg_varvet/utils/db_functions.dart';
 import '../utils/info_popup.dart';
+import 'dart:io' show Platform;
 
 class UtcheckPage extends StatefulWidget {
   const UtcheckPage({super.key});
@@ -42,7 +43,6 @@ class _UtcheckPageState extends State<UtcheckPage> {
     Map patient = patientsModel.activePatient;
     int runningNumber = patient["runningNumber"];
 
-    print("$patient");
     TextEditingController checkComment =
         TextEditingController(text: patient["checkComment"]);
 
@@ -50,9 +50,16 @@ class _UtcheckPageState extends State<UtcheckPage> {
     bool hospital = patient["hospital"] ?? false;
     bool continueing = patient["continueing"] ?? false;
 
-    final String datetime = patient.containsKey("startTime")
-        ? patient["startTime"]
-        : '${DateTime.now().hour}:${DateTime.now().minute}';
+    final String datetime = patient.containsKey("endTime")
+        ? patient["endTime"]
+        : '${DateTime.now().hour}:${DateTime.now().minute}'.padLeft(5, '0');
+
+    if (!patient.containsKey("endTime")) {
+      String hour = datetime.substring(0, 2);
+      String minutes = datetime.substring(2, 4);
+      String newTime = "$hour:$minutes";
+      patientsModel.setAttribute("endTime", newTime);
+    }
 
     final TextEditingController datetimeController =
         TextEditingController(text: datetime);
@@ -182,13 +189,26 @@ class _UtcheckPageState extends State<UtcheckPage> {
                   child: TextFormField(
                       textAlign: TextAlign.center,
                       controller: datetimeController,
-                      //minLines: 1,
-                      maxLines: 1,
+                      onFieldSubmitted: (String value) {
+                        value = value.padLeft(4, '0');
+                        String hour = value.substring(0, 2);
+                        String minutes = value.substring(2, 4);
+                        String newTime = "$hour:$minutes";
+                        patientsModel.setAttribute("endTime", newTime);
+                      },
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 35,
                           fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.number,
+                      keyboardType: Platform.isIOS
+                          ? TextInputType.numberWithOptions(
+                              signed: true, decimal: true)
+                          : TextInputType.number,
+                      // This regex for only amount (price). you can create your own regex based on your requirement
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,4}'))
+                      ],
                       decoration: InputDecoration(
                         filled: true,
                       )),
@@ -343,5 +363,5 @@ void _whatToSend(Map patient, int key) {
   } else if (patient["type"] == "sickness") {
     patient.remove("injury");
   }
-  sendToDatabase(patient, key.toString());
+  FirebaseAuthHelper.sendToDatabase(patient, key.toString());
 }

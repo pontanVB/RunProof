@@ -279,9 +279,10 @@ void showEditableInfo(BuildContext context, {Map? patient}) {
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () {
-                      Provider.of<PatientsModel>(context, listen: false)
-                          .removePatient(0);
-                      // Navigator.of(context).pop();
+                      // Provider.of<PatientsModel>(context, listen: false)
+                      //     .removePatient(0);
+
+                      Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -313,7 +314,7 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
         return const Center(child: CircularProgressIndicator());
       });
 
-  getFromDatabase(searchNumber)
+  FirebaseAuthHelper.getFromDatabase(searchNumber)
       .then((value) => {
             Navigator.pop(context),
             value = renameAttributes(value, fromDatabase: true),

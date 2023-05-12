@@ -87,20 +87,7 @@ class _HomePageState extends State<HomePage> {
                 ]),
             bottomNavigationBar: BottomAppBar(
               color: Colors.white,
-              child: Row(
-                children: [
-                  Spacer(),
-                  IconButton(
-                      icon: Icon(Icons.add, color: Colors.white),
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const FormPage()));
-                        // var patients = context.read<PatientsModel>();
-                      }),
-                ],
-              ),
+              child: Row(),
             ),
             floatingActionButton: FloatingActionButton.large(
                 backgroundColor: Colors.grey,

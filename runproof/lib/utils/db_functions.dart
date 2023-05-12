@@ -1,39 +1,59 @@
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:firebase_database/firebase_database.dart';
 
-final User currentUser = FirebaseAuth.instance.currentUser!;
-final String userId = currentUser.uid;
-const String eventId = "2023";
+class FirebaseAuthHelper {
+  static User? currentUser;
+  static String userId = "";
+  static const String eventId = "2023";
 
-final DatabaseReference ref = FirebaseDatabase.instance
-    .ref("/users")
-    .child(userId)
-    .child("/$eventId/")
-    .child("/participants");
+  static DatabaseReference getDatabaseReference() {
+    return FirebaseDatabase.instance
+        .ref("/users")
+        .child(userId)
+        .child("/$eventId/")
+        .child("/participants");
+  }
 
-final refreshTokenPromise = FirebaseAuth.instance.currentUser
-    ?.getIdToken()
-    .then((value) => print(value));
+  static final refreshTokenPromise = FirebaseAuth.instance.currentUser
+      ?.getIdToken()
+      .then((value) => print(value));
 
-void signUserOut() {
-  FirebaseAuth.instance.signOut();
-}
+  static void initialize() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        currentUser = null;
+        userId = "";
+      } else {
+        print('User is signed in!');
+        currentUser = user;
+        userId = user.uid;
+      }
+    });
+  }
 
-void sendToDatabase(Map<dynamic, dynamic> payload, String id) {
-  ref.child("/$id").set(payload);
-  print(payload);
-}
+  static void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
 
-Future getFromDatabase(String id) async {
-  final snapshot = await ref.child("/$id").get();
+  static void sendToDatabase(Map<dynamic, dynamic> payload, String id) {
+    final DatabaseReference ref = getDatabaseReference();
+    ref.child("/$id").set(payload);
+    print(payload);
+  }
 
-  //await Future.delayed(Duration(seconds: 2));
-  if (snapshot.exists) {
-    Map<dynamic, dynamic> map = snapshot.value as Map;
+  static Future<dynamic> getFromDatabase(String id) async {
+    print(userId);
+    final DatabaseReference ref = getDatabaseReference();
+    final snapshot = await ref.child("/$id").get();
 
-    return map;
-  } else {
-    throw Exception("$id finns inte i databasen");
+    //await Future.delayed(Duration(seconds: 2));
+    if (snapshot.exists) {
+      Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+
+      return map;
+    } else {
+      throw Exception("$id finns inte i databasen");
+    }
   }
 }
-// Map<String, dynamic> datar
