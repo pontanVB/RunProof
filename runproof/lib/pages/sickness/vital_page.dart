@@ -87,7 +87,7 @@ class _VitalPageState extends State<VitalPage> {
 
     if (!activePatient.containsKey("startTime")) {
       String hour = datetime.substring(0, 2);
-      String minutes = datetime.substring(2, 4);
+      String minutes = datetime.substring(3, 5);
       String newTime = "$hour:$minutes";
       patientsModel.setAttribute("startTime", newTime);
     }

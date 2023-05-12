@@ -56,7 +56,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
 
     if (!patient.containsKey("endTime")) {
       String hour = datetime.substring(0, 2);
-      String minutes = datetime.substring(2, 4);
+      String minutes = datetime.substring(3, 5);
       String newTime = "$hour:$minutes";
       patientsModel.setAttribute("endTime", newTime);
     }
