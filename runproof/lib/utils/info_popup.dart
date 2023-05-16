@@ -26,7 +26,8 @@ void errorPopup(BuildContext context, error) {
   );
 }
 
-void errorPopupWithOption(BuildContext context, error) {
+void errorPopupWithOption(BuildContext context, error,
+    {String? runningNumber}) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -44,7 +45,8 @@ void errorPopupWithOption(BuildContext context, error) {
                   borderRadius: BorderRadius.circular(10)),
               backgroundColor: const Color(0xFF75C883),
             ),
-            onPressed: () => showEditableInfo(context),
+            onPressed: () =>
+                showEditableInfo(context, runningNumber: runningNumber),
             child: const Text("JA")),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -59,13 +61,22 @@ void errorPopupWithOption(BuildContext context, error) {
   );
 }
 
-void showEditableInfo(BuildContext context, {Map? patient}) {
+void showEditableInfo(BuildContext context,
+    {Map? patient, String? runningNumber}) {
   final TextEditingController ageController = patient != null
       ? TextEditingController(text: patient["age"].toString())
       : TextEditingController();
-  final TextEditingController runningNumberController = patient != null
-      ? TextEditingController(text: patient["runningNumber"].toString())
-      : TextEditingController();
+
+  final TextEditingController runningNumberController;
+  if (patient != null) {
+    runningNumberController =
+        TextEditingController(text: patient["runningNumber"].toString());
+  } else if (runningNumber != null) {
+    runningNumberController = TextEditingController(text: runningNumber);
+  } else {
+    runningNumberController = TextEditingController();
+  }
+
   final TextEditingController sexController = patient != null
       ? TextEditingController(text: patient["sex"].toString())
       : TextEditingController();
@@ -318,14 +329,19 @@ void runnerInfoPopup(BuildContext context, String searchNumber) {
       .then((value) => {
             Navigator.pop(context),
             value = renameAttributes(value, fromDatabase: true),
-            showEditableInfo(context, patient: value)
+            showEditableInfo(context,
+                patient: value, runningNumber: searchNumber)
           })
       .catchError((error) => {
             Navigator.pop(context),
             if (error is TypeError)
               {errorPopup(context, error)}
             else
-              {print("$error"), errorPopupWithOption(context, error)}
+              {
+                print("$error"),
+                errorPopupWithOption(context, error,
+                    runningNumber: searchNumber)
+              }
           });
 }
 

@@ -52,7 +52,7 @@ class _UtcheckPageState extends State<UtcheckPage> {
 
     final String datetime = patient.containsKey("endTime")
         ? patient["endTime"]
-        : '${DateTime.now().hour}:${DateTime.now().minute}'.padLeft(5, '0');
+        : '${DateTime.now().hour.toString().padLeft(2, "0")}:${DateTime.now().minute.toString().padLeft(2, "0")}';
 
     if (!patient.containsKey("endTime")) {
       String hour = datetime.substring(0, 2);
@@ -60,6 +60,8 @@ class _UtcheckPageState extends State<UtcheckPage> {
       String newTime = "$hour:$minutes";
       patientsModel.setAttribute("endTime", newTime);
     }
+
+    // patientsModel.removePatient(0);
 
     final TextEditingController datetimeController =
         TextEditingController(text: datetime);

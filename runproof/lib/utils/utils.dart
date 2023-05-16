@@ -88,6 +88,7 @@ class PatientsModel with ChangeNotifier {
   }
 
   Future<void> _saveDataToPrefs() async {
+    print(_patientsList);
     final prefs = await SharedPreferences.getInstance();
     final patientsJson = json.encode(_patientsList);
     await prefs.setString('patients_list', patientsJson);
@@ -117,6 +118,7 @@ class PatientsModel with ChangeNotifier {
 }
 
 Map renameAttributes(Map patient, {bool fromDatabase = false}) {
+  print(patient);
   if (fromDatabase) {
     // convert from "pretty names" to dev names
     Map changedMap = {"sickness": {}, "injury": {}};
@@ -141,6 +143,9 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         "diastole": "diastole",
         "sats": "sats",
         "benso": "benso",
+        "temp": "temp",
+        "inhalation": "inhalation",
+        "blodtryckskommentar": "bloodPressureComment",
       },
       "fortsätter loppet": "continueing",
       "löparnummer": "runningNumber",
@@ -155,7 +160,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
       if (convertMap.containsKey(key)) {
         if (value is Map) {
           value.forEach((innerKey, innerValue) {
-            String? renamedAttribute = convertMap[key][innerKey];
+            String renamedAttribute = convertMap[key][innerKey];
             String newKey = (key == "sjukdom") ? "sickness" : "injury";
             changedMap[newKey][renamedAttribute] = innerValue;
           });
@@ -180,6 +185,7 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
       "sickness": {
         "pulse": "puls",
         "bloodPressure": "blodtryck",
+        "bloodPressureComment": "blodtryckskommentar",
         "glucose": "glukos",
         "intravenousFluid": "intravenös vätska",
         "givenGlucose": "glukos givet",
@@ -191,6 +197,8 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
         "diastole": "diastole",
         "sats": "sats",
         "benso": "benso",
+        "temp": "temp",
+        "inhalation": "inhalation"
       },
       "continueing": "fortsätter loppet",
       "runningNumber": "löparnummer",
@@ -205,8 +213,9 @@ Map renameAttributes(Map patient, {bool fromDatabase = false}) {
       if (convertMap.containsKey(key)) {
         if (value is Map) {
           value.forEach((innerKey, innerValue) {
-            String? renamedAttribute = convertMap[key][innerKey];
+            String renamedAttribute = convertMap[key][innerKey];
             String newKey = (key == "sickness") ? "sjukdom" : "skada";
+
             changedMap[newKey][renamedAttribute] = innerValue;
           });
         } else {

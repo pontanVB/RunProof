@@ -83,7 +83,7 @@ class _VitalPageState extends State<VitalPage> {
 
     final String datetime = activePatient.containsKey("startTime")
         ? activePatient["startTime"]
-        : '${DateTime.now().hour}:${DateTime.now().minute}'.padLeft(5, '0');
+        : '${DateTime.now().hour.toString().padLeft(2, "0")}:${DateTime.now().minute.toString().padLeft(2, "0")}';
 
     if (!activePatient.containsKey("startTime")) {
       String hour = datetime.substring(0, 2);
